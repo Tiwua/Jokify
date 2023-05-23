@@ -1,2 +1,2 @@
 # Jokify
-Web Project for Softuni Web Course
+Web Project for Softuni Web Course.
