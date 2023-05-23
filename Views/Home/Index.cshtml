@@ -1,0 +1,81 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!doctype html>
+<html>
+<head>
+	@section Styles{
+		<link href="@Url.Content("~/css/site.css")" rel="stylesheet" type="text/css">
+	}
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="~/css/site.css" rel="stylesheet" />
+
+</head>
+<body>
+	<!--hero section-->
+	<section class="hero">
+		<div class="hero-text">
+			<h1>TBD</h1>
+			<h4>TBD</h4>
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				Aliquam congue sed et leo, dignissim odio justo.
+			</p>
+			<div class="hero-in">
+				<div class="box">
+					<h3>White</h3>
+					<h5>Element</h5>
+					<img src="~/images/capture.png">
+				</div>
+				<div class="box">
+					<h3>White</h3>
+					<h5>Element</h5>
+					<img src="~/images/capture.png">
+				</div>
+				<div class="box">
+					<h3>White</h3>
+					<h5>Element</h5>
+					<img src="~/images/capture.png">
+				</div>
+			</div>
+		</div>
+		<div class="hero-img">
+			<img src="~/images/capture.png">
+		</div>
+	</section>
+
+	<div class="down-arrow">
+		<i class='bx bx-down-arrow-alt'></i>
+    </div>
+
+	<script src="https://unpkg.com/scrollreveal"></script>
+
+	<!--js file link-->
+	@*	<script src="js/script.js"></script>
+
+	<script>
+	// When the user scrolls down 20px from the top of the document, show the button
+	window.onscroll = function () {
+	scrollFunction()
+	};
+
+	function scrollFunction() {
+	if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+	document.getElementById("movetop").style.display = "block";
+	} else {
+	document.getElementById("movetop").style.display = "none";
+	}
+	}
+
+	// When the user clicks on the button, scroll to the top of the document
+	function topFunction() {
+	document.body.scrollTop = 0;
+	document.documentElement.scrollTop = 0;
+	}
+	</script>
+	<!-- /move top -->*@
+</body>
+</html>
