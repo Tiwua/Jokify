@@ -1,7 +1,7 @@
 namespace Jokify
 {
 	using Jokify.Infrastructure.Data;
-	using Microsoft.AspNetCore.Identity;
+	using Jokify.Infrastructure.Data.Models;
 	using Microsoft.EntityFrameworkCore;
 
 	public class Program
@@ -16,7 +16,7 @@ namespace Jokify
 				options.UseSqlServer(connectionString));
 			builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-			builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+			builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 			builder.Services.AddControllersWithViews();
 

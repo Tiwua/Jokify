@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Jokify.Common\Jokify.Common.csproj" />
+  </ItemGroup>
+
 </Project>
