@@ -4,14 +4,10 @@
 
 	public class User : IdentityUser
 	{
-        public Guid Id { get; set; }
+        public string Role { get; set; }
 
-        public string Username { get; set; }
+        public List<Joke> Favorites { get; set; }
 
-        public string Email { get; set; }
-
-        public string Gender { get; set; }
-
-        public int MyProperty { get; set; }
+        public List<Joke> CreatedJokes { get; set; }
     }
 }

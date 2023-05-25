@@ -6,6 +6,7 @@
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 
+	[AllowAnonymous]
 	public class AccountController : Controller
 	{
 
@@ -60,7 +61,6 @@
 		}
 
 		[HttpGet]
-		[AllowAnonymous]
 		public IActionResult Login()
 		{
 			var model = new LoginViewModel();
@@ -68,6 +68,7 @@
 			return View(model);
 		}
 
+		[HttpPost]
 		public async Task<IActionResult> Login(LoginViewModel model)
 		{
 			if (ModelState.IsValid)

@@ -1,0 +1,86 @@
+﻿@using Jokify.ViewModels.User;
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Log in";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+	<link href="~/css/button.css" rel="stylesheet" />
+}
+
+@*<h1 class="text-center">@ViewData["Title"]</h1>
+<div class="row">
+	<div class="col-md-4 offset-md-4">
+		<section>
+			<form id="account" method="post">
+				<hr />
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<div class="text-center mb-3">
+					<label asp-for="@Model.Username" class="form-label"></label>
+					<input asp-for="@Model.Username" class="form-control" autocomplete="username" aria-required="true"/>
+					<span asp-validation-for="Username" class="text-danger"></span>
+				</div>
+				<div class="text-center mb-3">
+					<label asp-for="@Model.Password" class="form-label"></label>
+					<input asp-for="@Model.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+					<span asp-validation-for="Password" class="text-danger"></span>
+				</div>
+				<div class="text-center">
+					<button id="login-submit" type="submit" class="btn btn-primary">Log in</button>
+				</div>
+			</form>
+		</section>
+	</div>
+</div>*@
+
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+		<form id="account" method="post">
+			<h1>create account</h1>
+			<div asp-validation-summary="ModelOnly"></div>
+			<div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+			</div>
+			<span>or use your email for registration</span>
+			<input type="text" placeholder="name" />
+			<input type="email" placeholder="email" />
+			<input asp-for="@Model.Password" type="password" placeholder="password" />
+			<button>sign up</button>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+		<form id="account" method="post">
+			<h1>sign in</h1>
+			<div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+			</div>
+			<span>or use your account</span>
+			<input type="email" placeholder="email" />
+			<input type="password" placeholder="password" />
+			<a href="#">forgot your password?</a>
+			<button>sign in</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>welcome back!</h1>
+				<p>to keep connected with us please login with your personal info</p>
+				<button class="ghost" id="signin">sign in</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+					<h1>hello!</h1>
+					<p>enter your personal details and start journey with us</p>
+					<button class="ghost" id="signup">sign up</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="~/js/user.js"></script>
+<script src="~/js/script.js"></script>
