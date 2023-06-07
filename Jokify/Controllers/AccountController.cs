@@ -33,7 +33,7 @@
 		[HttpPost]
 		public async Task<IActionResult> Register(RegisterViewModel model)
 		{
-			if (ModelState.IsValid) 
+			if (!ModelState.IsValid) 
 			{
 				return View(model);
 			}

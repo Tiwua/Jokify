@@ -962,6 +962,19 @@
           "bin/placeholder/Jokify.Common.dll": {}
         }
       },
+      "Jokify.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Jokify.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Jokify.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Jokify.Core.dll": {}
+        }
+      },
       "Jokify.Infrastructure/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -2473,6 +2486,11 @@
       "path": "../Jokify.Common/Jokify.Common.csproj",
       "msbuildProject": "../Jokify.Common/Jokify.Common.csproj"
     },
+    "Jokify.Core/1.0.0": {
+      "type": "project",
+      "path": "../Jokify.Core/Jokify.Core.csproj",
+      "msbuildProject": "../Jokify.Core/Jokify.Core.csproj"
+    },
     "Jokify.Infrastructure/1.0.0": {
       "type": "project",
       "path": "../Jokify.Infrastructure/Jokify.Infrastructure.csproj",
@@ -2481,7 +2499,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Jokify.Infrastructure >= 1.0.0",
+      "Jokify.Core >= 1.0.0",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 6.0.15",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.15",
       "Microsoft.AspNetCore.Identity.UI >= 6.0.15",
@@ -2522,8 +2540,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Softuni\\Project\\Jokify\\Jokify.Infrastructure\\Jokify.Infrastructure.csproj": {
-              "projectPath": "D:\\Softuni\\Project\\Jokify\\Jokify.Infrastructure\\Jokify.Infrastructure.csproj"
+            "D:\\Softuni\\Project\\Jokify\\Jokify.Core\\Jokify.Core.csproj": {
+              "projectPath": "D:\\Softuni\\Project\\Jokify\\Jokify.Core\\Jokify.Core.csproj"
             }
           }
         }

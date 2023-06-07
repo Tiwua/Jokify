@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Jokify.Infrastructure\Jokify.Infrastructure.csproj" />
+    <ProjectReference Include="..\Jokify.Core\Jokify.Core.csproj" />
   </ItemGroup>
 
 </Project>

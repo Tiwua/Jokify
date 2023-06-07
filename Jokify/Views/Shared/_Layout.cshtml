@@ -5,30 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Jokify</title>
     @RenderSection("styles", false)
+    @RenderSection("Scripts", required: false)
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <!--boxicons link-->
     <link rel="stylesheet"
           href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 
-    <!--google fonts-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@200&display=swap"
-          rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@300&display=swap"
-          rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400&display=swap"
-          rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@500&display=swap"
-          rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@600&display=swap"
-          rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@700&display=swap"
-          rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@800&display=swap"
-          rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@900&display=swap"
-          rel="stylesheet">
 </head>
 <body>
     <header>
@@ -39,9 +22,8 @@
             <li><a href="#">TBD</a></li>
             <li><a href="#">TBD</a></li>
             <li><a href="#">TBD</a></li>
-            <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
-            <li><a href="#">Register</a></li>
         </ul>
+            <partial name="_LoginPartial" />
         <div class="h-main">
             <a href="#" class="h-btn">Joke Now</a>
             <div class="bx bx-menu" id="menu-icon"></div>

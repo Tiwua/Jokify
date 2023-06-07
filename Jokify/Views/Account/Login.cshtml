@@ -1,15 +1,18 @@
-﻿@using Jokify.ViewModels.User;
+﻿@    using Jokify.ViewModels.User;
+    using Jokify.Core.Models;
 @model LoginViewModel
 
 @{
     ViewData["Title"] = "Log in";
 	Layout = "~/Views/Shared/_Layout.cshtml";
+	
 }
 @section Styles {
 	<link href="~/css/button.css" rel="stylesheet" />
+	<link href="~/css/site.css" rel="stylesheet" />
 }
 
-@*<h1 class="text-center">@ViewData["Title"]</h1>
+<h1 class="text-center">@ViewData["Title"]</h1>
 <div class="row">
 	<div class="col-md-4 offset-md-4">
 		<section>
@@ -32,9 +35,9 @@
 			</form>
 		</section>
 	</div>
-</div>*@
+</div>
 
-<div class="container" id="container">
+@*<div class="container" id="container">
 	<div class="form-container sign-up-container">
 		<form id="account" method="post">
 			<h1>create account</h1>
@@ -83,4 +86,4 @@
 </div>
 
 <script src="~/js/user.js"></script>
-<script src="~/js/script.js"></script>
+<script src="~/js/script.js"></script>*@

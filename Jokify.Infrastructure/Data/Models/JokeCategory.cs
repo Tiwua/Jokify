@@ -1,6 +1,6 @@
 ﻿namespace Jokify.Infrastructure.Data.Models
 {
-	using Jokify.Common;
+	using static Jokify.Common.JokeDataModelConstants.Joke;
 	using System.ComponentModel.DataAnnotations;
 
     public class JokeCategory
@@ -9,7 +9,7 @@
 		public int Id { get; set; }
 
 		[Required]
-		[MaxLength(JokeDataModelConstants.JokeCategoryMaxValue)]
+		[MaxLength(JokeCategoryMaxValue)]
 		public string Name { get; set; } = null!;
 	}
 }

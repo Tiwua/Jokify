@@ -6,6 +6,11 @@
 
     public class Joke
     {
+        public Joke()
+        {
+            this.Id = Guid.NewGuid();
+        }
+
         [Key]
         public Guid Id { get; set; }
 
@@ -15,18 +20,14 @@
         [Required]
         public string Punchline { get; set; } = null!;
 
-        public bool Deleted { get; set; }
+        public bool IsDeleted { get; set; }
+
+        public bool IsPopular { get; set; }
 
         [Required]
         [ForeignKey(nameof(Category))]
         public int JokeCategoryId { get; set; }
         public JokeCategory Category { get; set; } = null!;
-
-        [Required]
-        [ForeignKey(nameof(Type))]
-        public int JokeTypeId { get; set; }
-        public JokeType Type { get; set; } = null!;
-
 
     }
 }
