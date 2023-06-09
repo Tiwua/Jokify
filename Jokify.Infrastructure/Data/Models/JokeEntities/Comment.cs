@@ -1,4 +1,4 @@
-﻿namespace Jokify.Infrastructure.Data.Models
+﻿namespace Jokify.Infrastructure.Data.Models.Joke
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    internal class FavoriteJoke
+    internal class Comment
     {
     }
 }

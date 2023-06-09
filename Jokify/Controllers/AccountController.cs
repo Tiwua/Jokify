@@ -1,7 +1,7 @@
 ﻿namespace Jokify.Controllers
 {
 	using Jokify.Infrastructure.Data.Models;
-	using Jokify.ViewModels.User;
+	using Jokify.Core.ViewModels.User;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;

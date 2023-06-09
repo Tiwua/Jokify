@@ -4,9 +4,9 @@
 	{
 		public class Joke
 		{
-			public const int JokeTypeMaxValue = 50;
-
 			public const int JokeCategoryMaxValue = 50;
+
+			public const int JokeCategoryMinValue = 5;
 		}
 
 	}

@@ -1,13 +1,20 @@
 ﻿namespace Jokify.Infrastructure.Data.Models
 {
-	using Microsoft.AspNetCore.Identity;
+    using Jokify.Infrastructure.Data.Models.JokeEntities;
+    using Microsoft.AspNetCore.Identity;
 
-	public class User : IdentityUser
+    public class User : IdentityUser
 	{
-        public string Role { get; set; }
+        public User()
+        {
+            FavoriteJokes = new HashSet<Joke>();
+            CreatedJokes = new HashSet<Joke>();
+        }
 
-        public List<Joke> Favorites { get; set; }
 
-        public List<Joke> CreatedJokes { get; set; }
+
+        public ICollection<Joke> FavoriteJokes { get; set; }
+
+        public ICollection<Joke> CreatedJokes { get; set; }
     }
 }

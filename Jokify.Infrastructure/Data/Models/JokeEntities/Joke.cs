@@ -1,14 +1,15 @@
-﻿namespace Jokify.Infrastructure.Data.Models
+﻿namespace Jokify.Infrastructure.Data.Models.Joke
 {
     using System;
-	using System.ComponentModel.DataAnnotations;
-	using System.ComponentModel.DataAnnotations.Schema;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    //Comment, Like, Dislike, Rating
     public class Joke
     {
         public Joke()
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         [Key]
