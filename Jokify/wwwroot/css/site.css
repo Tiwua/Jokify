@@ -10,8 +10,8 @@
 :root {
     --text-color: #000000;
     --bg-color: #e5e5e5;
-    --main-color: #f29494;
-    --second-color: #fff;
+    --main-color: #ff4b2b;
+    --second-color: #ff4b2b;
     --other-color: #868686;
     --big-font: 5.5rem;
     --p-font: 1rem;
@@ -78,7 +78,7 @@ header {
 .h-btn {
     display: inline-block;
     padding: 10px 25px;
-    color: var(--bg-color);
+    color: white;
     background: var(--main-color);
     font-size: 14px;
     font-weight: 500;

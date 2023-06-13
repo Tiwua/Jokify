@@ -1,7 +1,7 @@
 ﻿namespace Jokify.Controllers
 {
 	using Jokify.Infrastructure.Data.Models;
-	using Jokify.Core.ViewModels.User;
+	using Jokify.Core.Models.User;
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
@@ -40,7 +40,8 @@
 
 			User user = new User()
 			{
-
+				UserName = model.UserName,
+				Email = model.Email
 			};
 
 			var result = await userManager.CreateAsync(user, model.Password);
@@ -71,12 +72,12 @@
 		[HttpPost]
 		public async Task<IActionResult> Login(LoginViewModel model)
 		{
-			if (ModelState.IsValid)
+			if (!ModelState.IsValid)
 			{
 				return View(model);
 			}
 
-			var user = await userManager.FindByNameAsync(model.Username);
+			var user = await userManager.FindByNameAsync(model.UserName);
 
 			if (user != null)
 			{

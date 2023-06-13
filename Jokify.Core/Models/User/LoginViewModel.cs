@@ -1,9 +1,15 @@
 ﻿namespace Jokify.Core.Models.User
 {
-    public class LoginViewModel
-    {
-        public string Username { get; set; }
+	using System.ComponentModel.DataAnnotations;
 
-        public string Password { get; set; }
+	public class LoginViewModel
+    {
+        [Required(ErrorMessage = "Username is required")]
+        [Display(Name = "Username")]
+        public string UserName { get; set; } = null!;
+
+        [Required(ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = null!;
     }
 }

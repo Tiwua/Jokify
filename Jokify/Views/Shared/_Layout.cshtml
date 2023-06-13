@@ -7,7 +7,6 @@
     @RenderSection("styles", false)
     @RenderSection("Scripts", required: false)
 
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet"
           href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -47,5 +46,9 @@
     <script src="~/js/site.js" asp-append-version="true"></script>*@
     <script src="~/js/script.js"></script>
    @* @await RenderSectionAsync("Scripts", required: false)*@
+  
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>

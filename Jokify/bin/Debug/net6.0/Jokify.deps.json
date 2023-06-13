@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "Jokify/1.0.0": {
         "dependencies": {
-          "Jokify.Infrastructure": "1.0.0",
+          "Jokify.Core": "1.0.0",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.15",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.15",
           "Microsoft.AspNetCore.Identity.UI": "6.0.15",
@@ -549,6 +549,14 @@
           "Jokify.Common.dll": {}
         }
       },
+      "Jokify.Core/1.0.0": {
+        "dependencies": {
+          "Jokify.Infrastructure": "1.0.0"
+        },
+        "runtime": {
+          "Jokify.Core.dll": {}
+        }
+      },
       "Jokify.Infrastructure/1.0.0": {
         "dependencies": {
           "Jokify.Common": "1.0.0",
@@ -932,6 +940,11 @@
       "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
     },
     "Jokify.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Jokify.Core/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

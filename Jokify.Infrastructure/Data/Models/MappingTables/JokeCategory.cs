@@ -1,7 +1,7 @@
-﻿namespace Jokify.Infrastructure.Data.Models.Joke
+﻿namespace Jokify.Infrastructure.Data.Models.MappingTables
 {
-    using static Jokify.Common.JokeDataModelConstants.Joke;
     using System.ComponentModel.DataAnnotations;
+    using static Jokify.Common.JokeDataEntitiesConstants.Joke;
 
     public class JokeCategory
     {
