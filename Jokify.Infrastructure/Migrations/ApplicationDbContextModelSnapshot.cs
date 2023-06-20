@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Jokify.Infrastructure.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(JokifyDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -77,14 +77,9 @@ namespace Jokify.Infrastructure.Migrations
 
                     b.Property<string>("Punchline")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)")
                         .HasComment("Funniest part of the joke");
-
-                    b.Property<decimal?>("Rating")
-                        .IsRequired()
-                        .HasColumnType("decimal(3,2)")
-                        .HasComment("Rating of the joke");
 
                     b.Property<string>("Setup")
                         .IsRequired()
@@ -141,6 +136,48 @@ namespace Jokify.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("JokeCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "One-Liner"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Pun"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Knock-knock"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Wordplay"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Riddle"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Observational"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Dad joke"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Dark humor"
+                        });
                 });
 
             modelBuilder.Entity("Jokify.Infrastructure.Data.Models.MappingTables.UserFavoriteJoke", b =>
@@ -245,6 +282,42 @@ namespace Jokify.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "cfbab976-a6d3-44c2-bdce-51c3b6b0412c",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "09ab2e83-3dd7-4b8f-a506-d666e68a85c0",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            IsDeleted = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHjyhYd82KuFdtoWCMDNpJOvWQ/N6/U1YaHcjNs7Ji2XKgAUuTdqxCnrIDqRPliaPA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f68be2f7-e159-42a0-be47-0ff2aeb47057",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        },
+                        new
+                        {
+                            Id = "ae64ca1c-5403-4f2f-a25d-0a1249145ad3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "98d34200-820d-4e28-a775-4232ee7591e8",
+                            Email = "someone@gmail.com",
+                            EmailConfirmed = false,
+                            IsDeleted = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SOMEONE@GMAIL.COM",
+                            NormalizedUserName = "SOMEONE",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFo0HJ4XehXN+e+lVrzOZ+BLr4hldHrNHf+2lbjtywp1RxvAiFZvF49Sh9JKBCVvRQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "5c1e2222-5b97-45a1-8c77-e936c69dc8ac",
+                            TwoFactorEnabled = false,
+                            UserName = "someone"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

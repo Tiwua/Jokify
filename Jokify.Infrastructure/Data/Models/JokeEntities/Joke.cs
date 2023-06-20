@@ -32,13 +32,10 @@
 
 
         [Required]
-        [MaxLength(JokePunchlineMinValue)]
+        [MaxLength(JokePunchlineMaxValue)]
         [Comment("Funniest part of the joke")]
         public string Punchline { get; set; } = null!;
 
-
-        [Comment("Rating of the joke")]
-        public decimal? Rating { get; set; }
 
 
         [Comment("Delete flag that shows if the joke has been deleted")]

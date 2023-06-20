@@ -7,6 +7,7 @@
     @RenderSection("styles", false)
     @RenderSection("Scripts", required: false)
 
+
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet"
           href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -14,21 +15,24 @@
 </head>
 <body>
     <header>
-        <a href="#" class="logo"><i class='bx bx-stopwatch'></i>Honor</a>
+        <a href="#" class="logo"><i class='bx bx-stopwatch'></i>Jokify</a>
         <ul class="navlist">
             <li><a class="active" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-            <li><a href="#">About</a></li>
             <li><a href="#">TBD</a></li>
+            @if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                <li><a asp-area="" asp-controller="Joke" asp-action="Add">Create a Joke</a></li>
+                
+            }
             <li><a href="#">TBD</a></li>
             <li><a href="#">TBD</a></li>
         </ul>
             <partial name="_LoginPartial" />
         <div class="h-main">
             <a href="#" class="h-btn">Joke Now</a>
-            <div class="bx bx-menu" id="menu-icon"></div>
-            <div class="bx bx-moon" id="darkmode"></div>
         </div>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -49,6 +53,5 @@
   
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>

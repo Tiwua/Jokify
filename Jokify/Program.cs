@@ -1,6 +1,9 @@
 namespace Jokify
 {
-	using Jokify.Infrastructure.Data;
+    using HouseRentingSystem.Infrastructure.Data.Common;
+    using Jokify.Common.Contracts;
+    using Jokify.Common.Services;
+    using Jokify.Infrastructure.Data;
 	using Jokify.Infrastructure.Data.Models;
 	using Microsoft.EntityFrameworkCore;
 
@@ -12,13 +15,27 @@ namespace Jokify
 
 			// Add services to the container.
 			var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-			builder.Services.AddDbContext<ApplicationDbContext>(options =>
+			builder.Services.AddDbContext<JokifyDbContext>(options =>
 				options.UseSqlServer(connectionString));
 			builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-			builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-				.AddEntityFrameworkStores<ApplicationDbContext>();
+			builder.Services.AddDefaultIdentity<User>(options =>
+			{
+				options.SignIn.RequireConfirmedAccount = false;
+				options.Password.RequireDigit = false;
+				options.Password.RequireLowercase = false;
+				options.Password.RequireUppercase = false;
+				options.Password.RequiredLength = 6;
+			})
+				.AddEntityFrameworkStores<JokifyDbContext>();
+			builder.Services.ConfigureApplicationCookie(options =>
+			{
+				options.LoginPath = "/User/Login";
+			});
 			builder.Services.AddControllersWithViews();
+
+			builder.Services.AddScoped<IJokeService, JokeService>();
+			builder.Services.AddScoped<IRepository, Repository>();
 
 			var app = builder.Build();
 

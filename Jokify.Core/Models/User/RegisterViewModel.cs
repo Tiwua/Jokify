@@ -2,15 +2,29 @@
 {
 	using System.ComponentModel.DataAnnotations;
 
+	using static Jokify.Common.JokeDataEntitiesConstants.DisplayConstants;
+	using static Jokify.Common.JokeDataEntitiesConstants.User;
+
 	public class RegisterViewModel
     {
-        public string Password { get; set; }
 
-        [Display(Name = "Username")]
-        public string UserName { get; set; }
+		[Required]
+		[Display(Name = UsernameDisplay)]
+		[StringLength(UserNameMaxValue, MinimumLength = UserNameMinValue)]
+		public string UserName { get; set; } = null!;
 
-        public string Email { get; set; }
+		[Required]
+		[EmailAddress]
+		[StringLength(EmailMaxValue, MinimumLength = EmailMinValue)]
+		public string Email { get; set; } = null!;
 
-        public string ConfirmPassword { get; set; }
-    }
+		[Required]
+		[DataType(DataType.Password)]
+		public string Password { get; set; } = null!;
+
+		[Required]
+		[Compare(nameof(Password))]
+		[DataType(DataType.Password)]
+		public string ConfirmPassword { get; set; } = null!;
+	}
 }

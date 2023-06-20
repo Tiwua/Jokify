@@ -2,13 +2,15 @@
 {
 	using System.ComponentModel.DataAnnotations;
 
+    using static Jokify.Common.JokeDataEntitiesConstants.Error;
+    using static Jokify.Common.JokeDataEntitiesConstants.DisplayConstants;
 	public class LoginViewModel
     {
-        [Required(ErrorMessage = "Username is required")]
-        [Display(Name = "Username")]
+        [Required(ErrorMessage = InvalidUserNameErrorMsg)]
+        [Display(Name = UsernameDisplay)]
         public string UserName { get; set; } = null!;
 
-        [Required(ErrorMessage = "Password is required")]
+        [Required(ErrorMessage = InvalidPassswordErrorMsg)]
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;
     }
