@@ -87,6 +87,12 @@ namespace Jokify.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasComment("Introduction part of the joke");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Title of the joke");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)")
@@ -282,6 +288,42 @@ namespace Jokify.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "cfbab976-a6d3-44c2-bdce-51c3b6b0412c",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9de21f75-ba0a-40d8-a31e-fcef3a169a06",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            IsDeleted = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK2c5YbMEMAZLLUUnsF9pPwroZUvkGC/YCSWPAJAeWfvtdEXt9a9JDmhaHxdpAgAIw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "0ee7d1e5-446e-4351-9baf-e514117dfe11",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        },
+                        new
+                        {
+                            Id = "ae64ca1c-5403-4f2f-a25d-0a1249145ad3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a4c0cd1f-8e19-4f68-a9b4-471b84378b7f",
+                            Email = "someone@gmail.com",
+                            EmailConfirmed = false,
+                            IsDeleted = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SOMEONE@GMAIL.COM",
+                            NormalizedUserName = "SOMEONE",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEj4ZEHvINiGAsPsSK2VgesRZIAnWa1hdqNUC0q1Xs0I7XdpigHOWso+kJUJRBHQqg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "bb99bff8-de19-435d-8d97-48963c1e7e0e",
+                            TwoFactorEnabled = false,
+                            UserName = "someone"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

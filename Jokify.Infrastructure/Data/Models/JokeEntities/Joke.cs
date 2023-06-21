@@ -27,6 +27,7 @@
 
         [Required]
         [MaxLength(JokeTitleMaxValue)]
+        [Comment("Title of the joke")]
         public string Title { get; set; } = null!;
 
 

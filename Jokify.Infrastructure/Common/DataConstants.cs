@@ -1,9 +1,12 @@
 ﻿namespace Jokify.Common
 {
-	public class JokeDataEntitiesConstants
+	public class DataConstants
 	{
 		public class Joke
 		{
+			public const int JokeTitleMinValue = 5;
+			public const int JokeTitleMaxValue = 50;
+
 			public const int JokeCategoryMinValue = 5;
 			public const int JokeCategoryMaxValue = 50;
 
@@ -32,5 +35,15 @@
 			public const int EmailMinValue = 5;
 			public const int EmailMaxValue = 60;
 		}
-	}
+        public class Error
+        {
+            public const string InvalidUserNameErrorMsg = "Invalid Username";
+            public const string InvalidPassswordErrorMsg = "Invalid Password";
+        }
+
+        public class DisplayConstants
+        {
+            public const string UsernameDisplay = "Username";
+        }
+    }
 }

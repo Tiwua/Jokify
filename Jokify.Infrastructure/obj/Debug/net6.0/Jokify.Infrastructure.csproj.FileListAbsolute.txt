@@ -12,6 +12,3 @@ D:\Softuni\Project\Jokify\Jokify.Infrastructure\obj\Debug\net6.0\refint\Jokify.I
 D:\Softuni\Project\Jokify\Jokify.Infrastructure\obj\Debug\net6.0\Jokify.Infrastructure.pdb
 D:\Softuni\Project\Jokify\Jokify.Infrastructure\obj\Debug\net6.0\Jokify.Infrastructure.genruntimeconfig.cache
 D:\Softuni\Project\Jokify\Jokify.Infrastructure\obj\Debug\net6.0\ref\Jokify.Infrastructure.dll
-D:\Softuni\Project\Jokify\Jokify.Infrastructure\bin\Debug\net6.0\Jokify.Common.dll
-D:\Softuni\Project\Jokify\Jokify.Infrastructure\bin\Debug\net6.0\Jokify.Common.pdb
-D:\Softuni\Project\Jokify\Jokify.Infrastructure\obj\Debug\net6.0\Jokify.Infrastructure.csproj.CopyComplete

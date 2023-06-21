@@ -1,10 +1,8 @@
 D:\Softuni\Project\Jokify\Jokify.Core\bin\Debug\net6.0\Jokify.Core.deps.json
 D:\Softuni\Project\Jokify\Jokify.Core\bin\Debug\net6.0\Jokify.Core.dll
 D:\Softuni\Project\Jokify\Jokify.Core\bin\Debug\net6.0\Jokify.Core.pdb
-D:\Softuni\Project\Jokify\Jokify.Core\bin\Debug\net6.0\Jokify.Common.dll
 D:\Softuni\Project\Jokify\Jokify.Core\bin\Debug\net6.0\Jokify.Infrastructure.dll
 D:\Softuni\Project\Jokify\Jokify.Core\bin\Debug\net6.0\Jokify.Infrastructure.pdb
-D:\Softuni\Project\Jokify\Jokify.Core\bin\Debug\net6.0\Jokify.Common.pdb
 D:\Softuni\Project\Jokify\Jokify.Core\obj\Debug\net6.0\Jokify.Core.csproj.AssemblyReference.cache
 D:\Softuni\Project\Jokify\Jokify.Core\obj\Debug\net6.0\Jokify.Core.GeneratedMSBuildEditorConfig.editorconfig
 D:\Softuni\Project\Jokify\Jokify.Core\obj\Debug\net6.0\Jokify.Core.AssemblyInfoInputs.cache

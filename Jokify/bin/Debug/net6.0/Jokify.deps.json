@@ -544,11 +544,6 @@
           }
         }
       },
-      "Jokify.Common/1.0.0": {
-        "runtime": {
-          "Jokify.Common.dll": {}
-        }
-      },
       "Jokify.Core/1.0.0": {
         "dependencies": {
           "Jokify.Infrastructure": "1.0.0"
@@ -559,7 +554,6 @@
       },
       "Jokify.Infrastructure/1.0.0": {
         "dependencies": {
-          "Jokify.Common": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.15",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.15"
         },
@@ -938,11 +932,6 @@
       "sha512": "sha512-CeWTdRNfRaSh0pm2gDTJFwVaXfTq6Xwv/sA887iwPTneW7oMtMlpvDIO+U60+3GWTB7Aom6oQwv5VZVUhQRdPQ==",
       "path": "system.windows.extensions/4.7.0",
       "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
-    },
-    "Jokify.Common/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     },
     "Jokify.Core/1.0.0": {
       "type": "project",
