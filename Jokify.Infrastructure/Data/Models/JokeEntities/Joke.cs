@@ -5,7 +5,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using static Jokify.Common.DataConstants.Joke;
+    using static Jokify.Infrastructure.Common.DataConstants.Joke;
 
     [Comment("Joke for the WebApp")]
     public class Joke

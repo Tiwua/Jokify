@@ -1,4 +1,4 @@
-﻿namespace Jokify.Common
+﻿namespace Jokify.Infrastructure.Common
 {
 	public class DataConstants
 	{

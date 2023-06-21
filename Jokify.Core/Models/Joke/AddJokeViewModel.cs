@@ -4,9 +4,12 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+
+    using static Jokify.Infrastructure.Common.DataConstants.Joke;
 
     public class AddJokeViewModel
     {
@@ -14,6 +17,10 @@
         {
             Categories = new HashSet<JokeCategoryViewModel>();
         }
+
+        [Required]
+        [StringLength(JokeTitleMaxValue)]
+        public string Title { get; set; } = null!;
 
         public string Setup { get; set; } = null!;
 

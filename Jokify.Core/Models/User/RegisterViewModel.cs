@@ -2,8 +2,8 @@
 {
 	using System.ComponentModel.DataAnnotations;
 
-	using static Jokify.Common.DataConstants.DisplayConstants;
-	using static Jokify.Common.DataConstants.User;
+	using static Jokify.Infrastructure.Common.DataConstants.DisplayConstants;
+	using static Jokify.Infrastructure.Common.DataConstants.User;
 
 	public class RegisterViewModel
     {

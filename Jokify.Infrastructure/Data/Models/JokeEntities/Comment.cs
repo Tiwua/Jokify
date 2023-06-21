@@ -3,7 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using static Jokify.Common.DataConstants.Comment;
+    using static Jokify.Infrastructure.Common.DataConstants.Comment;
 
     [Comment("Joke comment")]
     public class Comment
