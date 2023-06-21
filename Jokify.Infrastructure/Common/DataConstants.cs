@@ -4,6 +4,8 @@
 	{
 		public class Joke
 		{
+			public const int IntegerIdMinValue = 1;
+
 			public const int JokeTitleMinValue = 5;
 			public const int JokeTitleMaxValue = 50;
 

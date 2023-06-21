@@ -19,15 +19,18 @@
         }
 
         [Required]
-        [StringLength(JokeTitleMaxValue)]
+        [StringLength(JokeTitleMaxValue, MinimumLength = JokeTitleMinValue)]
         public string Title { get; set; } = null!;
 
+        [Required]
+        [StringLength(JokeSetupMaxValue, MinimumLength = JokeSetupMinValue)]
         public string Setup { get; set; } = null!;
 
+        [Required]
+        [StringLength(JokePunchlineMaxValue, MinimumLength = JokePunchlineMinValue)]
         public string Punchline { get; set; } = null!;
 
-        public decimal Rating { get; set; }
-
+        [Range(IntegerIdMinValue, int.MaxValue)]
         public int CategoryId { get; set; }
 
         public IEnumerable<JokeCategoryViewModel> Categories { get; set; }
