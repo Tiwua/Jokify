@@ -12,7 +12,7 @@
     {
         public AddJokeViewModel()
         {
-            this.Categories = new HashSet<JokeCategoryViewModel>();
+            Categories = new HashSet<JokeCategoryViewModel>();
         }
 
         public string Setup { get; set; } = null!;

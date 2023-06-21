@@ -3,7 +3,7 @@
     using Jokify.Infrastructure.Data.Models.MappingTables;
     using Microsoft.AspNetCore.Identity;
     using System.ComponentModel.DataAnnotations;
-    using static Jokify.Common.JokeDataEntitiesConstants.User;
+    using static Jokify.Common.DataConstants.User;
 
     public class User : IdentityUser
 	{

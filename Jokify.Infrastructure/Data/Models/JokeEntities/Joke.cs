@@ -5,7 +5,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using static Jokify.Common.JokeDataEntitiesConstants.Joke;
+    using static Jokify.Common.DataConstants.Joke;
 
     [Comment("Joke for the WebApp")]
     public class Joke
@@ -23,6 +23,11 @@
         [Key]
         [Comment("Primary Key")]
         public Guid Id { get; set; }
+
+
+        [Required]
+        [MaxLength(JokeTitleMaxValue)]
+        public string Title { get; set; } = null!;
 
 
         [Required]
@@ -68,7 +73,7 @@
         public User User { get; set; } = null!;
 
         //Collections
-        public ICollection<UserFavoriteJoke> FavoriteJokes { get; set; }
-        public ICollection<JokeComment> JokeComments { get; set; }
+        public IEnumerable<UserFavoriteJoke> FavoriteJokes { get; set; }
+        public IEnumerable<JokeComment> JokeComments { get; set; }
     }
 }

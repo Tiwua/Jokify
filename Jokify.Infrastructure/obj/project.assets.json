@@ -864,16 +864,6 @@
             "rid": "win"
           }
         }
-      },
-      "Jokify.Common/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "compile": {
-          "bin/placeholder/Jokify.Common.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Jokify.Common.dll": {}
-        }
       }
     }
   },
@@ -2186,16 +2176,10 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "Jokify.Common/1.0.0": {
-      "type": "project",
-      "path": "../Jokify.Common/Jokify.Common.csproj",
-      "msbuildProject": "../Jokify.Common/Jokify.Common.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Jokify.Common >= 1.0.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.15",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.15",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.15"
@@ -2233,11 +2217,7 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {
-            "D:\\Softuni\\Project\\Jokify\\Jokify.Common\\Jokify.Common.csproj": {
-              "projectPath": "D:\\Softuni\\Project\\Jokify\\Jokify.Common\\Jokify.Common.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

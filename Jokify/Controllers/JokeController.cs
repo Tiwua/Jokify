@@ -6,7 +6,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    
+
     public class JokeController : BaseController
     {
         private readonly IJokeService jokeService;
@@ -25,6 +25,7 @@
                 Categories = await jokeService.GetAllCategoriesAsync()
             };
 
+            ViewBag.Class = "add";
 
             return View(model);
         }
@@ -52,10 +53,15 @@
                 throw;
             }
 
-
-
-
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            var model = await jokeService.GetAllJokesAsync();
+
+            return View(model);
         }
     }
 }

@@ -6,7 +6,7 @@
     using Jokify.Infrastructure.Data.Models.MappingTables;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using static Jokify.Common.JokeDataEntitiesConstants.Joke;
+    using static Jokify.Common.DataConstants.Joke;
 
     public class JokifyDbContext : IdentityDbContext<User>
 	{

@@ -1,16 +1,12 @@
 ﻿@using Jokify.Core.Models.User;
 @model RegisterViewModel
-@Html.HiddenFor(m => m.Password)
 
 @{
     ViewData["Title"] = "Register";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    var password = Html.Raw("\u2022\u2022\u2022\u2022\u2022");
 }
 
 @section Styles {
-    <link href="~/css/button.css" rel="stylesheet" />
-    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/register.css" rel="stylesheet" />
 }
 
 <h1 class="centered">@ViewData["Title"]</h1>

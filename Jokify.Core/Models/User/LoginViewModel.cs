@@ -2,8 +2,8 @@
 {
 	using System.ComponentModel.DataAnnotations;
 
-    using static Jokify.Common.JokeDataEntitiesConstants.Error;
-    using static Jokify.Common.JokeDataEntitiesConstants.DisplayConstants;
+    using static Jokify.Common.DataConstants.Error;
+    using static Jokify.Common.DataConstants.DisplayConstants;
 	public class LoginViewModel
     {
         [Required(ErrorMessage = InvalidUserNameErrorMsg)]

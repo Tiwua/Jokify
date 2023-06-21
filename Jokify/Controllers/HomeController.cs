@@ -11,6 +11,7 @@
 
 		public IActionResult Index()
 		{
+			ViewBag.Class = "home";
 			return View();
 		}
 	}

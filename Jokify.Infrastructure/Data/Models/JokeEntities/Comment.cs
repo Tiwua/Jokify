@@ -36,6 +36,6 @@
         [Comment("Popular flag that shows if the comment is popular")]
         public bool IsPopular { get; set; }
 
-        public ICollection<JokeComment> JokeComments { get; set; }
+        public IEnumerable<JokeComment> JokeComments { get; set; }
     }
 }

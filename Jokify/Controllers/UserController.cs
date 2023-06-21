@@ -25,8 +25,9 @@
 		public IActionResult Register()
 		{
 			var model = new RegisterViewModel();
+            ViewBag.Class = "register";
 
-			return View(model);
+            return View(model);
 		}
 
 
@@ -65,8 +66,9 @@
 		public IActionResult Login()
 		{
 			var model = new LoginViewModel();
+            ViewBag.Class = "login";
 
-			return View(model);
+            return View(model);
 		}
 
 		[HttpPost]

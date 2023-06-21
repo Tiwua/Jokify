@@ -4,16 +4,23 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
+<link href="~/css/logout.css" rel="stylesheet" />
+
+@{
+    string loginActiveClass = ViewBag.Class == "login" ? "active" : "";
+    string registerActiveClass = ViewBag.Class == "register" ? "active" : "";
+}
+
 <ul class="navlist">
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
+        <a class="logout" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
     </li>
 }
 else
-{        
-    <li><a asp-area="" asp-controller="User" asp-action="Login">Login</a></li>
-    <li><a asp-area="" asp-controller="User" asp-action="Register">Register</a></li>
+{
+        <li><a class="@loginActiveClass" asp-area="" asp-controller="User" asp-action="Login">Login</a></li>
+        <li><a class="@registerActiveClass" asp-area="" asp-controller="User" asp-action="Register">Register</a></li>
 }
 </ul>

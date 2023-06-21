@@ -1,5 +1,4 @@
-body {
-    background-image: url('../images/gradiantblue.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
+nav-item {
+    position: relative;
+    right: 20px;
 }

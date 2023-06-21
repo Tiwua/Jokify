@@ -12,6 +12,8 @@
     {
         public Task<IEnumerable<JokeCategoryViewModel>> GetAllCategoriesAsync();
 
+        public Task<IEnumerable<JokeViewModel>> GetAllJokesAsync();
+
         public Task AddJokeAsync(AddJokeViewModel model, string userId);
     }
 }
