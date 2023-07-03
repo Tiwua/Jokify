@@ -43,7 +43,6 @@
         public string Punchline { get; set; } = null!;
 
 
-
         [Comment("Delete flag that shows if the joke has been deleted")]
         public bool IsDeleted { get; set; }
 

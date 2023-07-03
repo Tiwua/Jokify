@@ -1,0 +1,14 @@
+D:\Softuni\Project\Jokify\Jokify.Infrastructure\bin\Debug\net6.0\Jokify.Infrastructure.deps.json
+D:\Softuni\Project\Jokify\Jokify.Infrastructure\bin\Debug\net6.0\Jokify.Infrastructure.runtimeconfig.json
+D:\Softuni\Project\Jokify\Jokify.Infrastructure\bin\Debug\net6.0\Jokify.Infrastructure.dll
+D:\Softuni\Project\Jokify\Jokify.Infrastructure\bin\Debug\net6.0\Jokify.Infrastructure.pdb
+D:\Softuni\Project\Jokify\Jokify.Infrastructure\obj\Debug\net6.0\Jokify.Infrastructure.csproj.AssemblyReference.cache
+D:\Softuni\Project\Jokify\Jokify.Infrastructure\obj\Debug\net6.0\Jokify.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Softuni\Project\Jokify\Jokify.Infrastructure\obj\Debug\net6.0\Jokify.Infrastructure.AssemblyInfoInputs.cache
+D:\Softuni\Project\Jokify\Jokify.Infrastructure\obj\Debug\net6.0\Jokify.Infrastructure.AssemblyInfo.cs
+D:\Softuni\Project\Jokify\Jokify.Infrastructure\obj\Debug\net6.0\Jokify.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Softuni\Project\Jokify\Jokify.Infrastructure\obj\Debug\net6.0\Jokify.Infrastructure.dll
+D:\Softuni\Project\Jokify\Jokify.Infrastructure\obj\Debug\net6.0\refint\Jokify.Infrastructure.dll
+D:\Softuni\Project\Jokify\Jokify.Infrastructure\obj\Debug\net6.0\Jokify.Infrastructure.pdb
+D:\Softuni\Project\Jokify\Jokify.Infrastructure\obj\Debug\net6.0\Jokify.Infrastructure.genruntimeconfig.cache
+D:\Softuni\Project\Jokify\Jokify.Infrastructure\obj\Debug\net6.0\ref\Jokify.Infrastructure.dll

@@ -53,7 +53,7 @@
                 throw;
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("All", "Joke");
         }
 
         [HttpGet]

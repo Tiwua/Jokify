@@ -54,16 +54,22 @@
 
         public async Task<IEnumerable<JokeViewModel>> GetAllJokesAsync()
         {
+            //var result = new JokeViewModel();
+            //var jokes = repository.AllReadonly<Joke>().Where(j => !j.IsDeleted);
+
+            //result
+
             return await context.Jokes
                 .Select(j => new JokeViewModel()
-            {
-                Id = j.Id.ToString(),
-                Setup = j.Setup,
-                Punchline = j.Punchline,
-                Owner = j.User.UserName,
-                Category = j.Category.ToString()!,
-                LikesCount = j.FavoriteJokes.Count()
-            }).ToListAsync();
+                {
+                    Id = j.Id.ToString(),
+                    Title = j.Title,
+                    Setup = j.Setup,
+                    Punchline = j.Punchline,
+                    Owner = j.User.UserName,
+                    Category = j.Category.ToString()!,
+                    LikesCount = j.FavoriteJokes.Count()
+                }).ToListAsync();
         }
     }
 }
