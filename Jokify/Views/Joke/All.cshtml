@@ -3,42 +3,61 @@
 @{
     ViewBag.Title = "All Jokes";
 }
-
-@section Styles {
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="~/css/button.css" rel="stylesheet" />
+@section Styles{
     <link href="~/css/site.css" rel="stylesheet" />
-    <link href="~/css/inputbox.css" rel="stylesheet" />
+    <style>
+                        table {
+                            width: 50%;
+                            border-collapse: collapse;
+                            margin-bottom: 20px;
+                            position: relative;
+                            top: 280px;
+                            left: 100px;
+                            
+                        }
+
+                        th, td {
+                            padding: 20px;
+                            text-align: left;
+                            border-bottom: 1px solid #ddd;
+                            border-radius: 50px;
+                        }
+
+                        th {
+                            background-color: #f2f2f2;
+                            font-weight: bold;
+                        }
+
+                        tr:hover {
+                            background-color: #f5f5f5;
+                        }
+    </style>
+
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
-<hr />
 
-<div class="text-center row">
-    @foreach (var j in Model)
-    {
-        <div class="card col-4" style="width: 20rem;">
-            <div class="card-body">
-                <h5 class="card-title mt-1">@j.Setup</h5>
-                <p class="mb-0"><span class="fw-bold">Starting time: </span>@j.Punchline</p>
-                <p class="mb-0"><span class="fw-bold">Type: </span>@j.Category</p>
-            </div>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Setup</th>
+            <!-- Add more columns as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entity in Model)
+        {
+            <tr>
+                <td>@entity.Title</td>
+                <td>@entity.Setup</td>
+                <!-- Add more columns as needed -->
+            </tr>
+        }
+    </tbody>
+</table>
 
-            <a asp-controller="Event" asp-action="Details" asp-route-id="@j.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">View Details</a>
-            @if (User.Identity.Name == j.Owner)
-            {
-                <a asp-controller="Event" asp-action="Edit" asp-route-id="@j.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
-            }
-            else
-            {
-                <form class="input-group-sm " asp-controller="Event" asp-action="Join" asp-route-id="@j.Id">
-                    <input type="submit" value="Join the Event" class="fs-6 btn btn-warning mb-3 w-100 p-3 fw-bold" />
-                </form>
-            }
-        </div>
-    }
-</div>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

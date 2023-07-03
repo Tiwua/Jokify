@@ -15,10 +15,10 @@
 			public const string JokeRatingMinValue = "0.00";
 			public const string JokeRatingMaxValue = "5.00";
 
-			public const int JokeSetupMinValue = 50;
+			public const int JokeSetupMinValue = 10;
 			public const int JokeSetupMaxValue = 5000;
 
-            public const int JokePunchlineMinValue = 50;
+            public const int JokePunchlineMinValue = 10;
             public const int JokePunchlineMaxValue = 5000;
 
 			public const string DecimalFluentApiPrecision = "decimal(3,2)";

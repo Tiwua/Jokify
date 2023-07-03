@@ -8,7 +8,7 @@ textarea {
     background-color: #f8f8f8;
     resize: none;
     position: center;
-    text-align: center;
+    text-align: left;
 }
 
 input[type=text] {

@@ -31,6 +31,7 @@
 
             var joke = new Joke()
             {
+                Title = model.Title,
                 Setup = model.Setup,
                 Punchline = model.Punchline,
                 UserId = userId,
