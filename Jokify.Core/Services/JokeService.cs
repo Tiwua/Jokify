@@ -3,6 +3,7 @@
     using HouseRentingSystem.Infrastructure.Data.Common;
     using Jokify.Common.Contracts;
     using Jokify.Core.Models.Joke;
+    using Jokify.Core.Models.Joke.Enums;
     using Jokify.Infrastructure.Data;
     using Jokify.Infrastructure.Data.Models;
     using Jokify.Infrastructure.Data.Models.JokeEntities;
@@ -42,34 +43,54 @@
             await repository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<JokeCategoryViewModel>> GetAllCategoriesAsync()
+        public async Task<JokeQueryModel> GetAllJokesAsync(string? category = null, string? searchTerm = null, JokeSorting sorting = JokeSorting.PopularAscending, int currentPage = 1, int jokesPerPage = 6)
         {
-            return await repository.AllReadonly<JokeCategory>()
-                .Select(c => new JokeCategoryViewModel()
+            var result = new JokeQueryModel();
+            var jokes = repository.AllReadonly<Joke>()
+                .Where(j => !j.IsDeleted);
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                jokes = jokes.Where(j => j.Category.Name == category);
+            }
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                searchTerm = $"%{searchTerm.ToLower()}%";
+
+                jokes = jokes
+                    .Where(j => EF.Functions.Like(j.Title.ToLower(), searchTerm) ||
+                    EF.Functions.Like(j.Setup.ToLower(), searchTerm) ||
+                    EF.Functions.Like(j.Punchline.ToLower(), searchTerm));
+            }
+
+                jokes = sorting switch
                 {
-                    Id = c.Id,
-                    Name = c.Name
-                }).ToListAsync();
-        }
+                    JokeSorting.PopularAscending => jokes
+                         .OrderBy(j => j.FavoriteJokes.Count()),
+                    JokeSorting.PopularDescending => jokes
+                         .OrderByDescending(j => j.FavoriteJokes.Count()),
+                    _ => jokes.OrderByDescending(j => j.Id)
+                };
 
-        public async Task<IEnumerable<JokeViewModel>> GetAllJokesAsync()
-        {
-            //var result = new JokeViewModel();
-            //var jokes = repository.AllReadonly<Joke>().Where(j => !j.IsDeleted);
-
-            //result
-
-            return await context.Jokes
-                .Select(j => new JokeViewModel()
+            result.Jokes = await jokes
+                .Skip((currentPage - 1) * jokesPerPage)
+                .Take(jokesPerPage)
+                .Select(j => new JokeServiceModel()
                 {
-                    Id = j.Id.ToString(),
+                    Id = j.Id,
                     Title = j.Title,
                     Setup = j.Setup,
                     Punchline = j.Punchline,
-                    Owner = j.User.UserName,
-                    Category = j.Category.ToString()!,
-                    LikesCount = j.FavoriteJokes.Count()
-                }).ToListAsync();
+                    IsPopular = j.IsPopular,
+                    IsEdited = j.IsEdited,
+                    IsDeleted = j.IsDeleted,
+                }).ToListAsync(); 
+
+            result.JokesCount = await jokes.CountAsync();
+
+            return result;
         }
+
     }
 }

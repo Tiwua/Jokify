@@ -1,8 +1,10 @@
 ﻿namespace Jokify.Controllers
 {
     using Jokify.Common.Contracts;
+    using Jokify.Core.Contracts;
     using Jokify.Core.Models.Joke;
     using Jokify.Infrastructure.Data.Models.JokeEntities;
+    using Jokify.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +12,14 @@
     public class JokeController : BaseController
     {
         private readonly IJokeService jokeService;
+        private readonly IJokeCategoryService jokeCategoryService;
 
-        public JokeController(IJokeService jokeService)
+        public JokeController(
+            IJokeService jokeService,
+            IJokeCategoryService jokeCategoryService)
         {
             this.jokeService = jokeService;
+            this.jokeCategoryService = jokeCategoryService;
         }
 
         [HttpGet]
@@ -22,7 +28,7 @@
 
             var model = new AddJokeViewModel()
             {
-                Categories = await jokeService.GetAllCategoriesAsync()
+                Categories = await jokeCategoryService.GetAllCategoriesAsync()
             };
 
             ViewBag.Class = "add";
@@ -35,7 +41,7 @@
         {
             if (!ModelState.IsValid)
             {
-                model.Categories = await jokeService.GetAllCategoriesAsync();
+                model.Categories = await jokeCategoryService.GetAllCategoriesAsync();
 
                 return View(model);
             }
@@ -57,11 +63,20 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllJokesQueryModel query)
         {
-            var model = await jokeService.GetAllJokesAsync();
+            var result = await jokeService.GetAllJokesAsync(
+                query.Category,
+                query.SearchTerm,
+                query.Sorting,
+                query.CurrentPage,
+                AllJokesQueryModel.JokesPerPage);
 
-            return View(model);
+            query.TotalJokesCount = result.JokesCount;
+            query.Categories = await jokeCategoryService.GetAllCategoriesNamesAsync();
+            query.Jokes = result.Jokes;
+
+            return View(query);
         }
     }
 }

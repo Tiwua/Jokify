@@ -107,6 +107,104 @@ namespace Jokify.Infrastructure.Migrations
                     b.ToTable("Jokes");
 
                     b.HasComment("Joke for the WebApp");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("bdb63ebd-57c9-4c43-b628-a24ae6a165a0"),
+                            IsDeleted = false,
+                            IsEdited = false,
+                            IsPopular = false,
+                            JokeCategoryId = 1,
+                            Punchline = "Do these genes make me look fat?",
+                            Setup = "What did the Dna say to the other DNA?",
+                            Title = "Fat DNA?",
+                            UserId = "cfbab976-a6d3-44c2-bdce-51c3b6b0412c"
+                        },
+                        new
+                        {
+                            Id = new Guid("8ebbe6a9-5aa9-4115-b73b-beae168bfea3"),
+                            IsDeleted = false,
+                            IsEdited = false,
+                            IsPopular = false,
+                            JokeCategoryId = 2,
+                            Punchline = "Because its two - tired.",
+                            Setup = "A bicycle can't stand on its own",
+                            Title = "Bicycle",
+                            UserId = "cfbab976-a6d3-44c2-bdce-51c3b6b0412c"
+                        },
+                        new
+                        {
+                            Id = new Guid("3ddead2d-3713-40cb-973d-5b45cc64bceb"),
+                            IsDeleted = false,
+                            IsEdited = false,
+                            IsPopular = false,
+                            JokeCategoryId = 3,
+                            Punchline = "Who. \r\n Who who? \r\n What are you, an owl?",
+                            Setup = "Knock, knock.\r\n Who’s there?",
+                            Title = "Owl",
+                            UserId = "cfbab976-a6d3-44c2-bdce-51c3b6b0412c"
+                        },
+                        new
+                        {
+                            Id = new Guid("3eab60b5-16fa-4a92-8178-4faa7eff5187"),
+                            IsDeleted = false,
+                            IsEdited = false,
+                            IsPopular = false,
+                            JokeCategoryId = 4,
+                            Punchline = "So if anyone asks, I’m outstanding.",
+                            Setup = "I'm going to stand outside.",
+                            Title = "Outside",
+                            UserId = "cfbab976-a6d3-44c2-bdce-51c3b6b0412c"
+                        },
+                        new
+                        {
+                            Id = new Guid("87484f13-f1f9-4c49-a117-a73280b786ec"),
+                            IsDeleted = false,
+                            IsEdited = false,
+                            IsPopular = false,
+                            JokeCategoryId = 5,
+                            Punchline = "A Carrot.",
+                            Setup = "What is orange and sounds like a parrot?",
+                            Title = "Parrot",
+                            UserId = "cfbab976-a6d3-44c2-bdce-51c3b6b0412c"
+                        },
+                        new
+                        {
+                            Id = new Guid("bf36a12e-18e2-43d5-8ec8-10187ff4eae2"),
+                            IsDeleted = false,
+                            IsEdited = false,
+                            IsPopular = false,
+                            JokeCategoryId = 6,
+                            Punchline = "Because they make up everything!",
+                            Setup = "Why don't scientists trust atoms?",
+                            Title = "Trust Issues",
+                            UserId = "cfbab976-a6d3-44c2-bdce-51c3b6b0412c"
+                        },
+                        new
+                        {
+                            Id = new Guid("5eafbc21-db10-4ce0-ae9b-59d090a0571a"),
+                            IsDeleted = false,
+                            IsEdited = false,
+                            IsPopular = false,
+                            JokeCategoryId = 7,
+                            Punchline = "The Space Bar!",
+                            Setup = "What’s an astronaut’s favorite part of a computer?",
+                            Title = "Favorite PC Part",
+                            UserId = "cfbab976-a6d3-44c2-bdce-51c3b6b0412c"
+                        },
+                        new
+                        {
+                            Id = new Guid("f3fdad70-1862-4f6f-943e-7fc0315b67f5"),
+                            IsDeleted = false,
+                            IsEdited = false,
+                            IsPopular = false,
+                            JokeCategoryId = 8,
+                            Punchline = "They don't have the guts!",
+                            Setup = "Why don't skeletons fight each other?",
+                            Title = "Skeletons",
+                            UserId = "cfbab976-a6d3-44c2-bdce-51c3b6b0412c"
+                        });
                 });
 
             modelBuilder.Entity("Jokify.Infrastructure.Data.Models.JokeEntities.JokeComment", b =>
@@ -294,16 +392,16 @@ namespace Jokify.Infrastructure.Migrations
                         {
                             Id = "cfbab976-a6d3-44c2-bdce-51c3b6b0412c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "26c860cf-7c84-4f9c-83ad-ad0e668b51eb",
+                            ConcurrencyStamp = "c8a7e76f-648a-4891-ba78-938aa55305ef",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPFjfCXTKSWYX2ZPIOTSxA9y7As1IG6vu9Pb6IRzkUcgmk/d5704Y3x42MYrQaFDRg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENRPZL31HMo2sDOEwSXYhDsRNayeLkg2P/y5cHKQEckS2Wxhurmri828Wj4c+oaqoQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c3ffed0c-a469-442d-aa0e-b98e152f38b5",
+                            SecurityStamp = "756a239f-35a1-4b7e-9c81-98ab4338c2ce",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
@@ -311,16 +409,16 @@ namespace Jokify.Infrastructure.Migrations
                         {
                             Id = "ae64ca1c-5403-4f2f-a25d-0a1249145ad3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bf57123f-a554-491d-ab14-d31226cd8e23",
+                            ConcurrencyStamp = "ae621c5e-e3f2-4026-9d36-7c678b707a44",
                             Email = "someone@gmail.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "SOMEONE@GMAIL.COM",
                             NormalizedUserName = "SOMEONE",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK+trPWBsIoQjYD6M+5EWR3tRGtOBQo6RT69bMgggMSdxhULHOZrZGRWYEpjREROMg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEM77YRPb7Qsks+abgqnr0UyYUjGg8zD9IAu1pOvwuHy2ecms6P75ODyzQ9vd+o8iVQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6efa84d8-a59c-425c-aeaf-921dc9f57a51",
+                            SecurityStamp = "1ab9752a-c6d4-4dbf-8c52-3736621d265b",
                             TwoFactorEnabled = false,
                             UserName = "someone"
                         });

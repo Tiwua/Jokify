@@ -3,6 +3,9 @@ namespace Jokify
     using HouseRentingSystem.Infrastructure.Data.Common;
     using Jokify.Common.Contracts;
     using Jokify.Common.Services;
+    using Jokify.Core.Contracts;
+    using Jokify.Core.Services;
+    using Jokify.Extensions;
     using Jokify.Infrastructure.Data;
 	using Jokify.Infrastructure.Data.Models;
 	using Microsoft.EntityFrameworkCore;
@@ -32,10 +35,10 @@ namespace Jokify
 			{
 				options.LoginPath = "/User/Login";
 			});
-			builder.Services.AddControllersWithViews();
 
-			builder.Services.AddScoped<IJokeService, JokeService>();
-			builder.Services.AddScoped<IRepository, Repository>();
+			builder.Services.AddControllersWithViews();
+			builder.Services.AddApplicationServices();
+
 
 			var app = builder.Build();
 

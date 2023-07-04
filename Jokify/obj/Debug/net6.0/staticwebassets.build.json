@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "YuPakBQtya+y/hknxYfgeYSXlHEg3y4lWEUd4t6DLR8=",
+  "Hash": "Ed0gto9qVOjrO6j8bOqHc+Jy9RK1O4ZaGmR+pXYOpic=",
   "Source": "Jokify",
   "BasePath": "_content/Jokify",
   "Mode": "Default",
@@ -1035,6 +1035,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\ptero\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\6.0.15\\staticwebassets\\V5\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\css\\all-jokes.css",
+      "SourceId": "Jokify",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\",
+      "BasePath": "_content/Jokify",
+      "RelativePath": "css/all-jokes.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\all-jokes.css"
     },
     {
       "Identity": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\css\\background.css",

@@ -1,72 +1,150 @@
-﻿@model IEnumerable<JokeViewModel>
+﻿@model AllJokesQueryModel
 
 @{
     ViewBag.Title = "All Jokes";
 }
 @section Styles{
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/css/all-jokes.css" rel="stylesheet" />
+
     <style>
-        .centered-lowered-div {
-            font-size: 50px;
-            width: 300px;
-            text-align: center;
-            position: relative;
-            left: 850px;
-            top: 150px;
-            color: white;
-            
-        }
 
-        .joke-box {
-            position: relative;
-            height: auto;
-            top: 250px;
-            left: 350px;
+
+        .search-bar {
+            display: flex;
+            align-items: center;
             width: 300px;
-            background-color: lightgray;
-            padding: 20px;
+            height: 40px;
             border: 2px solid gray;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            transition: height 1.3s ease;           
-        }
-
-        .joke-box:hover{
-            height: auto;
-        }
-
-        .joke-box:hover .joke-punchline {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .joke-box h2 {
+            border-radius: 20px;
+            overflow: hidden;
             position: relative;
-            bottom: 30px;
-            margin-top: 10px;
-            text-align: center;
+            top: 150px;
         }
 
-        .joke-startup {
-            font-style: italic;
-            text-align: left;
+        .search-input {
+            flex-grow: 1;
+            width: 100%;
+            height: 100%;
+            padding: 0 10px;
+            border: none;
+            outline: none;
+            font-size: 16px;
         }
 
-        .joke-punchline{
-            visibility: hidden;
-            margin-top: 10px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        .search-button {
+            width: 40px;
+            height: 100%;
+            background-color: lightgray;
+            border: none;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
         }
 
+            .search-button:hover {
+                background-color: gray;
+            }
+
+        .search-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            color: white;
+            font-size: 18px;
+        }
     </style>
-
 }
 
 <h1 class="centered-lowered-div">@ViewData["Title"]</h1>
 
-<body>
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="Category"></label>
+                <select asp-for="Category" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category">@category</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label asp-for="SearchTerm"></label>
+            <input asp-for="SearchTerm" class="form-control" placeholder="...">
+        </div>
+
+        <div class="form-group col-md-3">
+            <div class="form-group">
+                <label asp-for="Sorting"></label>
+                <select asp-for="Sorting" class="form-control">
+                    <option value="0">Newest</option>
+                    <option value="1">Lowest price first</option>
+                    <option value="2">Not rented first</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search">
+            <button type="submit" class="search-button">
+                <span class="search-icon">&#128269;</span>
+            </button>
+        </div>
+    </div>
+</form>
+
+@{
+    var previousPage = Model.CurrentPage - 1;
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+
+    var maxPage = Math.Ceiling((double)Model.TotalJokesCount /
+        AllJokesQueryModel.JokesPerPage);
+}
+    @{
+        var prevPageButtonStatus = Model.CurrentPage == 1 ? "disabled" : string.Empty;
+        var nextPageButtonStatus = Model.CurrentPage == maxPage ||
+        !Model.Jokes.Any();
+    }
+
+<div>
+    <div>
+        <a class="arrow-button-left @prevPageButtonStatus"
+           asp-controller="Joke"
+           asp-action="All"
+           asp-route-currentPage="@previousPage"
+           asp-route-category="@Model.Category"
+           asp-route-searchTerm="@Model.SearchTerm"
+           asp-route-sorting="@((int)Model.Sorting)"></a>
+    </div>
+    <div>
+        <a class="arrow-button-right
+           @(nextPageButtonStatus ? "disabled" : string.Empty)"
+           asp-controller="Joke"
+           asp-action="All"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-category="@Model.Category"
+           asp-route-searchTerm="@Model.SearchTerm"
+           asp-route-sorting="@((int)Model.Sorting)"></a>
+    </div>
+</div>
+
+@if (!Model.Jokes.Any())
+{
+    <h2 class="text-center">No jokes found by the given criteria!</h2>
+}
+<div class="jokes-container">
     <div class="hero-in">
-        @foreach (var entity in Model)
+        @foreach (var entity in Model.Jokes)
         {
         <div class="joke-box">
             <h2>@entity.Title</h2>
@@ -75,7 +153,7 @@
         </div>
         }
     </div>
-</body>
+ </div>
 
 
 

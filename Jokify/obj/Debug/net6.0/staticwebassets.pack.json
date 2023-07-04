@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\css\\all-jokes.css",
+      "PackagePath": "staticwebassets\\css\\all-jokes.css"
+    },
+    {
       "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\css\\background.css",
       "PackagePath": "staticwebassets\\css\\background.css"
     },

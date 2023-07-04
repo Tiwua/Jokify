@@ -96,7 +96,7 @@
             joke = new Joke()
             {
                 Id = Guid.NewGuid(),
-                Title = "Favorite Computer Part",
+                Title = "Favorite PC Part",
                 Setup = "What’s an astronaut’s favorite part of a computer?",
                 Punchline = "The Space Bar!",
                 JokeCategoryId = 7,

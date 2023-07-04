@@ -1,0 +1,119 @@
+.centered-lowered-div {
+    font-size: 50px;
+    width: 300px;
+    text-align: center;
+    position: relative;
+    left: 850px;
+    top: 150px;
+    color: white;
+}
+
+.jokes-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.joke-box {
+    position: relative;
+    height: auto;
+    top: 250px;
+    left: 350px;
+    width: 300px;
+    background-color: lightgray;
+    padding: 20px;
+    border: 2px solid gray;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    transition: height 1.3s ease;
+}
+
+    .joke-box:hover {
+        height: auto;
+    }
+
+        .joke-box:hover .joke-punchline {
+            visibility: visible;
+            opacity: 1;
+        }
+
+    .joke-box h2 {
+        position: relative;
+        bottom: 30px;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+.joke-startup {
+    font-style: italic;
+    text-align: left;
+}
+
+.joke-punchline {
+    visibility: hidden;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.arrow-button-right {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-color: #ff4b2b;
+    border: none;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    left: 1350px;
+}
+
+    .arrow-button-right:hover {
+        background-color: black;
+        border: 2px solid white;
+        width: 55px;
+        height: 55px;
+        transition: 0.5s;
+    }
+
+    .arrow-button-right:before {
+        content: "\2192"; /* Unicode code for right arrow */
+        font-size: 24px;
+        line-height: 50px;
+        width: 55px;
+        height: 55px;
+        transition: 1s;
+        color: white;
+    }
+
+.arrow-button-left {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-color: #ff4b2b;
+    border: none;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    left: 350px;
+}
+
+    .arrow-button-left:hover {
+        background-color: black;
+        border: 2px solid white;
+        width: 55px;
+        height: 55px;
+        transition: 0.5s;
+    }
+
+    .arrow-button-left:before {
+        content: "\2190"; /* Unicode code for right arrow */
+        font-size: 24px;
+        line-height: 50px;
+        width: 55px;
+        height: 55px;
+        transition: 1s;
+        color: white;
+    }

@@ -8,8 +8,13 @@
 
     public class JokeQueryModel
     {
+        public JokeQueryModel()
+        {
+            this.Jokes = new HashSet<JokeServiceModel>();
+        }
+
         public int JokesCount { get; set; }
 
-        public int MyProperty { get; set; }
+        public IEnumerable<JokeServiceModel> Jokes { get; set; }
     }
 }

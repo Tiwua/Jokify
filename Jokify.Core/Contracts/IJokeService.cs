@@ -1,18 +1,18 @@
 ﻿namespace Jokify.Common.Contracts
 {
     using Jokify.Core.Models.Joke;
-    using Jokify.Infrastructure.Data.Models.MappingTables;
-    using System;
+    using Jokify.Core.Models.Joke.Enums;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     public interface IJokeService
     {
-        public Task<IEnumerable<JokeCategoryViewModel>> GetAllCategoriesAsync();
-
-        public Task<IEnumerable<JokeViewModel>> GetAllJokesAsync();
+        public Task<JokeQueryModel> GetAllJokesAsync(
+            string? category = null,
+            string? searchTerm = null,
+            JokeSorting sorting = JokeSorting.PopularAscending,
+            int currentPage = 1,
+            int jokesPerPage = 6);
 
         public Task AddJokeAsync(AddJokeViewModel model, string userId);
     }
