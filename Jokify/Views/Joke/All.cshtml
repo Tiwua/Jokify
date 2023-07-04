@@ -4,28 +4,65 @@
     ViewBag.Title = "All Jokes";
 }
 @section Styles{
-    <link href="~/css/site.css" rel="stylesheet" />
     <style>
+        .centered-lowered-div {
+            font-size: 50px;
+            width: 300px;
+            text-align: center;
+            position: relative;
+            left: 850px;
+            top: 150px;
+            color: white;
+            
+        }
+
         .joke-box {
+            position: relative;
+            top: 250px;
+            left: 350px;
             width: 300px;
             background-color: lightgray;
             padding: 20px;
             border: 2px solid gray;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            transition: height 0.3s ease;
+        }
+
+        .joke-box:hover{
+            height: auto;
+        }
+
+        .joke-box:hover .joke-punchline {
+            visibility: visible;
+            opacity: 1;
         }
 
         .joke-box h2 {
-            margin-top: 0;
+            position: relative;
+            bottom: 30px;
+            margin-top: 10px;
             text-align: center;
         }
 
         .joke-startup {
             font-style: italic;
+            text-align: left;
         }
+
+        .joke-punchline{
+            visibility: hidden;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
     </style>
 
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
+<h1 class="centered-lowered-div">@ViewData["Title"]</h1>
+
 <body>
     <div class="hero-in">
         @foreach (var entity in Model)
@@ -33,6 +70,7 @@
         <div class="joke-box">
             <h2>@entity.Title</h2>
             <p class="joke-startup">@entity.Setup</p>
+            <p class="joke-punchline">@entity.Punchline</p>
         </div>
         }
     </div>

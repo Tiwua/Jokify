@@ -18,9 +18,9 @@
 		
 		}
 
-		private static List<User> SeedUsers()
+		private static HashSet<User> SeedUsers()
 		{
-			var users = new List<User>();
+			var users = new HashSet<User>();
 
 			var hasher = new PasswordHasher<User>();
 

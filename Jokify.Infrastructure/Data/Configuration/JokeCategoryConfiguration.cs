@@ -16,9 +16,9 @@
 			builder.HasData(SeedCategories());
 		}
 
-		private static List<JokeCategory> SeedCategories()
+		private static HashSet<JokeCategory> SeedCategories()
 		{
-			List<JokeCategory> categories = new List<JokeCategory>
+            var categories = new HashSet<JokeCategory>
 			{
 				new JokeCategory
 				{

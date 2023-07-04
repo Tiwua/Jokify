@@ -7,7 +7,7 @@
 			public const int IntegerIdMinValue = 1;
 
 			public const int JokeTitleMinValue = 5;
-			public const int JokeTitleMaxValue = 50;
+			public const int JokeTitleMaxValue = 20;
 
 			public const int JokeCategoryMinValue = 5;
 			public const int JokeCategoryMaxValue = 50;
