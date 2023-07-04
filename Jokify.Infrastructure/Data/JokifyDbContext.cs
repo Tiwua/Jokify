@@ -32,6 +32,7 @@
             //Configuration
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new JokeCategoryConfiguration());
+            builder.ApplyConfiguration(new JokeConfiguration());
 
             //Fluent api
             builder
