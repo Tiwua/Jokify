@@ -120,13 +120,9 @@
     }
 
     <div class="jokes-container">
-        @foreach (var entity in Model.Jokes)
+        @foreach (var joke in Model.Jokes)
         {
-            <div class="joke-box">
-                <h2>@entity.Title</h2>
-                <p class="joke-startup">@entity.Setup</p>
-                <p class="joke-punchline">@entity.Punchline</p>
-            </div>
+            <partial name="_JokePartial" model="@joke" />
         }
     </div>
 
