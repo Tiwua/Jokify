@@ -1,5 +1,9 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model JokeServiceModel
+
+<div class="joke-box">
+    <h2>@Model.Title</h2>
+    <p class="joke-startup">@Model.Setup</p>
+    <p class="joke-punchline">@Model.Punchline</p>
+    <a asp-area="" asp-controller="House" asp-action="Details" asp-route-id="@Model.Id"
+    class="detail-button">Details</a>
+</div>
