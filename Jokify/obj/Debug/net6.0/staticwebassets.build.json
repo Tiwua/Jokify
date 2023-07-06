@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Ed0gto9qVOjrO6j8bOqHc+Jy9RK1O4ZaGmR+pXYOpic=",
+  "Hash": "76qZWE7oVDYz31B35pfkkBcaQ5j9W+ipfwO6nXQZamU=",
   "Source": "Jokify",
   "BasePath": "_content/Jokify",
   "Mode": "Default",
@@ -1256,23 +1256,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\gradiantBlue.jpg"
-    },
-    {
-      "Identity": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\js\\navbar.js",
-      "SourceId": "Jokify",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\",
-      "BasePath": "_content/Jokify",
-      "RelativePath": "js/navbar.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\navbar.js"
     },
     {
       "Identity": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\js\\script.js",

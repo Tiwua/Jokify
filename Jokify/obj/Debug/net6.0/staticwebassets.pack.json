@@ -53,10 +53,6 @@
       "PackagePath": "staticwebassets\\images\\gradiantBlue.jpg"
     },
     {
-      "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\js\\navbar.js",
-      "PackagePath": "staticwebassets\\js\\navbar.js"
-    },
-    {
       "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\js\\script.js",
       "PackagePath": "staticwebassets\\js\\script.js"
     },

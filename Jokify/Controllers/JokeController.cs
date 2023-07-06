@@ -70,7 +70,7 @@
                 query.SearchTerm,
                 query.Sorting,
                 query.CurrentPage,
-                AllJokesQueryModel.JokesPerPage);
+                query.JokesPerPage);
 
             query.TotalJokesCount = result.JokesCount;
             query.Categories = await jokeCategoryService.GetAllCategoriesNamesAsync();
