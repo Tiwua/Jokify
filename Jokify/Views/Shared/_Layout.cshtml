@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet"
           href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-
 </head>
 <body>
     <header>
@@ -38,7 +37,7 @@
         </ul>
             <partial name="_LoginPartial" />
         <div class="h-main">
-            <a href="#" class="h-btn">Joke Now</a>
+            <a asp-controller="Joke" asp-action="All" class="h-btn">Explore</a>
         </div>
     </header>
 
@@ -53,24 +52,8 @@
             &copy; @DateTime.Now.Year - Jokify
         </div>
     </footer>*@
-    <!--scripts-->
-    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>*@
-    <script src="~/js/script.js"></script>
-   @* @await RenderSectionAsync("Scripts", required: false)*@
 
-    <script src="~/js/navbar.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('.nav-link').click(function () {
-                $('.nav-link').removeClass('active');
-                $(this).addClass('active');
-            });
-        });
-    </script>
 </body>
 </html>
