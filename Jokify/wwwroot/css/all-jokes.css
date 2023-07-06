@@ -10,7 +10,7 @@
 
 .joke-box {
     position: relative;
-    height: auto;
+    height: 200px;
     top: 250px;
     left: 350px;
     width: 300px;
@@ -29,6 +29,8 @@
         .joke-box:hover .joke-punchline {
             visibility: visible;
             opacity: 1;
+            position: relative;
+            bottom: 20px;
         }
 
     .joke-box h2 {
@@ -38,9 +40,33 @@
         text-align: center;
     }
 
+
+
+.details-button {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    visibility: hidden;
+    color: black;
+}
+
+    .details-button:hover {
+        color: #ff4b2b;
+    }
+
+.joke-box:hover .details-button {
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+}
+
 .joke-startup {
     font-style: italic;
     text-align: left;
+    position: relative;
+    bottom: 20px;
 }
 
 .joke-punchline {
@@ -48,9 +74,9 @@
     margin-top: 10px;
     opacity: 0;
     transition: opacity 0.3s ease;
+    position: relative;
+    bottom: 15px;
 }
-
-
 
 
 
@@ -137,6 +163,7 @@
     top: 170px;
     left: 700px;
 }
+
 
 .search-bar {
     display: flex;

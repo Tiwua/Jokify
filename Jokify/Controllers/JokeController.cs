@@ -78,5 +78,13 @@
 
             return View(query);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details()
+        {
+            var model = new JokeDetailsViewModel();
+
+            return View(model);
+        }
     }
 }
