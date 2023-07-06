@@ -1,0 +1,35 @@
+﻿@model JokeDetailsViewModel
+
+@{
+    ViewBag.Title = "Joke Details";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="comment-section">
+    <h2>Comments</h2>
+
+    @if (Model.Comments.Count == 0)
+    {
+        <p>No comments yet.</p>
+    }
+    else
+    {
+        foreach (var comment in Model.Comments)
+        {
+            <div class="comment">
+                <p>@comment.Content</p>
+                <span class="comment-author">Posted by @comment.Owner on @comment.CreatedOn</span>
+            </div>
+        }
+    }
+
+    <form method="post" asp-action="AddComment">
+        <h3>Add a Comment</h3>
+        <div class="form-group">
+            <textarea class="form-control" name="commentText" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Post Comment</button>
+    </form>
+</div>

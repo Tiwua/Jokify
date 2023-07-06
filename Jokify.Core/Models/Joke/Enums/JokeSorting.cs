@@ -8,8 +8,8 @@
 
     public enum JokeSorting
     {
-        PopularAscending = 0,
-        PopularDescending = 1,
-        Categorry = 3
+        PopularDescending = 0,
+        PopularAscending = 1,
+        Title = 3
     }
 }

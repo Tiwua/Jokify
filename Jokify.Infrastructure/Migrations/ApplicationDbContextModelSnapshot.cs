@@ -33,6 +33,10 @@ namespace Jokify.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2")
+                        .HasComment("Date of creation");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
                         .HasComment("Delete flag that shows if the comment has been deleted");
@@ -111,7 +115,7 @@ namespace Jokify.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("bdb63ebd-57c9-4c43-b628-a24ae6a165a0"),
+                            Id = new Guid("3044806e-8b5b-4b98-8558-aeee3aa2f7ff"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -123,7 +127,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8ebbe6a9-5aa9-4115-b73b-beae168bfea3"),
+                            Id = new Guid("430875be-7fa3-4545-b967-1f7af28326f7"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -135,7 +139,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3ddead2d-3713-40cb-973d-5b45cc64bceb"),
+                            Id = new Guid("24d4167a-c645-43a6-ba49-6668ba6f1a26"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -147,7 +151,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3eab60b5-16fa-4a92-8178-4faa7eff5187"),
+                            Id = new Guid("32196f98-b817-49ea-abe6-05980c6c618a"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -159,7 +163,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("87484f13-f1f9-4c49-a117-a73280b786ec"),
+                            Id = new Guid("1f95cdc6-2c32-454e-b538-d28992243586"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -171,7 +175,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bf36a12e-18e2-43d5-8ec8-10187ff4eae2"),
+                            Id = new Guid("e531026f-e440-4553-839f-f26f08825072"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -183,7 +187,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5eafbc21-db10-4ce0-ae9b-59d090a0571a"),
+                            Id = new Guid("744668b7-1c9d-4742-beaa-f7717992d156"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -195,7 +199,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f3fdad70-1862-4f6f-943e-7fc0315b67f5"),
+                            Id = new Guid("eb3065a8-b0af-40c5-83ad-d8f6f404de62"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -392,16 +396,16 @@ namespace Jokify.Infrastructure.Migrations
                         {
                             Id = "cfbab976-a6d3-44c2-bdce-51c3b6b0412c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c8a7e76f-648a-4891-ba78-938aa55305ef",
+                            ConcurrencyStamp = "8b87ec4f-769b-40a7-a8db-abfdc817bb5b",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAENRPZL31HMo2sDOEwSXYhDsRNayeLkg2P/y5cHKQEckS2Wxhurmri828Wj4c+oaqoQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPWfnLHhOx6BZRHyDTZOW/CWtfj/T60A0V/G1fArfYfPvPzg13faUn9wPjAi319djw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "756a239f-35a1-4b7e-9c81-98ab4338c2ce",
+                            SecurityStamp = "9c2dcbae-fc5c-4876-b205-a95f24ed0e18",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
@@ -409,16 +413,16 @@ namespace Jokify.Infrastructure.Migrations
                         {
                             Id = "ae64ca1c-5403-4f2f-a25d-0a1249145ad3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ae621c5e-e3f2-4026-9d36-7c678b707a44",
+                            ConcurrencyStamp = "a5da0b6f-87db-425b-b508-cca21282d6f0",
                             Email = "someone@gmail.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "SOMEONE@GMAIL.COM",
                             NormalizedUserName = "SOMEONE",
-                            PasswordHash = "AQAAAAEAACcQAAAAEM77YRPb7Qsks+abgqnr0UyYUjGg8zD9IAu1pOvwuHy2ecms6P75ODyzQ9vd+o8iVQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECG1GGeb80/lw62gFYFNiMOWW/cyfvtz8nByh8nEHg8jQkH41LSDGrAhqIwEth76jw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1ab9752a-c6d4-4dbf-8c52-3736621d265b",
+                            SecurityStamp = "1731acb9-c50c-43fa-a372-480f39091882",
                             TwoFactorEnabled = false,
                             UserName = "someone"
                         });

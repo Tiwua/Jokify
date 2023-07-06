@@ -43,7 +43,7 @@
             await repository.SaveChangesAsync();
         }
 
-        public async Task<JokeQueryModel> GetAllJokesAsync(string? category = null, string? searchTerm = null, JokeSorting sorting = JokeSorting.PopularAscending, int currentPage = 1, int jokesPerPage = 6)
+        public async Task<JokeQueryModel> GetAllJokesAsync(string? category = null, string? searchTerm = null, JokeSorting sorting = JokeSorting.PopularDescending, int currentPage = 1, int jokesPerPage = 6)
         {
             var result = new JokeQueryModel();
             var jokes = repository.AllReadonly<Joke>()
@@ -69,7 +69,7 @@
                     JokeSorting.PopularAscending => jokes
                          .OrderBy(j => j.FavoriteJokes.Count()),
                     JokeSorting.PopularDescending => jokes
-                         .OrderByDescending(j => j.FavoriteJokes.Count()),
+                         .OrderBy(j => j.Title),
                     _ => jokes.OrderByDescending(j => j.Id)
                 };
 

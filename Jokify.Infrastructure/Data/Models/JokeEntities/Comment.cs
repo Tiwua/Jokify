@@ -36,6 +36,9 @@
         [Comment("Popular flag that shows if the comment is popular")]
         public bool IsPopular { get; set; }
 
+        [Comment("Date of creation")]
+        public DateTime CreatedOn { get; set; }
+
         public IEnumerable<JokeComment> JokeComments { get; set; }
     }
 }

@@ -6,6 +6,12 @@
 @section Styles{
 
     <style>
+        .button-left[disabled] {
+            border: 1px solid #999999;
+            background-color: #cccccc;
+            color: #666666;
+        }
+
         .search-bar {
             display: flex;
             align-items: center;
@@ -14,9 +20,9 @@
             border: 2px solid gray;
             border-radius: 20px;
             overflow: hidden;
-            position: relative;
-            bottom: 250px;
-            left: 1250px;
+            position: fixed;
+            bottom: 720px;
+            left: 360px;
         }
 
         .search-input {
@@ -95,21 +101,17 @@
     </select>
     </div>
     </div>
-
-    <div class="form-group col-md-3">
-    <div class="form-group">
-    <label asp-for="Sorting"></label>
-    <select asp-for="Sorting" class="form-control">
-    <option value="0">Newest</option>
-    <option value="1">Lowest price first</option>
-    <option value="2">Not rented first</option>
-    </select>
-    </div>
-    </div>
     </div>
     *@
 
 
+
+
+    <select id="sortDropdown" asp-for="Sorting">
+        <option value="0">Popular</option>
+        <option value="1">Least Popular</option>
+        <option value="2">Title</option>
+    </select>
 
 
     @if (!Model.Jokes.Any())
@@ -130,7 +132,7 @@
 
     <div>
         <div class="left">
-            <a class="button-left @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+            <a class="button-left@(Model.CurrentPage == 1 ? "-disabled" : string.Empty)"
                asp-controller="Joke"
                asp-action="All"
                asp-route-currentPage="@previousPage"
@@ -140,7 +142,7 @@
         </div>
 
         <div class="right">
-            <a class="button-right @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
+            <a class="button-right@(shouldButtonBeDisabled ? "-disabled" : string.Empty)"
                asp-controller="Joke"
                asp-action="All"
                asp-route-currentPage="@(Model.CurrentPage + 1)"
@@ -151,17 +153,38 @@
 
 
     </div>
+
     <form method="get">
         <div class="search-bar">
-            <input class="search-input" asp-for="SearchTerm" placeholder="Search">
+            <input class="search-input" asp-for="SearchTerm" placeholder="Find a joke">
             <button type="submit" class="search-button">
                 <span class="search-icon">&#128269;</span>
             </button>
         </div>
+         
     </form>
 </body>
 
+<script>
+    document.getElementById("sortDropdown").addEventListener("change", function () {
+        var selectedOption = this.value;
 
+        if (selectedOption) {
+            // Perform AJAX request to load the sorted entities
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var entityContent = xhr.responseText;
+                    document.getElementsByClassName("joke-box").innerHTML = entityContent;
+                }
+            };
+            xhr.open("GET", "/Joke/All/SortEntities?option=" + selectedOption, true);
+            xhr.send();
+        } else {
+            document.getElementByClassName("joke-box").innerHTML = "";
+        }
+    });
+</script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
