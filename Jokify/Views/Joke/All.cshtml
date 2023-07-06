@@ -6,83 +6,50 @@
 @section Styles{
 
     <style>
-        .jokes-container {
+        .search-bar {
+            display: flex;
+            align-items: center;
+            width: 300px;
+            height: 40px;
+            border: 2px solid gray;
+            border-radius: 20px;
+            overflow: hidden;
             position: relative;
-            right: 200px;
-            left: 10px;
-            bottom: 50px;
-            top: 40px;
-            display: inline-grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-gap: 100px;
-            grid-row-gap: 50px;
+            top: 150px;
         }
 
-        .button-left {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            background-color: #ff4b2b;
+        .search-input {
+            flex-grow: 1;
+            width: 100%;
+            height: 100%;
+            padding: 0 10px;
             border: none;
-            border-radius: 50%;
-            text-align: center;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .search-button {
+            width: 40px;
+            height: 100%;
+            background-color: lightgray;
+            border: none;
+            border-radius: 0 20px 20px 0;
             cursor: pointer;
         }
 
-            .button-left:hover {
-                background-color: black;
-                border: 2px solid white;
-                width: 55px;
-                height: 55px;
-                transition: 0.5s;
+            .search-button:hover {
+                background-color: gray;
             }
 
-            .button-left:before {
-                content: "\2190"; /* Unicode code for left arrow */
-                font-size: 24px;
-                line-height: 50px;
-                width: 55px;
-                height: 55px;
-                transition: 1s;
-                color: white;
-            }
-
-        .button-right {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            border: none;
-            border-radius: 50%;
-            text-align: center;
-            cursor: pointer;
-            background-color: #ff4b2b;
+        .search-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            color: white;
+            font-size: 18px;
         }
-
-            .button-right:before {
-                content: "\2192"; /* Unicode code for right arrow */
-                font-size: 24px;
-                width: 55px;
-                height: 55px;
-                transition: 1s;
-                color: white;
-            }
-
-            .button-right:hover {
-                background-color: black;
-                width: 55px;
-                height: 55px;
-                transition: 0.5s;
-            }
-
-            .right{
-                position: fixed;
-                top:100px;
-                left: 1350px;
-            }
-            .left{
-                position: fixed;
-                top: 100px;
-            }
     </style>
     <link href="~/css/all-jokes.css" rel="stylesheet" />
 
