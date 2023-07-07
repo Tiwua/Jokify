@@ -23,6 +23,8 @@
 
         public string Punchline { get; set; } = null!;
 
+        public string OwnerName { get; set; } = null!;
+
         public bool IsDeleted { get; set; }
 
         public bool IsEdited { get; set; }

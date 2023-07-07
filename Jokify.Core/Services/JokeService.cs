@@ -2,6 +2,7 @@
 {
     using HouseRentingSystem.Infrastructure.Data.Common;
     using Jokify.Common.Contracts;
+    using Jokify.Core.Models.Comment;
     using Jokify.Core.Models.Joke;
     using Jokify.Core.Models.Joke.Enums;
     using Jokify.Infrastructure.Data;
@@ -43,6 +44,11 @@
             await repository.SaveChangesAsync();
         }
 
+        public Task<bool> Exists(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<JokeQueryModel> GetAllJokesAsync(string? category = null, string? searchTerm = null, JokeSorting sorting = JokeSorting.PopularDescending, int currentPage = 1, int jokesPerPage = 6)
         {
             var result = new JokeQueryModel();
@@ -69,6 +75,8 @@
                     JokeSorting.PopularAscending => jokes
                          .OrderBy(j => j.FavoriteJokes.Count()),
                     JokeSorting.PopularDescending => jokes
+                         .OrderByDescending(j => j.FavoriteJokes.Count()),
+                    JokeSorting.Title => jokes
                          .OrderBy(j => j.Title),
                     _ => jokes.OrderByDescending(j => j.Id)
                 };
@@ -92,5 +100,25 @@
             return result;
         }
 
+        public async Task<JokeDetailsViewModel> JokeDetailsByTitle(string title)
+        {
+            var result = await repository.AllReadonly<Joke>()
+                .Where(j => !j.IsDeleted)
+                .Where(j => j.Title == title)
+                .Select(j => new JokeDetailsViewModel()
+                {
+                    Id = j.Id,
+                    Title = j.Title,
+                    Setup = j.Setup,
+                    Punchline = j.Punchline,
+                    IsPopular = j.IsPopular,
+                    IsEdited = j.IsEdited,
+                    OwnerName = j.User.UserName
+                }).FirstAsync();
+
+            ;
+
+            return result;
+        }
     }
 }

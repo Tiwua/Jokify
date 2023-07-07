@@ -15,5 +15,9 @@
             int jokesPerPage = 6);
 
         public Task AddJokeAsync(AddJokeViewModel model, string userId);
+
+        public Task<bool> Exists(int id);
+
+        public Task<JokeDetailsViewModel> JokeDetailsByTitle(string title);
     }
 }

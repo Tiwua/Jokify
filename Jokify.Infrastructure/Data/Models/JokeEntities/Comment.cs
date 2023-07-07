@@ -1,8 +1,10 @@
 ﻿namespace Jokify.Infrastructure.Data.Models.JokeEntities
 {
+    using Jokify.Infrastructure.Data.Models.MappingTables;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using static Jokify.Infrastructure.Common.DataConstants.Comment;
 
     [Comment("Joke comment")]
@@ -10,11 +12,10 @@
     {
         public Comment()
         {
-            this.Id = Guid.NewGuid();
-            this.IsPopular = false;
-            this.IsEdited = false;
-            this.IsDeleted = false;
-            this.JokeComments = new List<JokeComment>();
+            Id = Guid.NewGuid();
+            IsPopular = false;
+            IsEdited = false;
+            IsDeleted = false;
         }
 
         [Key]
@@ -39,6 +40,14 @@
         [Comment("Date of creation")]
         public DateTime CreatedOn { get; set; }
 
-        public IEnumerable<JokeComment> JokeComments { get; set; }
+
+        [Required]
+        [Comment("Foreign Key referencing Joke")]
+        [ForeignKey(nameof(Joke))]
+        public Guid JokeId { get; set; }
+
+        [Comment("Comment of the joke")]
+        public Joke Joke { get; set; } = null!;
+
     }
 }

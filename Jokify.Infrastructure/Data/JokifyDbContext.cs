@@ -1,11 +1,12 @@
 ﻿namespace Jokify.Infrastructure.Data
 {
     using Jokify.Infrastructure.Data.Configuration;
-	using Jokify.Infrastructure.Data.Models;
+    using Jokify.Infrastructure.Data.Models;
     using Jokify.Infrastructure.Data.Models.JokeEntities;
     using Jokify.Infrastructure.Data.Models.MappingTables;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using System.Runtime.CompilerServices;
     using static Jokify.Infrastructure.Common.DataConstants.Joke;
 
     public class JokifyDbContext : IdentityDbContext<User>
@@ -21,8 +22,6 @@
 
         public DbSet<JokeCategory> JokeCategories { get; set; } = null!;
 
-        public DbSet<JokeComment> JokesComments { get; set; } = null!;
-
         public DbSet<UserFavoriteJoke> UsersFavoritesJokes { get; set; } = null!;
 
         public DbSet<UserJoke> UsersJokes { get; set; } = null!;
@@ -35,9 +34,6 @@
             builder.ApplyConfiguration(new JokeConfiguration());
 
             //Fluent api
-            builder
-                .Entity<JokeComment>()
-                .HasKey(jk => new { jk.CommentId, jk.JokeId });
 
             builder
                 .Entity<UserFavoriteJoke>()
@@ -55,10 +51,12 @@
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder
-                .Entity<UserJoke>()
+               .Entity<UserJoke>()
                .HasOne(u => u.User)
                .WithMany(j => j.CreatedJokes)
                .OnDelete(DeleteBehavior.NoAction);
+
+            
 
             base.OnModelCreating(builder);
         }

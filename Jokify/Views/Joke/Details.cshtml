@@ -3,9 +3,110 @@
 @{
     ViewBag.Title = "Joke Details";
 }
+<style>
+    .container {
+        position: relative;
+        width: 300px;
+        height: 200px;
+        top: 200px;
+        left: 200px;
+        background-color: #f2f2f2;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+        .container:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+    .details-button {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        padding: 8px 16px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .container:hover .details-button {
+        opacity: 1;
+    }
+
+    .joke-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .setup {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .punchline {
+        font-style: italic;
+        margin-bottom: 20px;
+    }
+
+    button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .edit-button {
+        background-color: #2196F3;
+        color: white;
+        margin-right: 10px;
+    }
+
+    .delete-button {
+        background-color: #F44336;
+        color: white;
+    }
+
+    .like-button {
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
+
+<div class="joke-container">
+    <h2>Joke</h2>
+    <p class="setup">@Model.Setup</p>
+    <p class="punchline">@Model.Punchline</p>
+
+    @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.OwnerName)
+    {
+        <button class="edit-button">Edit</button>
+        <button class="delete-button">Delete</button>
+    }
+    else
+    {
+        <button class="like-button">Like</button>
+    }
+</div>
 
 <div class="comment-section">
     <h2>Comments</h2>
@@ -20,7 +121,7 @@
         {
             <div class="comment">
                 <p>@comment.Content</p>
-                <span class="comment-author">Posted by @comment.Owner on @comment.CreatedOn</span>
+                <span class="comment-author">Posted by @comment.UserId on @comment.CreatedOn</span>
             </div>
         }
     }

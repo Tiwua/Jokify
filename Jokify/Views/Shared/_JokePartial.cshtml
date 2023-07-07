@@ -4,6 +4,6 @@
     <h2>@Model.Title</h2>
     <p class="joke-startup">@Model.Setup</p>
     <p class="joke-punchline">@Model.Punchline</p>
-    <a asp-area="" asp-controller="Joke" asp-action="Details" asp-route-id="@Model.Id"
-    class="details-button">Details</a>
+    <a asp-area="" asp-controller="Joke" asp-action="Details" asp-route-title="@Model.Title"
+       class="details-button">Details</a>
 </div>

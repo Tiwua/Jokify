@@ -10,7 +10,7 @@
     {
         public string Content { get; set; } = null!;
 
-        public string Owner { get; set; } = null!;
+        public string UserId { get; set; } = null!;
 
         public string CreatedOn { get; set; } = null!;
     }

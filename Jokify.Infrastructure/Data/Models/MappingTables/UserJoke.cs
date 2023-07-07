@@ -9,7 +9,6 @@
     public class UserJoke
     {
         // Composite primary key
-
         [Required]
         [Comment("Primary key refering user's created joke")]
         [ForeignKey(nameof(User))]

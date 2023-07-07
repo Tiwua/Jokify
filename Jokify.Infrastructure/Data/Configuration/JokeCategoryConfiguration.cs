@@ -1,15 +1,15 @@
 ﻿namespace Jokify.Infrastructure.Data.Configuration
 {
-	using Jokify.Infrastructure.Data.Models.MappingTables;
-	using Microsoft.EntityFrameworkCore;
-	using Microsoft.EntityFrameworkCore.Metadata.Builders;
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-	using System.Threading.Tasks;
+    using Jokify.Infrastructure.Data.Models.JokeEntities;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
 
-	internal class JokeCategoryConfiguration : IEntityTypeConfiguration<JokeCategory>
+    internal class JokeCategoryConfiguration : IEntityTypeConfiguration<JokeCategory>
 	{
 		public void Configure(EntityTypeBuilder<JokeCategory> builder)
 		{

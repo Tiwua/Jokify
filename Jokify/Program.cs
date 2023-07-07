@@ -8,15 +8,14 @@ namespace Jokify
     using Jokify.Extensions;
     using Jokify.Infrastructure.Data;
 	using Jokify.Infrastructure.Data.Models;
-	using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
 
-	public class Program
-	{
-		public static void Main(string[] args)
-		{
-			var builder = WebApplication.CreateBuilder(args);
-
-			// Add services to the container.
+            // Add services to the container.
 			var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 			builder.Services.AddDbContext<JokifyDbContext>(options =>
 				options.UseSqlServer(connectionString));
@@ -39,8 +38,7 @@ namespace Jokify
 			builder.Services.AddControllersWithViews();
 			builder.Services.AddApplicationServices();
 
-
-			var app = builder.Build();
+            var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())

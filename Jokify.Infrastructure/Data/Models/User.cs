@@ -1,5 +1,6 @@
 ﻿namespace Jokify.Infrastructure.Data.Models
 {
+    using Jokify.Infrastructure.Data.Models.JokeEntities;
     using Jokify.Infrastructure.Data.Models.MappingTables;
     using Microsoft.AspNetCore.Identity;
     using System.ComponentModel.DataAnnotations;
@@ -11,6 +12,7 @@
         {
             FavoriteJokes = new HashSet<UserFavoriteJoke>();
             CreatedJokes = new HashSet<UserJoke>();
+            CreatedComments = new HashSet<Comment>();
             IsDeleted = false;
         }
 
@@ -31,6 +33,8 @@
         }
 
         public bool IsDeleted { get; set; }
+
+        public ICollection<Comment> CreatedComments { get; set; }
 
         public ICollection<UserFavoriteJoke> FavoriteJokes { get; set; }
 

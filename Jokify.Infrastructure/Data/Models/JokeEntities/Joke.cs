@@ -16,8 +16,9 @@
             IsDeleted = false;
             IsEdited = false;
             IsPopular = false;
-            this.FavoriteJokes = new HashSet<UserFavoriteJoke>();
-            this.JokeComments = new HashSet<JokeComment>();
+            FavoriteJokes = new HashSet<UserFavoriteJoke>();
+            UserJokes = new HashSet<UserJoke>();
+            Comments = new HashSet<Comment>();
         }
 
         [Key]
@@ -73,7 +74,8 @@
         public User User { get; set; } = null!;
 
         //Collections
-        public IEnumerable<UserFavoriteJoke> FavoriteJokes { get; set; }
-        public IEnumerable<JokeComment> JokeComments { get; set; }
+        public ICollection<UserFavoriteJoke> FavoriteJokes { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<UserJoke> UserJokes { get; set; }
     }
 }

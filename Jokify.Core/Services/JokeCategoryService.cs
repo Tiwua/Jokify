@@ -3,7 +3,7 @@
     using HouseRentingSystem.Infrastructure.Data.Common;
     using Jokify.Core.Contracts;
     using Jokify.Core.Models.Joke;
-    using Jokify.Infrastructure.Data.Models.MappingTables;
+    using Jokify.Infrastructure.Data.Models.JokeEntities;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;

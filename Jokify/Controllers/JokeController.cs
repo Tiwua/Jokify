@@ -6,6 +6,7 @@
     using Jokify.Infrastructure.Data.Models.JokeEntities;
     using Jokify.Models;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Mvc;
 
 
@@ -79,10 +80,10 @@
             return View(query);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Details()
-        {
-            var model = new JokeDetailsViewModel();
+        [HttpGet("Joke/Details/{title}")]
+        public async Task<IActionResult> Details(string title)
+        {          
+            var model = await jokeService.JokeDetailsByTitle(title);
 
             return View(model);
         }
