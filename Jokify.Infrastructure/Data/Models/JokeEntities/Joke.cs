@@ -75,7 +75,9 @@
 
         //Collections
         public ICollection<UserFavoriteJoke> FavoriteJokes { get; set; }
+
         public ICollection<Comment> Comments { get; set; }
+
         public ICollection<UserJoke> UserJokes { get; set; }
     }
 }

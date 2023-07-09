@@ -36,6 +36,6 @@
         [StringLength(CommentContentMaxValue, MinimumLength = CommentContentMinValue)]
         public string? CommentContent { get; set; }
 
-        public HashSet<CommentViewModel>  Comments { get; set; }
+        public ICollection<CommentViewModel>  Comments { get; set; }
     }
 }

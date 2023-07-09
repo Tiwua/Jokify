@@ -26,7 +26,7 @@
         {
             this.repository = repository;
             this.context = context;
-        } 
+        }
 
         public async Task AddCommentToJokeAsync(string title, string commentContent, string userId)
         {
@@ -39,25 +39,42 @@
             {
                 return;
             }
-                var date = DateTime.Now.ToString("F");
 
-                var comment = new Comment()
-                {
-                    Content = commentContent,
-                    Joke = joke,
-                    JokeId = joke.Id,
-                    CreatedOn = DateTime.Parse(date),
+            var user = await repository.GetByIdAsync<User>(userId);
 
-                };
+            var date = DateTime.Now.ToString("F");
 
-                
+            var comment = new Comment()
+            {
+                Content = commentContent,
+                CreatedOn = DateTime.Parse(date),
+                JokeId = joke.Id,
+                UserId = userId
+            };
+
+            await context.JokesComments.AddAsync(new JokeComment()
+            {
+                JokeId = joke.Id,
+                CommentId = comment.Id
+            });
+
+            joke.Comments.Add(comment);
+            await context.Comments.AddAsync(comment);
+            await context.SaveChangesAsync();
 
         }
 
         public async Task AddJokeAsync(AddJokeViewModel model, string userId)
         {
+            var user = await repository.GetByIdAsync<User>(userId);
+            var joke = await repository.GetByTitleAsync<Joke>(model.Title);
 
-            var joke = new Joke()
+            if (joke == null)
+            {
+                throw new ArgumentException("Cannot have multiple jokes with the same Title");
+            }
+
+            joke = new Joke()
             {
                 Title = model.Title,
                 Setup = model.Setup,
@@ -65,6 +82,16 @@
                 UserId = userId,
                 JokeCategoryId = model.CategoryId
             };
+
+
+
+            user.CreatedJokes.Add(new UserJoke
+            {
+                User = user,
+                UserId = userId,
+                Joke = joke,
+                JokeId = joke.Id
+            });
 
             await repository.AddAsync(joke);
             await repository.SaveChangesAsync();
@@ -96,16 +123,16 @@
                     EF.Functions.Like(j.Punchline.ToLower(), searchTerm));
             }
 
-                jokes = sorting switch
-                {
-                    JokeSorting.PopularAscending => jokes
-                         .OrderBy(j => j.FavoriteJokes.Count()),
-                    JokeSorting.PopularDescending => jokes
-                         .OrderByDescending(j => j.FavoriteJokes.Count()),
-                    JokeSorting.Title => jokes
-                         .OrderBy(j => j.Title),
-                    _ => jokes.OrderByDescending(j => j.Id)
-                };
+            jokes = sorting switch
+            {
+                JokeSorting.PopularAscending => jokes
+                     .OrderBy(j => j.FavoriteJokes.Count()),
+                JokeSorting.PopularDescending => jokes
+                     .OrderByDescending(j => j.FavoriteJokes.Count()),
+                JokeSorting.Title => jokes
+                     .OrderBy(j => j.Title),
+                _ => jokes.OrderByDescending(j => j.Id)
+            };
 
             result.Jokes = await jokes
                 .Skip((currentPage - 1) * jokesPerPage)
@@ -119,7 +146,7 @@
                     IsPopular = j.IsPopular,
                     IsEdited = j.IsEdited,
                     IsDeleted = j.IsDeleted,
-                }).ToListAsync(); 
+                }).ToListAsync();
 
             result.JokesCount = await jokes.CountAsync();
 
@@ -139,8 +166,15 @@
                     Punchline = j.Punchline,
                     IsPopular = j.IsPopular,
                     IsEdited = j.IsEdited,
-                    OwnerName = j.User.UserName
-                }).FirstAsync();
+                    OwnerName = j.User.UserName,
+                    Comments = j.Comments
+                    .Select(c => new CommentViewModel()
+                    {
+                        Content = c.Content,
+                        CreatedOn = c.CreatedOn.ToString(),
+                        UserId = c.UserId
+                    }).ToHashSet()
+                }).FirstAsync()
 
             ;
 

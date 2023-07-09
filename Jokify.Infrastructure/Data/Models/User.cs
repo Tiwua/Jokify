@@ -4,6 +4,7 @@
     using Jokify.Infrastructure.Data.Models.MappingTables;
     using Microsoft.AspNetCore.Identity;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using static Jokify.Infrastructure.Common.DataConstants.User;
 
     public class User : IdentityUser
@@ -33,6 +34,7 @@
         }
 
         public bool IsDeleted { get; set; }
+
 
         public ICollection<Comment> CreatedComments { get; set; }
 

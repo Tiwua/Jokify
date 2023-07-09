@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jokify.Infrastructure.Migrations
 {
     [DbContext(typeof(JokifyDbContext))]
-    [Migration("20230704203236_JokesDataSeeded")]
-    partial class JokesDataSeeded
+    [Migration("20230709134155_FillDb")]
+    partial class FillDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,6 +35,10 @@ namespace Jokify.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2")
+                        .HasComment("Date of creation");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
                         .HasComment("Delete flag that shows if the comment has been deleted");
@@ -47,7 +51,18 @@ namespace Jokify.Infrastructure.Migrations
                         .HasColumnType("bit")
                         .HasComment("Popular flag that shows if the comment is popular");
 
+                    b.Property<Guid>("JokeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("JokeId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
 
@@ -113,7 +128,7 @@ namespace Jokify.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("bdb63ebd-57c9-4c43-b628-a24ae6a165a0"),
+                            Id = new Guid("310300b6-b970-434d-a728-1b0607430abc"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -125,7 +140,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8ebbe6a9-5aa9-4115-b73b-beae168bfea3"),
+                            Id = new Guid("895741c6-4a07-4722-a0bd-58441ec638cc"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -137,7 +152,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3ddead2d-3713-40cb-973d-5b45cc64bceb"),
+                            Id = new Guid("0ba2df52-b661-46c1-b6de-e232541f221f"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -149,7 +164,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3eab60b5-16fa-4a92-8178-4faa7eff5187"),
+                            Id = new Guid("22549909-6968-4a92-a66c-8895405ecb8d"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -161,7 +176,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("87484f13-f1f9-4c49-a117-a73280b786ec"),
+                            Id = new Guid("30b62e44-bb9a-4b06-b3b2-da39fcffd2de"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -173,7 +188,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bf36a12e-18e2-43d5-8ec8-10187ff4eae2"),
+                            Id = new Guid("0f0dd9d1-663c-42e8-a30f-e851aea33981"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -185,7 +200,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5eafbc21-db10-4ce0-ae9b-59d090a0571a"),
+                            Id = new Guid("e46b98d6-1c27-4ea2-b5ab-fda048c2c14d"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -197,7 +212,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f3fdad70-1862-4f6f-943e-7fc0315b67f5"),
+                            Id = new Guid("e34bf823-a6e3-461a-92e2-6f5e54eb5bd7"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -209,24 +224,7 @@ namespace Jokify.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Jokify.Infrastructure.Data.Models.JokeEntities.JokeComment", b =>
-                {
-                    b.Property<Guid>("CommentId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Primary key refering comment of the joke");
-
-                    b.Property<Guid>("JokeId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Primary key refering the joke");
-
-                    b.HasKey("CommentId", "JokeId");
-
-                    b.HasIndex("JokeId");
-
-                    b.ToTable("JokesComments");
-                });
-
-            modelBuilder.Entity("Jokify.Infrastructure.Data.Models.MappingTables.JokeCategory", b =>
+            modelBuilder.Entity("Jokify.Infrastructure.Data.Models.JokeEntities.JokeCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -284,6 +282,23 @@ namespace Jokify.Infrastructure.Migrations
                             Id = 8,
                             Name = "Dark humor"
                         });
+                });
+
+            modelBuilder.Entity("Jokify.Infrastructure.Data.Models.JokeEntities.JokeComment", b =>
+                {
+                    b.Property<Guid>("JokeId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Primary key refering the joke");
+
+                    b.Property<Guid>("CommentId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Primary key refering comment of the joke");
+
+                    b.HasKey("JokeId", "CommentId");
+
+                    b.HasIndex("CommentId");
+
+                    b.ToTable("JokesComments");
                 });
 
             modelBuilder.Entity("Jokify.Infrastructure.Data.Models.MappingTables.UserFavoriteJoke", b =>
@@ -394,16 +409,16 @@ namespace Jokify.Infrastructure.Migrations
                         {
                             Id = "cfbab976-a6d3-44c2-bdce-51c3b6b0412c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c8a7e76f-648a-4891-ba78-938aa55305ef",
+                            ConcurrencyStamp = "8ec2af8b-3220-4b99-a760-e283e863b20c",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAENRPZL31HMo2sDOEwSXYhDsRNayeLkg2P/y5cHKQEckS2Wxhurmri828Wj4c+oaqoQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN5hoVZT/EFggLb9P3ytXALRMALXn5oD1rP8kqOXKiniVjkEjLHgdkZk1vYjMj5/Pg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "756a239f-35a1-4b7e-9c81-98ab4338c2ce",
+                            SecurityStamp = "a1fc58f9-83f0-4b9a-8eca-bf20475cde7c",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
@@ -411,16 +426,16 @@ namespace Jokify.Infrastructure.Migrations
                         {
                             Id = "ae64ca1c-5403-4f2f-a25d-0a1249145ad3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ae621c5e-e3f2-4026-9d36-7c678b707a44",
+                            ConcurrencyStamp = "52989804-6104-4abd-a14f-02836dbcb956",
                             Email = "someone@gmail.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "SOMEONE@GMAIL.COM",
                             NormalizedUserName = "SOMEONE",
-                            PasswordHash = "AQAAAAEAACcQAAAAEM77YRPb7Qsks+abgqnr0UyYUjGg8zD9IAu1pOvwuHy2ecms6P75ODyzQ9vd+o8iVQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELrAr8WE3YcuxzMp357GBAupkq5QQblcGOIJ8pwfS1Qh5cdKw2z5KxDDs/I54URkGw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1ab9752a-c6d4-4dbf-8c52-3736621d265b",
+                            SecurityStamp = "1520e827-8c02-483b-93aa-b999036973f8",
                             TwoFactorEnabled = false,
                             UserName = "someone"
                         });
@@ -563,10 +578,29 @@ namespace Jokify.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Jokify.Infrastructure.Data.Models.JokeEntities.Comment", b =>
+                {
+                    b.HasOne("Jokify.Infrastructure.Data.Models.JokeEntities.Joke", "Joke")
+                        .WithMany("Comments")
+                        .HasForeignKey("JokeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Jokify.Infrastructure.Data.Models.User", "User")
+                        .WithMany("CreatedComments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Joke");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Jokify.Infrastructure.Data.Models.JokeEntities.Joke", b =>
                 {
-                    b.HasOne("Jokify.Infrastructure.Data.Models.MappingTables.JokeCategory", "Category")
-                        .WithMany()
+                    b.HasOne("Jokify.Infrastructure.Data.Models.JokeEntities.JokeCategory", "Category")
+                        .WithMany("Jokes")
                         .HasForeignKey("JokeCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -585,13 +619,13 @@ namespace Jokify.Infrastructure.Migrations
             modelBuilder.Entity("Jokify.Infrastructure.Data.Models.JokeEntities.JokeComment", b =>
                 {
                     b.HasOne("Jokify.Infrastructure.Data.Models.JokeEntities.Comment", "Comment")
-                        .WithMany("JokeComments")
+                        .WithMany()
                         .HasForeignKey("CommentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Jokify.Infrastructure.Data.Models.JokeEntities.Joke", "Joke")
-                        .WithMany("JokeComments")
+                        .WithMany()
                         .HasForeignKey("JokeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -623,7 +657,7 @@ namespace Jokify.Infrastructure.Migrations
             modelBuilder.Entity("Jokify.Infrastructure.Data.Models.MappingTables.UserJoke", b =>
                 {
                     b.HasOne("Jokify.Infrastructure.Data.Models.JokeEntities.Joke", "Joke")
-                        .WithMany()
+                        .WithMany("UserJokes")
                         .HasForeignKey("JokeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -690,20 +724,24 @@ namespace Jokify.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Jokify.Infrastructure.Data.Models.JokeEntities.Comment", b =>
-                {
-                    b.Navigation("JokeComments");
-                });
-
             modelBuilder.Entity("Jokify.Infrastructure.Data.Models.JokeEntities.Joke", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("FavoriteJokes");
 
-                    b.Navigation("JokeComments");
+                    b.Navigation("UserJokes");
+                });
+
+            modelBuilder.Entity("Jokify.Infrastructure.Data.Models.JokeEntities.JokeCategory", b =>
+                {
+                    b.Navigation("Jokes");
                 });
 
             modelBuilder.Entity("Jokify.Infrastructure.Data.Models.User", b =>
                 {
+                    b.Navigation("CreatedComments");
+
                     b.Navigation("CreatedJokes");
 
                     b.Navigation("FavoriteJokes");

@@ -26,6 +26,8 @@
 
         public DbSet<UserJoke> UsersJokes { get; set; } = null!;
 
+        public DbSet<JokeComment> JokesComments { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //Configuration
@@ -34,6 +36,9 @@
             builder.ApplyConfiguration(new JokeConfiguration());
 
             //Fluent api
+            builder
+                .Entity<JokeComment>()
+                .HasKey(jc => new { jc.JokeId, jc.CommentId });
 
             builder
                 .Entity<UserFavoriteJoke>()
@@ -42,7 +47,6 @@
             builder
                 .Entity<UserJoke>()
                 .HasKey(uj => new { uj.UserId, uj.JokeId });
-
 
             builder
                 .Entity<UserFavoriteJoke>()
@@ -56,7 +60,19 @@
                .WithMany(j => j.CreatedJokes)
                .OnDelete(DeleteBehavior.NoAction);
 
-            
+            builder
+                .Entity<Comment>()
+                .HasOne(u => u.User)
+                .WithMany(c => c.CreatedComments)
+                .HasForeignKey(u => u.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder
+                .Entity<Comment>()
+                .HasOne(j => j.Joke)
+                .WithMany(c => c.Comments)
+                .HasForeignKey(j => j.JokeId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             base.OnModelCreating(builder);
         }

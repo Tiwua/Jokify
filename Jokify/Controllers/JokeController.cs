@@ -85,11 +85,21 @@
 
         [HttpGet("Joke/Details/{title}")]
         public async Task<IActionResult> Details(string title)
-        {          
-            var model = await jokeService.JokeDetailsByTitle(title);
-    
+        {
+            try
+            {
+                var model = await jokeService.JokeDetailsByTitle(title);
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception)
+            {
+
+                ModelState.AddModelError(string.Empty, "Invalid joke title");
+
+                return RedirectToAction(nameof(All));
+            }
+
         }
 
         [HttpPost]
