@@ -34,9 +34,10 @@
 		[HttpPost]
 		public async Task<IActionResult> Register(RegisterViewModel model)
 		{
-			if (!ModelState.IsValid) 
-			{
-				return View(model);
+			if (!ModelState.IsValid)
+            {
+                ViewBag.Class = "register";
+                return View(model);
 			}
 
 			User user = new User()
@@ -76,7 +77,8 @@
 		{
 			if (!ModelState.IsValid)
 			{
-				return View(model);
+                ViewBag.Class = "login";
+                return View(model);
 			}
 
 			var user = await userManager.FindByNameAsync(model.UserName);
