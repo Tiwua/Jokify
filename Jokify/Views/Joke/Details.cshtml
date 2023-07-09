@@ -6,8 +6,9 @@
 <style>
     .container {
         position: relative;
-        width: 300px;
-        height: 200px;
+        width: 400px;
+        height: 500px;
+        left: 750px;
         top: 200px;
         left: 200px;
         background-color: #f2f2f2;
@@ -99,8 +100,10 @@
 
     @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.OwnerName)
     {
-        <button class="edit-button">Edit</button>
-        <button class="delete-button">Delete</button>
+        <a class="edit-button" asp-controller="House" asp-action="Edit"
+           asp-route-id="@Model.Id">Edit</a>
+        <a class="delete-button" asp-controller="House" asp-action="Delete"
+           asp-route-id="@Model.Id">Delete</a>
     }
     else
     {
@@ -126,10 +129,12 @@
         }
     }
 
-    <form method="post" asp-action="AddComment">
+    <form method="post" asp-controller="Joke" asp-action="AddComment" asp-route-title="@Model.Title" >
         <h3>Add a Comment</h3>
         <div class="form-group">
-            <textarea class="form-control" name="commentText" rows="3" required></textarea>
+            <label asp-for="@Model.CommentContent">Comment</label>
+            <textarea class="form-control" asp-for="@Model.CommentContent" rows="5"></textarea>
+            <span asp-validation-for="@Model.CommentContent" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary">Post Comment</button>
     </form>

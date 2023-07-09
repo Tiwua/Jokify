@@ -19,5 +19,7 @@
         public Task<bool> Exists(int id);
 
         public Task<JokeDetailsViewModel> JokeDetailsByTitle(string title);
+
+        public Task AddCommentToJokeAsync(string title, string commentContent, string userId);
     }
 }

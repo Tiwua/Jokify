@@ -26,6 +26,32 @@
         {
             this.repository = repository;
             this.context = context;
+        } 
+
+        public async Task AddCommentToJokeAsync(string title, string commentContent, string userId)
+        {
+            var joke = await repository.AllReadonly<Joke>()
+                .Where(j => !j.IsDeleted)
+                .Where(j => j.Title == title)
+                .FirstAsync();
+
+            if (commentContent == null)
+            {
+                return;
+            }
+                var date = DateTime.Now.ToString("F");
+
+                var comment = new Comment()
+                {
+                    Content = commentContent,
+                    Joke = joke,
+                    JokeId = joke.Id,
+                    CreatedOn = DateTime.Parse(date),
+
+                };
+
+                
+
         }
 
         public async Task AddJokeAsync(AddJokeViewModel model, string userId)

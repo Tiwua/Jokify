@@ -4,9 +4,8 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+
+    using static Jokify.Infrastructure.Common.DataConstants.Comment;
 
     public class JokeDetailsViewModel
     {
@@ -33,6 +32,9 @@
 
         [Display(Name = "Likes")]
         public int LikesCount { get; set; }
+
+        [StringLength(CommentContentMaxValue, MinimumLength = CommentContentMinValue)]
+        public string? CommentContent { get; set; }
 
         public HashSet<CommentViewModel>  Comments { get; set; }
     }

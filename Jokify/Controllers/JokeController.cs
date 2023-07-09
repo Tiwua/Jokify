@@ -2,6 +2,7 @@
 {
     using Jokify.Common.Contracts;
     using Jokify.Core.Contracts;
+    using Jokify.Core.Models.Comment;
     using Jokify.Core.Models.Joke;
     using Jokify.Infrastructure.Data.Models.JokeEntities;
     using Jokify.Models;
@@ -44,6 +45,8 @@
             {
                 model.Categories = await jokeCategoryService.GetAllCategoriesAsync();
 
+                ViewBag.Class = "add";
+
                 return View(model);
             }
 
@@ -84,8 +87,26 @@
         public async Task<IActionResult> Details(string title)
         {          
             var model = await jokeService.JokeDetailsByTitle(title);
+    
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddComment(string title, JokeDetailsViewModel model)
+        {
+            var userId = GetUserId();
+
+            var commentContent = model.CommentContent;
+
+            await jokeService.AddCommentToJokeAsync(title, commentContent, userId);
+
+            ;
+
+            var redirectToActionTitle = $"/{title}";
+
+
+            return RedirectToAction("Details", "Joke", new { title });
         }
     }
 }

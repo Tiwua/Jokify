@@ -26,7 +26,7 @@
 
 		public class Comment
 		{
-			public const int CommentContentMinValue = 3;
+			public const int CommentContentMinValue = 5;
 			public const int CommentContentMaxValue = 500;
 		}
 		public class User
