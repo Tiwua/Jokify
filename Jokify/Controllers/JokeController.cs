@@ -124,8 +124,8 @@
             return RedirectToAction("Details", "Joke", new { title });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Like(string title, JokeDetailsViewModel model)
+
+        public async Task<IActionResult> Like(string title)
         {
             var userId = GetUserId();
 

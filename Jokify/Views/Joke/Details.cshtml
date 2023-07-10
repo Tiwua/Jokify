@@ -107,8 +107,8 @@
     }
     else
     {
-        <a class="like-button" asp-controller="Joke" asp-action="Delete"
-       asp-route-id="@Model.Id">Like</a>
+        <a class="like-button" asp-controller="Joke" asp-action="Like"
+       asp-route-title="@Model.Title">Like</a>
     }
 </div>
 

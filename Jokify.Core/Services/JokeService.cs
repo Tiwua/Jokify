@@ -52,15 +52,17 @@
                 UserId = userId
             };
 
-            await context.JokesComments.AddAsync(new JokeComment()
+            var jokeComment = new JokeComment()
             {
                 JokeId = joke.Id,
                 CommentId = comment.Id
-            });
+            };
 
             joke.Comments.Add(comment);
-            await context.Comments.AddAsync(comment);
-            await context.SaveChangesAsync();
+
+            await repository.AddAsync(jokeComment);
+            await repository.AddAsync(comment);
+            await repository.SaveChangesAsync();
 
         }
 
@@ -199,9 +201,11 @@
             return result;
         }
 
-        public Task LikeJokeAsync(string title, string userId)
+        public async Task LikeJokeAsync(string title, string userId)
         {
-            throw new NotImplementedException();
+            var joke = await repository.GetByTitleAsync<Joke>(title);
+
+            joke.LikesCount++;
         }
     }
 }

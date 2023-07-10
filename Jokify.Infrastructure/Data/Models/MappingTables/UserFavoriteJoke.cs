@@ -10,7 +10,7 @@
     {
         // Composite primary key
         [Required]
-        [Comment("Primary key refering user's favorite joke")]
+        [Comment("Primary key refering user's liked joke")]
         [ForeignKey(nameof(User))]
         public string UserId { get; set; } = null!;
 

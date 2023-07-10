@@ -6,15 +6,16 @@
     using Jokify.Infrastructure.Data.Models.MappingTables;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using System.Reflection.Emit;
     using System.Runtime.CompilerServices;
     using static Jokify.Infrastructure.Common.DataConstants.Joke;
 
     public class JokifyDbContext : IdentityDbContext<User>
-	{
-		public JokifyDbContext(DbContextOptions<JokifyDbContext> options)
-			: base(options)
-		{
-		}
+    {
+        public JokifyDbContext(DbContextOptions<JokifyDbContext> options)
+            : base(options)
+        {
+        }
 
         public DbSet<Comment> Comments { get; set; } = null!;
 
@@ -27,6 +28,8 @@
         public DbSet<UserJoke> UsersJokes { get; set; } = null!;
 
         public DbSet<JokeComment> JokesComments { get; set; } = null!;
+
+        public DbSet<Like> Likes { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -47,6 +50,7 @@
             builder
                 .Entity<UserJoke>()
                 .HasKey(uj => new { uj.UserId, uj.JokeId });
+
 
             builder
                 .Entity<UserFavoriteJoke>()
@@ -72,6 +76,13 @@
                 .HasOne(j => j.Joke)
                 .WithMany(c => c.Comments)
                 .HasForeignKey(j => j.JokeId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder
+                .Entity<Like>()
+                .HasOne(j => j.Joke)
+                .WithMany(fj => fj.FavoriteJokes)
+                .HasForeignKey(l => l.JokeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             base.OnModelCreating(builder);
