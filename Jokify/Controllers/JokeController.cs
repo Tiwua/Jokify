@@ -83,12 +83,12 @@
             return View(query);
         }
 
-        [HttpGet("Joke/Details/{title}")]
-        public async Task<IActionResult> Details(string title)
+        [HttpGet("Joke/Details/{title}/{page}")]
+        public async Task<IActionResult> Details(string title, int page = 1)
         {
             try
             {
-                var model = await jokeService.JokeDetailsByTitle(title);
+                var model = await jokeService.JokeDetailsByTitle(title, page);
 
                 return View(model);
             }
@@ -105,6 +105,11 @@
         [HttpPost]
         public async Task<IActionResult> AddComment(string title, JokeDetailsViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Details", "Joke", new { title });
+            }
+
             var userId = GetUserId();
 
             var commentContent = model.CommentContent;

@@ -101,9 +101,9 @@
     @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.OwnerName)
     {
         <a class="edit-button" asp-controller="House" asp-action="Edit"
-           asp-route-id="@Model.Id">Edit</a>
+       asp-route-id="@Model.Id">Edit</a>
         <a class="delete-button" asp-controller="House" asp-action="Delete"
-           asp-route-id="@Model.Id">Delete</a>
+       asp-route-id="@Model.Id">Delete</a>
     }
     else
     {
@@ -114,6 +114,8 @@
 <div class="comment-section">
     <h2>Comments</h2>
 
+
+
     @if (Model.Comments.Count == 0)
     {
         <p>No comments yet.</p>
@@ -122,20 +124,36 @@
     {
         foreach (var comment in Model.Comments)
         {
-            <div class="comment">
-                <p>@comment.Content</p>
-                <span class="comment-author">Posted by @comment.UserId on @comment.CreatedOn</span>
-            </div>
+            {
+                // Declare variables within the foreach loop
+                var stringDate = comment.CreatedOn;
+                var date = DateTime.Parse(stringDate).Hour;
+                var now = DateTime.Now.Hour;
+                <div class="comment">
+                    <p>@comment.Content</p>
+                    <span class="comment-author">Posted by @comment.User @now hours ago</span>
+                </div>
+            }
         }
     }
 
-    <form method="post" asp-controller="Joke" asp-action="AddComment" asp-route-title="@Model.Title" >
+    <form method="post" asp-controller="Joke" asp-action="AddComment" asp-route-title="@Model.Title">
         <h3>Add a Comment</h3>
-        <div class="form-group">
-            <label asp-for="@Model.CommentContent">Comment</label>
             <textarea class="form-control" asp-for="@Model.CommentContent" rows="5"></textarea>
             <span asp-validation-for="@Model.CommentContent" class="text-danger"></span>
-        </div>
         <button type="submit" class="btn btn-primary">Post Comment</button>
     </form>
+</div>
+<div class="pagination">
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        if (i == Model.CurrentPage)
+        {
+            <span class="current-page">@i</span>
+        }
+        else
+        {
+            <a href="/Joke/Details/@Model.Title/@i">@i</a>
+        }
+    }
 </div>

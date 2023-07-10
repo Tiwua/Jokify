@@ -1,5 +1,6 @@
 ﻿namespace Jokify.Core.Models.Comment
 {
+    using Jokify.Infrastructure.Data.Models.JokeEntities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -10,8 +11,9 @@
     {
         public string Content { get; set; } = null!;
 
-        public string UserId { get; set; } = null!;
+        public string User { get; set; } = null!;
 
         public string CreatedOn { get; set; } = null!;
+
     }
 }

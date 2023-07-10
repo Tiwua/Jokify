@@ -18,7 +18,7 @@
 
         public Task<bool> Exists(int id);
 
-        public Task<JokeDetailsViewModel> JokeDetailsByTitle(string title);
+        public Task<JokeDetailsViewModel> JokeDetailsByTitle(string title, int currentPage);
 
         public Task AddCommentToJokeAsync(string title, string commentContent, string userId);
     }

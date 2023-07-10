@@ -11,7 +11,9 @@
     {
         public JokeDetailsViewModel()
         {
-            this.Comments = new HashSet<CommentViewModel>();
+            Comments = new HashSet<CommentViewModel>();
+            CurrentPage = 1;
+            PageSize = 3;
         }
 
         public Guid Id { get; set; }
@@ -35,6 +37,15 @@
 
         [StringLength(CommentContentMaxValue, MinimumLength = CommentContentMinValue)]
         public string? CommentContent { get; set; }
+
+        public int CurrentPage { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int TotalPages { get; set; }
+
+        public int TotalComments { get; set; }
+
 
         public ICollection<CommentViewModel>  Comments { get; set; }
     }

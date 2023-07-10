@@ -153,8 +153,27 @@
             return result;
         }
 
-        public async Task<JokeDetailsViewModel> JokeDetailsByTitle(string title)
+        public async Task<JokeDetailsViewModel> JokeDetailsByTitle(string title, int currentPage)
         {
+            var comments = await repository.AllReadonly<Comment>()
+                .Where(c => !c.IsDeleted)
+                .Where(c => c.Joke.Title ==  title)
+                .ToListAsync();
+
+            var comment = comments.First();
+            var user = await repository.AllReadonly<User>().Where(u => !u.IsDeleted).Where(u => u.Id == comment.UserId).FirstAsync();
+
+            var paginatedComments = comments.Skip((currentPage - 1) * 1).Take(1).ToHashSet();
+
+            var commentModel = paginatedComments
+                    .Select(c => new CommentViewModel()
+                    {
+                        Content = c.Content,
+                        CreatedOn = c.CreatedOn.ToString(),
+                        User = user.UserName,
+                    }).ToHashSet();
+
+
             var result = await repository.AllReadonly<Joke>()
                 .Where(j => !j.IsDeleted)
                 .Where(j => j.Title == title)
@@ -167,14 +186,12 @@
                     IsPopular = j.IsPopular,
                     IsEdited = j.IsEdited,
                     OwnerName = j.User.UserName,
-                    Comments = j.Comments
-                    .Select(c => new CommentViewModel()
-                    {
-                        Content = c.Content,
-                        CreatedOn = c.CreatedOn.ToString(),
-                        UserId = c.UserId
-                    }).ToHashSet()
-                }).FirstAsync()
+                    CurrentPage = currentPage,
+                    TotalPages = (int)Math.Ceiling((double)comments.Count / 1),
+                    PageSize = 1,
+                    TotalComments = comments.Count,
+                    Comments = commentModel
+                }).FirstAsync();
 
             ;
 
