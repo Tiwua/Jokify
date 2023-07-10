@@ -84,7 +84,6 @@
             };
 
 
-
             user.CreatedJokes.Add(new UserJoke
             {
                 User = user,
@@ -160,8 +159,10 @@
                 .Where(c => c.Joke.Title ==  title)
                 .ToListAsync();
 
-            var comment = comments.First();
-            var user = await repository.AllReadonly<User>().Where(u => !u.IsDeleted).Where(u => u.Id == comment.UserId).FirstAsync();
+            var user = await repository.AllReadonly<User>()
+                .Where(u => !u.IsDeleted)
+                .Where(u => u.Id == comments.First().UserId)
+                .FirstAsync();
 
             var paginatedComments = comments.Skip((currentPage - 1) * 1).Take(1).ToHashSet();
 
@@ -196,6 +197,11 @@
             ;
 
             return result;
+        }
+
+        public Task LikeJokeAsync(string title, string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

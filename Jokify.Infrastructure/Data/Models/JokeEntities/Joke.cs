@@ -16,6 +16,7 @@
             IsDeleted = false;
             IsEdited = false;
             IsPopular = false;
+            LikesCount = 0;
             FavoriteJokes = new HashSet<UserFavoriteJoke>();
             UserJokes = new HashSet<UserJoke>();
             Comments = new HashSet<Comment>();
@@ -72,6 +73,9 @@
 
         [Comment("Creator of the joke")]
         public User User { get; set; } = null!;
+
+        [Comment("Likes of the joke")]
+        public int LikesCount { get; set; }
 
         //Collections
         public ICollection<UserFavoriteJoke> FavoriteJokes { get; set; }

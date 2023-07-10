@@ -21,5 +21,7 @@
         public Task<JokeDetailsViewModel> JokeDetailsByTitle(string title, int currentPage);
 
         public Task AddCommentToJokeAsync(string title, string commentContent, string userId);
+
+        public Task LikeJokeAsync(string title, string userId);
     }
 }

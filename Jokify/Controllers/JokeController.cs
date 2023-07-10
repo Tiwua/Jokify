@@ -123,5 +123,15 @@
 
             return RedirectToAction("Details", "Joke", new { title });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Like(string title, JokeDetailsViewModel model)
+        {
+            var userId = GetUserId();
+
+            await jokeService.LikeJokeAsync(title, userId);
+
+            return RedirectToAction("Details", "Joke", new { title });
+        }
     }
 }

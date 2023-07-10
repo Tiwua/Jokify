@@ -100,14 +100,15 @@
 
     @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.OwnerName)
     {
-        <a class="edit-button" asp-controller="House" asp-action="Edit"
+        <a class="edit-button" asp-controller="Joke" asp-action="Edit"
        asp-route-id="@Model.Id">Edit</a>
-        <a class="delete-button" asp-controller="House" asp-action="Delete"
+        <a class="delete-button" asp-controller="Joke" asp-action="Delete"
        asp-route-id="@Model.Id">Delete</a>
     }
     else
     {
-        <button class="like-button">Like</button>
+        <a class="like-button" asp-controller="Joke" asp-action="Delete"
+       asp-route-id="@Model.Id">Like</a>
     }
 </div>
 
