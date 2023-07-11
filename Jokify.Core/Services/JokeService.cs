@@ -187,7 +187,7 @@
                     Punchline = j.Punchline,
                     IsPopular = j.IsPopular,
                     IsEdited = j.IsEdited,
-                    
+                    LikesCount = j.LikesCount,
                     OwnerName = j.User.UserName,
                     CurrentPage = currentPage,
                     TotalPages = (int)Math.Ceiling((double)comments.Count / 1),
