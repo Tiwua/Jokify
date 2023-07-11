@@ -107,8 +107,22 @@
     }
     else
     {
-        <a class="like-button" asp-controller="Joke" asp-action="Like"
-       asp-route-title="@Model.Title">Like</a>
+        if (Model.hasLiked)
+        {
+            <form method="post" asp-controller="Joke" asp-action="Dislike" 
+            asp-route-id="@Model.Id" 
+            asp-route-title="@Model.Title" 
+            asp-route-page="@Model.CurrentPage">
+                <button type="submit" class="like-button">Just Kidding</button>
+            </form>
+        }
+        else
+        {
+            <form method="post" asp-controller="Joke" asp-action="Like" asp-route-id="@Model.Id" asp-route-title ="@Model.Title">
+                <button type="submit" class="like-button">Like</button>
+            </form>
+            
+        }
     }
 </div>
 

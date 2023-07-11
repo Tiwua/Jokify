@@ -9,16 +9,15 @@ namespace Jokify.Infrastructure.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
             migrationBuilder.AlterColumn<string>(
-                name: "UserId",
-                table: "UsersFavoritesJokes",
-                type: "nvarchar(450)",
-                nullable: false,
-                comment: "Primary key refering user's liked joke",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(450)",
-                oldComment: "Primary key refering user's favorite joke");
+               name: "UserId",
+               table: "UsersFavoritesJokes",
+               type: "nvarchar(450)",
+               nullable: false,
+               comment: "Primary key refering user's liked joke",
+               oldClrType: typeof(string),
+               oldType: "nvarchar(450)",
+               oldComment: "Primary key refering user's favorite joke");
 
             migrationBuilder.AddColumn<int>(
                 name: "LikeId",
@@ -72,6 +71,7 @@ namespace Jokify.Infrastructure.Migrations
                 column: "LikeId",
                 principalTable: "Likes",
                 principalColumn: "Id");
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

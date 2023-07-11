@@ -127,9 +127,9 @@
             jokes = sorting switch
             {
                 JokeSorting.PopularAscending => jokes
-                     .OrderBy(j => j.FavoriteJokes.Count()),
+                     .OrderBy(j => j.UserFavoriteJokes.Count()),
                 JokeSorting.PopularDescending => jokes
-                     .OrderByDescending(j => j.FavoriteJokes.Count()),
+                     .OrderByDescending(j => j.UserFavoriteJokes.Count()),
                 JokeSorting.Title => jokes
                      .OrderBy(j => j.Title),
                 _ => jokes.OrderByDescending(j => j.Id)
@@ -154,7 +154,7 @@
             return result;
         }
 
-        public async Task<JokeDetailsViewModel> JokeDetailsByTitle(string title, int currentPage)
+        public async Task<JokeDetailsViewModel> JokeDetailsByTitle(string title, int currentPage, bool hasLiked, string userId)
         {
             var comments = await repository.AllReadonly<Comment>()
                 .Where(c => !c.IsDeleted)
@@ -163,7 +163,7 @@
 
             var user = await repository.AllReadonly<User>()
                 .Where(u => !u.IsDeleted)
-                .Where(u => u.Id == comments.First().UserId)
+                .Where(u => u.Id == userId)
                 .FirstAsync();
 
             var paginatedComments = comments.Skip((currentPage - 1) * 1).Take(1).ToHashSet();
@@ -176,7 +176,6 @@
                         User = user.UserName,
                     }).ToHashSet();
 
-
             var result = await repository.AllReadonly<Joke>()
                 .Where(j => !j.IsDeleted)
                 .Where(j => j.Title == title)
@@ -188,6 +187,7 @@
                     Punchline = j.Punchline,
                     IsPopular = j.IsPopular,
                     IsEdited = j.IsEdited,
+                    
                     OwnerName = j.User.UserName,
                     CurrentPage = currentPage,
                     TotalPages = (int)Math.Ceiling((double)comments.Count / 1),
@@ -201,11 +201,7 @@
             return result;
         }
 
-        public async Task LikeJokeAsync(string title, string userId)
-        {
-            var joke = await repository.GetByTitleAsync<Joke>(title);
 
-            joke.LikesCount++;
-        }
+
     }
 }

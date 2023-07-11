@@ -32,6 +32,8 @@
 
         public bool IsPopular { get; set; }
 
+        public bool hasLiked { get; set; }
+
         [Display(Name = "Likes")]
         public int LikesCount { get; set; }
 

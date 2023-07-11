@@ -29,8 +29,6 @@
 
         public DbSet<JokeComment> JokesComments { get; set; } = null!;
 
-        public DbSet<Like> Likes { get; set; } = null!;
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //Configuration
@@ -76,13 +74,6 @@
                 .HasOne(j => j.Joke)
                 .WithMany(c => c.Comments)
                 .HasForeignKey(j => j.JokeId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder
-                .Entity<Like>()
-                .HasOne(j => j.Joke)
-                .WithMany(fj => fj.FavoriteJokes)
-                .HasForeignKey(l => l.JokeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             base.OnModelCreating(builder);

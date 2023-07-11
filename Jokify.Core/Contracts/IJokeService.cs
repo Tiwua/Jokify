@@ -2,6 +2,7 @@
 {
     using Jokify.Core.Models.Joke;
     using Jokify.Core.Models.Joke.Enums;
+    using Jokify.Infrastructure.Data.Models.JokeEntities;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -18,10 +19,8 @@
 
         public Task<bool> Exists(int id);
 
-        public Task<JokeDetailsViewModel> JokeDetailsByTitle(string title, int currentPage);
+        public Task<JokeDetailsViewModel> JokeDetailsByTitle(string title, int currentPage, bool hasLiked, string userId);
 
         public Task AddCommentToJokeAsync(string title, string commentContent, string userId);
-
-        public Task LikeJokeAsync(string title, string userId);
     }
 }

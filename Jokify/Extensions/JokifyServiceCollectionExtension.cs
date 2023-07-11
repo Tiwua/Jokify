@@ -14,6 +14,7 @@
             services.AddScoped<IJokeCategoryService, JokeCategoryService>();
             services.AddScoped<IJokeService, JokeService>();
             services.AddScoped<IRepository, Repository>();
+            services.AddScoped<ILikeService, LikeService>();
 
             return services;
         }

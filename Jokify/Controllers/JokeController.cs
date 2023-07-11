@@ -9,19 +9,23 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
 
 
     public class JokeController : BaseController
     {
         private readonly IJokeService jokeService;
         private readonly IJokeCategoryService jokeCategoryService;
+        private readonly ILikeService likeService;
 
         public JokeController(
             IJokeService jokeService,
-            IJokeCategoryService jokeCategoryService)
+            IJokeCategoryService jokeCategoryService,
+            ILikeService likeService)
         {
             this.jokeService = jokeService;
             this.jokeCategoryService = jokeCategoryService;
+            this.likeService = likeService;
         }
 
         [HttpGet]
@@ -88,7 +92,12 @@
         {
             try
             {
-                var model = await jokeService.JokeDetailsByTitle(title, page);
+                var userId = GetUserId();
+                var hasLiked = await likeService.HasLikedJoke(title, userId);
+
+                var model = await jokeService.JokeDetailsByTitle(title, page, hasLiked, userId);
+
+                model.hasLiked = hasLiked;
 
                 return View(model);
             }
@@ -99,7 +108,6 @@
 
                 return RedirectToAction(nameof(All));
             }
-
         }
 
         [HttpPost]
@@ -116,22 +124,20 @@
 
             await jokeService.AddCommentToJokeAsync(title, commentContent, userId);
 
-            ;
-
-            var redirectToActionTitle = $"/{title}";
-
 
             return RedirectToAction("Details", "Joke", new { title });
         }
 
 
-        public async Task<IActionResult> Like(string title)
+        [HttpPost]
+        public async Task<IActionResult> Like(Guid id, string title, int page)
         {
             var userId = GetUserId();
 
-            await jokeService.LikeJokeAsync(title, userId);
+            await likeService.LikeJokeAsync(id, userId);
 
-            return RedirectToAction("Details", "Joke", new { title });
+
+            return RedirectToAction("Details", "Joke", new { title, page });
         }
     }
 }
