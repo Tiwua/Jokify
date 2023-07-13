@@ -69,14 +69,14 @@
         public async Task AddJokeAsync(AddJokeViewModel model, string userId)
         {
             var user = await repository.GetByIdAsync<User>(userId);
-            var joke = await repository.GetByTitleAsync<Joke>(model.Title);
+            var joke = repository.AllReadonly<Joke>();
 
             if (joke == null)
             {
                 throw new ArgumentException("Cannot have multiple jokes with the same Title");
             }
 
-            joke = new Joke()
+            var newJoke = new Joke()
             {
                 Title = model.Title,
                 Setup = model.Setup,
@@ -90,8 +90,8 @@
             {
                 User = user,
                 UserId = userId,
-                Joke = joke,
-                JokeId = joke.Id
+                Joke = newJoke,
+                JokeId = newJoke.Id
             });
 
             await repository.AddAsync(joke);
@@ -166,7 +166,7 @@
                 .Where(u => u.Id == userId)
                 .FirstAsync();
 
-            var paginatedComments = comments.Skip((currentPage - 1) * 1).Take(1).ToHashSet();
+            var paginatedComments = comments.Skip((currentPage - 1) * 3).Take(3).ToHashSet();
 
             var commentModel = paginatedComments
                     .Select(c => new CommentViewModel()
@@ -190,8 +190,8 @@
                     LikesCount = j.LikesCount,
                     OwnerName = j.User.UserName,
                     CurrentPage = currentPage,
-                    TotalPages = (int)Math.Ceiling((double)comments.Count / 1),
-                    PageSize = 1,
+                    TotalPages = (int)Math.Ceiling((double)comments.Count / 3),
+                    PageSize = 3,
                     TotalComments = comments.Count,
                     Comments = commentModel
                 }).FirstAsync();

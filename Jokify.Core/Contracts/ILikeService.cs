@@ -5,5 +5,9 @@
         Task<bool> HasLikedJoke(string jokeId, string userId);
 
         Task LikeJokeAsync(Guid id, string userId);
+
+        Task DislikeJokeAsync(Guid id, string userId);
+
+        Task<int> GetLikesCount(Guid id);
     }
 }

@@ -32,13 +32,13 @@
 
         public bool IsPopular { get; set; }
 
-        public bool hasLiked { get; set; }
+        public bool HasLiked { get; set; }
 
         [Display(Name = "Likes")]
         public int LikesCount { get; set; }
 
         [StringLength(CommentContentMaxValue, MinimumLength = CommentContentMinValue)]
-        public string? CommentContent { get; set; }
+        public string CommentContent { get; set; }
 
         public int CurrentPage { get; set; }
 
@@ -49,6 +49,6 @@
         public int TotalComments { get; set; }
 
 
-        public ICollection<CommentViewModel>  Comments { get; set; }
+        public ICollection<CommentViewModel> Comments { get; set; }
     }
 }

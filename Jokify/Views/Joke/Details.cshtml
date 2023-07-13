@@ -6,17 +6,19 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style>
     .container {
-        position: relative;
-        width: 400px;
+        position: absolute;
+        width: 600px;
         height: auto;
-        left: 750px;
-        top: 200px;
-        left: 200px;
+        left: 655px;
+        top: 150px;
+        right: 120px;
         background-color: #f2f2f2;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         transition: box-shadow 0.3s ease;
+        margin-bottom: 10px; 
+        z-index: 9999;
     }
 
         .container:hover {
@@ -25,6 +27,12 @@
 
         .container textarea {
             resize: none; /* Prevent resizing of the textarea */
+        }
+
+        .container-wrapper {
+        position: fixed;
+        top: 50px; /* Adjust as needed */
+        left: 50px; /* Adjust as needed */
         }
 
     .details-button {
@@ -48,11 +56,12 @@
 
     .joke-container {
         max-width: 500px;
+        height: auto;
         margin: 0 auto;
         padding: 20px;
         background-color: #f2f2f2;
         border-radius: 10px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
     }
 
     h2 {
@@ -94,8 +103,9 @@
         color: white;
     }
 
-        .like-button:hover{
+        .like-button:hover {
             background-color: #ff4b2b;
+            transform: scale(1.1);
         }
 
     .dislike-button {
@@ -106,15 +116,22 @@
         .dislike-button:hover {
             background-color: #4CAF50;
             color: white;
+            transform: scale(1.1);
         }
 
     .likes {
-        position: absolute;
-        top: 10px;
-        left: 330px;
-        bottom: 90px;
-        display: flex;
+        font-size: 25px;
+        position: relative;
+        left: 400px;
+        top: 35px;
         align-items: center;
+    }
+
+    .fixted-elements {
+        position: fixed;
+        top: 250px; /* Adjust as needed */
+        right: 900px; /* Adjust as needed */
+        /* Additional styles for the fixed elements */
     }
 
         .likes i {
@@ -123,29 +140,155 @@
         }
 
     .likes-count {
-        font-size: 14px;
+        font-size: 20px;
     }
 
-    .button-right {
-        opacity: 1 ;
+    .arrow-box-disabled {
+        display: none;
     }
-        .button-right-disable {
-            opacity: 0;
+
+    .arrow-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 45px;
+        height: 35px;
+        background-color: #ff4b2b;
+        padding: 10px;
+        transition: transform 0.3s ease;
+        border-radius: 10px;
+    }
+
+    .arrow {
+        color: white;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        transition: transform 0.3s ease;
+        font-weight: 900;
+        font-size: 25px;
+        line-height: 0.5;
+    }
+
+        .arrow::before,
+        .arrow::after {
+            position: absolute;
+            width: 10px;
+            height: 2px;
         }
+
+    .button-left::before,
+    .button-left::after,
+    .button-right::before,
+    .button-right::after {
+        background-color: #fff;
+    }
+
+    .button-left::before {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    .button-left::after {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .button-right::before {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(135deg);
+    }
+
+    .button-right::after {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-135deg);
+    }
+
+    .arrow-box:hover {
+        transform: scale(1.1);
+    }
+
+    .arrow:hover {
+        transform: scale(1.1);
+    }
+
+    .right {
+        position: absolute;
+        top: 20px;
+        left: 430px;
+    }
+
+    .left {
+        position: absolute;
+        top: 20px;
+        left: 370px;
+    }
+
+    .comment-section {
+        position: relative;
+        top: 20px;
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 1, 1, 0.8);
+        margin-bottom: 40px;
+    }
+
+    .comment {
+        margin-bottom: 25px; /* Add space between comments */
+        margin-top: 10px; /* Add space above comment content */
+        text-align: center; /* Center-align the comment content */
+        box-shadow: 0 2px 5px rgba(0, 1, 1, 0.3);
+    }
+
+    .comment-content {
+        margin-bottom: 20px; /* Add space between comment content and comment author */
+    }
+
+    .comment-author {
+        font-weight: bold; /* Apply different styling to comment author */
+        margin-top: 30px; /* Add space above comment content */
+        text-align: center; /* Center-align the comment content */
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .comment-button {
+        background-color: #ff4b2b;
+        color: white;
+    }
+
+        .comment-button:hover {
+            background-color: #4CAF50;
+            color: white;
+            transform: scale(1.1);
+        }
+        .form-control{
+            width: 461px;
+        }
+
 </style>
 
 <h2 class="text-center">@ViewBag.Title</h2>
-<hr />
-
 <div class="joke-container">
+    
+    <h2>@Model.Title</h2>
+    <p class="setup">@Model.Setup</p>
+    <p class="punchline">@Model.Punchline</p>
     <div class="likes">
+    <div class="fixed-elements">
         <i class="fas fa-heart"></i>
         <span class="likes-count">@Model.LikesCount</span>
     </div>
-        <h2>@Model.Title</h2>
-    <p class="setup">@Model.Setup</p>
-    <p class="punchline">@Model.Punchline</p>
-
+    </div>
     @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.OwnerName)
     {
         <a class="edit-button" asp-controller="Joke" asp-action="Edit"
@@ -155,23 +298,24 @@
     }
     else
     {
-        if (Model.hasLiked)
+        if (Model.HasLiked)
         {
-            <form method="post" asp-controller="Joke" 
-                                asp-action="Dislike"
-                                asp-route-id="@Model.Id"
-                                asp-route-title="@Model.Title"
-                                asp-route-page="@Model.CurrentPage">
+            <form method="post" asp-controller="Joke"
+          asp-action="Dislike"
+          asp-route-id="@Model.Id"
+          asp-route-title="@Model.Title"
+          asp-route-page="@Model.CurrentPage">
 
                 <button type="submit" class="dislike-button">Just Kidding</button>
             </form>
         }
         else
         {
-            <form method="post" asp-controller="Joke" 
-                                asp-action="Like" 
-                                asp-route-id="@Model.Id" 
-                                asp-route-title="@Model.Title">
+            <form method="post" asp-controller="Joke"
+          asp-action="Like"
+          asp-route-id="@Model.Id"
+          asp-route-title="@Model.Title"
+          asp-route-page="@Model.CurrentPage">
 
                 <button type="submit" class="like-button">Like</button>
             </form>
@@ -199,10 +343,10 @@
                 var date = DateTime.Parse(stringDate).Hour;
                 var now = DateTime.Now.Hour;
 
-                if (date > 24)
+                if (now > 24)
                 {
                     <div class="comment">
-                        <p>@comment.Content</p>
+                        <p class="comment-content">@comment.Content</p>
                         <span class="comment-author">Posted by @comment.User on @comment.CreatedOn</span>
                     </div>
                 }
@@ -212,64 +356,78 @@
                         <p>@comment.Content</p>
                         <span class="comment-author">Posted by @comment.User @now hours ago</span>
                     </div>
-                    
+
                 }
             }
         }
     }
 
-    <form method="post" asp-controller="Joke" asp-action="AddComment" asp-route-title="@Model.Title">
+    <form method="post" asp-controller="Joke"
+          asp-action="AddComment"
+          asp-route-title="@Model.Title"
+          asp-route-page="@Model.CurrentPage">
+
         <h3>Add a Comment</h3>
-        <textarea class="form-control" asp-for="@Model.CommentContent" rows="5"></textarea>
+        <textarea class="form-control" asp-for="@Model.CommentContent" rows="3"></textarea>
         <span asp-validation-for="@Model.CommentContent" class="text-danger"></span>
-        <button type="submit" class="btn btn-primary">Post Comment</button>
+        <button type="submit" class="comment-button">Post Comment</button>
     </form>
-</div>
-<div class="pagination">
-    @for (int i = 1; i <= Model.TotalPages; i++)
-    {
-        if (i == Model.CurrentPage)
+    @{
+        var previousPage = Model.CurrentPage - 1;
+        if (previousPage < 1)
         {
-            <span class="current-page">@i</span>
+            previousPage = 1;
         }
-        else
-        {
-            <a href="/Joke/Details/@Model.Title/@i">@i</a>
-        }
-    }
-</div>
 
-@{
-    var previousPage = Model.CurrentPage - 1;
-    if (previousPage < 1)
-    {
-        previousPage = 1;
+        var maxPage = Math.Ceiling((double)Model.TotalComments /
+        Model.PageSize);
     }
 
-    var maxPage = Math.Ceiling((double)Model.TotalComments /
-    Model.PageSize);
-}
+    @{
+        var prevPageButtonStatus = Model.CurrentPage == 1 ? "disabled" : string.Empty;
+        var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
+        !Model.Comments.Any();
+    }
 
-@{
-    var prevPageButtonStatus = Model.CurrentPage == 1 ? "disabled" : string.Empty;
-    var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
-    !Model.Comments.Any();
-}
-
-<div>
     <div class="left">
-        <a class="button-left@(Model.CurrentPage == 1 ? "-disabled" : string.Empty)"
+        <a class="arrow-box@(Model.CurrentPage == 1 ? "-disabled" : string.Empty)"
            asp-controller="Joke"
            asp-action="Details"
-           asp-route-page="@previousPage"><<</a>
+           asp-route-page="@previousPage">
+            <span class="arrow button-left">
+                &larr;
+            </span>
+        </a>
     </div>
+
 
     <div class="right">
-        <a class="button-right@(shouldButtonBeDisabled ? "-disabled" : string.Empty)"
+        <a class="arrow-box@(shouldButtonBeDisabled ? "-disabled" : string.Empty)"
            asp-controller="Joke"
            asp-action="Details"
-           asp-route-page="@(Model.CurrentPage + 1)">-></a>
+           asp-route-page="@(Model.CurrentPage + 1)">
+            <span class="arrow button-right">
+                &rarr;
+            </span>
+        </a>
     </div>
-
-
 </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+           <script>
+    $(document).ready(function () {
+        adjustFixedElementPosition();
+
+        $(window).on('resize', function () {
+            adjustFixedElementPosition();
+        });
+
+        function adjustFixedElementPosition() {
+            var commentSectionHeight = $('.comment-section').outerHeight();
+            var fixedElement = $('.fixed-element');
+            var topPosition = commentSectionHeight + 20; // Adjust the offset as needed
+
+            fixedElement.css('top', topPosition + 'px');
+        }
+    });
+           </script>

@@ -20,6 +20,7 @@
             this.context = context;
         }
 
+
         public async Task<bool> HasLikedJoke(string title, string userId)
         {
             var joke = await repository.AllReadonly<Joke>()
@@ -59,10 +60,39 @@
             user.FavoriteJokes.Add(userFavJoke);
             joke.UserFavoriteJokes.Add(userFavJoke);
 
-
-            ;
             await repository.AddAsync(userFavJoke);
             await repository.SaveChangesAsync();
         }
+        public async Task DislikeJokeAsync(Guid id, string userId)
+        {
+            var joke = await repository.GetByIdAsync<Joke>(id);
+            var user = await repository.GetByIdAsync<User>(userId);
+
+
+            var userFavJoke = new UserFavoriteJoke()
+            {
+                UserId = userId,
+                JokeId = joke.Id
+            };
+
+            if (!user.FavoriteJokes.Contains(userFavJoke))
+            {
+                return;
+            }
+
+            joke.LikesCount--;
+            user.FavoriteJokes.Remove(userFavJoke);
+            joke.UserFavoriteJokes.Remove(userFavJoke);
+
+            await repository.SaveChangesAsync();
+        }
+
+        public async Task<int> GetLikesCount(Guid id)
+        {
+            var joke = await repository.GetByIdAsync<Joke>(id);
+
+            return joke.LikesCount;
+        }
+
     }
 }

@@ -128,11 +128,6 @@ namespace HouseRentingSystem.Infrastructure.Data.Common
             this.Context.Dispose();
         }
 
-        public async Task<T> GetByTitleAsync<T>(string title) where T : class
-        {
-            return await DbSet<T>().FindAsync(title);
-        }
-
         /// <summary>
         /// Gets specific record from database by primary key
         /// </summary>

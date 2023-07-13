@@ -71,7 +71,7 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> All([FromQuery]AllJokesQueryModel query)
+        public async Task<IActionResult> All([FromQuery] AllJokesQueryModel query)
         {
             var result = await jokeService.GetAllJokesAsync(
                 query.Category,
@@ -92,12 +92,13 @@
         {
             try
             {
+
                 var userId = GetUserId();
                 var hasLiked = await likeService.HasLikedJoke(title, userId);
 
                 var model = await jokeService.JokeDetailsByTitle(title, page, hasLiked, userId);
 
-                model.hasLiked = hasLiked;
+                model.HasLiked = hasLiked;
 
                 return View(model);
             }
@@ -111,11 +112,12 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddComment(string title, JokeDetailsViewModel model)
+        public async Task<IActionResult> AddComment(string title, int page, JokeDetailsViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (IsCommentValid(model.CommentContent))
             {
-                return RedirectToAction("Details", "Joke", new { title });
+
+                return RedirectToAction("Details", "Joke", new { title, page });
             }
 
             var userId = GetUserId();
@@ -125,9 +127,13 @@
             await jokeService.AddCommentToJokeAsync(title, commentContent, userId);
 
 
-            return RedirectToAction("Details", "Joke", new { title });
+            return RedirectToAction("Details", "Joke", new { title, page });
         }
 
+        private bool IsCommentValid(string commentContent)
+        {
+            return commentContent.Length < 5 || commentContent.Length > 195;
+        }
 
         [HttpPost]
         public async Task<IActionResult> Like(Guid id, string title, int page)
@@ -136,6 +142,16 @@
 
             await likeService.LikeJokeAsync(id, userId);
 
+
+            return RedirectToAction("Details", "Joke", new { title, page });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Dislike(Guid id, string title, int page)
+        {
+            var userId = GetUserId();
+
+            await likeService.DislikeJokeAsync(id, userId);
 
             return RedirectToAction("Details", "Joke", new { title, page });
         }

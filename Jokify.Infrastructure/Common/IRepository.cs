@@ -31,8 +31,6 @@ namespace HouseRentingSystem.Infrastructure.Data.Common
         /// <returns>Expression tree</returns>
         IQueryable<T> AllReadonly<T>(Expression<Func<T, bool>> search) where T : class;
 
-        Task<T> GetByTitleAsync<T>(string title) where T : class;
-
         /// <summary>
         /// Gets specific record from database by primary key
         /// </summary>
