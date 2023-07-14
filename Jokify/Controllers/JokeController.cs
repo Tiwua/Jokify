@@ -34,6 +34,7 @@
 
             var model = new JokeViewModel()
             {
+                IsEditMode = false,
                 Categories = await jokeCategoryService.GetAllCategoriesAsync()
             };
 
@@ -165,7 +166,8 @@
                 Setup = joke.Setup,
                 Punchline = joke.Punchline,
                 CategoryId = categoryId,
-                Categories = await jokeCategoryService.GetAllCategoriesAsync()
+                Categories = await jokeCategoryService.GetAllCategoriesAsync(),
+                IsEditMode = true
             };
 
             return View(model);

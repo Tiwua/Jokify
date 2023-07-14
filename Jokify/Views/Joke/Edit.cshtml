@@ -4,20 +4,6 @@
     ViewData["Title"] = "Edit Joke";
 }
 
-@section Styles{
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="~/css/button.css" rel="stylesheet" />
-    <link href="~/css/inputbox.css" rel="stylesheet" />
-
-	}
-
-
 <h1 class="centered-lowered-div">@ViewData["Title"]</h1>
 
 <partial name="_JokeFormPartial" model="@Model"></partial>
-<div class="centered">
-    <input class="button" type="submit" value="Edit Joke" />
-</div>
-<partial name="_ValidationScriptsPartial" />
-<script src="~/js/script.js"></script>

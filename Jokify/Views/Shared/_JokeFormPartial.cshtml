@@ -1,5 +1,11 @@
 ﻿@model JokeViewModel
 
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="~/css/button.css" rel="stylesheet" />
+<link href="~/css/inputbox.css" rel="stylesheet" />
+<link href="~/css/site.css" rel="stylesheet" />
+
 <div class="centered">
     <form method="post">
         <div class="text-center mb-3">
@@ -27,5 +33,11 @@
             </select>
             <span asp-validation-for="CategoryId" class="text-danger"></span>
         </div>
+        <div class="centered">
+            <input class="button" type="submit" value="@((Model.IsEditMode) ? "Edit Joke" : "Add a Joke")" />
+        </div>
     </form>
 </div>
+
+<script src="~/js/script.js"></script>
+<partial name="_ValidationScriptsPartial" />
