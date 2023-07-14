@@ -278,12 +278,12 @@
 </style>
 
 <h2 class="text-center">@ViewBag.Title</h2>
-<div class="joke-container">
+<div class="joke-container" data-id="@Model.Id">
     
     <h2>@Model.Title</h2>
     <p class="setup">@Model.Setup</p>
     <p class="punchline">@Model.Punchline</p>
-    <div class="likes">
+    <div id="likes" class="likes">
     <div class="fixed-elements">
         <i class="fas fa-heart"></i>
         <span class="likes-count">@Model.LikesCount</span>
@@ -416,18 +416,24 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
            <script>
     $(document).ready(function () {
-        adjustFixedElementPosition();
+        $('.dislike-button').on('click', function () {
+            var jokeContainer = $(this).closest('.joke');
+            var id = $(this).closest('.joke-container').data('id');
+            var likesContainer = jokeContainer.find('.likes-count');
 
-        $(window).on('resize', function () {
-            adjustFixedElementPosition();
+            // Perform AJAX request to update dislike count on the server
+            $.ajax({
+                url: 'api/statistics/' + id, // Replace with your server-side endpoint
+                method: 'POST',
+                data: { id: id }, // Pass any necessary data (e.g., post ID)
+                success: function (response) {
+                    // Update the dislike count on the page
+                    likesContainer.text(parseInt(likesContainer.text()) - 1);
+                },
+                error: function () {
+                    console.log('Error occurred while disliking the post.');
+                }
+            });
         });
-
-        function adjustFixedElementPosition() {
-            var commentSectionHeight = $('.comment-section').outerHeight();
-            var fixedElement = $('.fixed-element');
-            var topPosition = commentSectionHeight + 20; // Adjust the offset as needed
-
-            fixedElement.css('top', topPosition + 'px');
-        }
     });
            </script>

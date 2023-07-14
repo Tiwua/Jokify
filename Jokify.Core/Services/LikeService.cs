@@ -43,6 +43,7 @@
         public async Task LikeJokeAsync(Guid id, string userId)
         {
             var joke = await repository.GetByIdAsync<Joke>(id);
+
             var user = await repository.GetByIdAsync<User>(userId);
 
             var userFavJoke = new UserFavoriteJoke()
@@ -58,7 +59,6 @@
 
             joke.LikesCount++;
             user.FavoriteJokes.Add(userFavJoke);
-            joke.UserFavoriteJokes.Add(userFavJoke);
 
             await repository.AddAsync(userFavJoke);
             await repository.SaveChangesAsync();
@@ -66,14 +66,15 @@
         public async Task DislikeJokeAsync(Guid id, string userId)
         {
             var joke = await repository.GetByIdAsync<Joke>(id);
-            var user = await repository.GetByIdAsync<User>(userId);
 
+            var user = await context.Users
+                .Where(u => !u.IsDeleted)
+                .Where(u => u.Id == userId)
+                .Include(j => j.FavoriteJokes)
+                    .ThenInclude(j => j.Joke)
+                .FirstAsync();
 
-            var userFavJoke = new UserFavoriteJoke()
-            {
-                UserId = userId,
-                JokeId = joke.Id
-            };
+            var userFavJoke = await context.UsersFavoritesJokes.Where(u => u.UserId == userId && u.JokeId == id).FirstAsync();
 
             if (!user.FavoriteJokes.Contains(userFavJoke))
             {
@@ -84,7 +85,8 @@
             user.FavoriteJokes.Remove(userFavJoke);
             joke.UserFavoriteJokes.Remove(userFavJoke);
 
-            await repository.SaveChangesAsync();
+            context.UsersFavoritesJokes.Remove(userFavJoke);
+            await context.SaveChangesAsync();
         }
 
         public async Task<int> GetLikesCount(Guid id)

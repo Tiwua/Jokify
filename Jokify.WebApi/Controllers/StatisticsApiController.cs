@@ -17,7 +17,7 @@
         }
 
 
-        [HttpGet]
+        [HttpPost]
         [Produces("application/json")]
         [ProducesResponseType(200, Type = typeof(StatisticsServiceModel))]
         [ProducesResponseType(400)]
