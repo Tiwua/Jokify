@@ -1,0 +1,34 @@
+﻿@model JokeViewModel
+
+<div class="centered">
+    <form method="post">
+        <div class="text-center mb-3">
+            <label asp-for="@Model.Title">Title</label>
+            <input type="text" asp-for="@Model.Title" />
+            <span asp-validation-for="@Model.Title" class="text-danger"></span>
+        </div>
+        <div class="centered">
+            <label asp-for="@Model.Setup">Setup</label>
+            <textarea class="form-control" asp-for="@Model.Setup" rows="5"></textarea>
+            <span asp-validation-for="Setup" class="text-danger"></span>
+        </div>
+        <div class="centered">
+            <label asp-for="@Model.Punchline">Punchline</label>
+            <textarea class="form-control" asp-for="@Model.Punchline" rows="5"></textarea>
+            <span asp-validation-for="Punchline" class="text-danger"></span>
+        </div>
+        <div class="dropdown-input">
+            <label asp-for="@Model.CategoryId" class="form-label">Genre</label>
+            <select asp-for="@Model.CategoryId" class="form-control">
+                @foreach (var genre in Model.Categories)
+                {
+                    <option value="@genre.Id">@genre.Name</option>
+                }
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+        <div class="centered">
+            <input class="button" type="submit" value="Add a Joke" />
+        </div>
+    </form>
+</div>

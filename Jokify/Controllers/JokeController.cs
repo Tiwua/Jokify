@@ -32,7 +32,7 @@
         public async Task<IActionResult> Add()
         {
 
-            var model = new AddJokeViewModel()
+            var model = new JokeViewModel()
             {
                 Categories = await jokeCategoryService.GetAllCategoriesAsync()
             };
@@ -43,7 +43,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddJokeViewModel model)
+        public async Task<IActionResult> Add(JokeViewModel model)
         {
             if (!ModelState.IsValid)
             {

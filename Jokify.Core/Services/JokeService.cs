@@ -66,12 +66,12 @@
 
         }
 
-        public async Task AddJokeAsync(AddJokeViewModel model, string userId)
+        public async Task AddJokeAsync(JokeViewModel model, string userId)
         {
             var user = await repository.GetByIdAsync<User>(userId);
-            var joke = repository.AllReadonly<Joke>();
+            var joke = await repository.AllReadonly<Joke>().Where(j => j.Title == model.Title).FirstOrDefaultAsync();
 
-            if (joke == null)
+            if (joke != null)
             {
                 throw new ArgumentException("Cannot have multiple jokes with the same Title");
             }
@@ -86,15 +86,16 @@
             };
 
 
-            user.CreatedJokes.Add(new UserJoke
+            var userJoke = new UserJoke
             {
-                User = user,
                 UserId = userId,
-                Joke = newJoke,
                 JokeId = newJoke.Id
-            });
+            };
 
-            await repository.AddAsync(joke);
+            user.CreatedJokes.Add(userJoke);
+
+            await repository.AddAsync(newJoke);
+            await repository.AddAsync(userJoke);
             await repository.SaveChangesAsync();
         }
 

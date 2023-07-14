@@ -30,3 +30,10 @@ input[type=text] {
         outline: none;
         border-color: #000000;
     }
+
+.text-danger {
+    position: relative;
+    bottom: 20px;
+    color: #ff4b2b;
+    font: bold;
+}

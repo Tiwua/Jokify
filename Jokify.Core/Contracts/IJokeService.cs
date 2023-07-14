@@ -15,7 +15,7 @@
             int currentPage = 1,
             int jokesPerPage = 6);
 
-        public Task AddJokeAsync(AddJokeViewModel model, string userId);
+        public Task AddJokeAsync(JokeViewModel model, string userId);
 
         public Task<bool> Exists(int id);
 
