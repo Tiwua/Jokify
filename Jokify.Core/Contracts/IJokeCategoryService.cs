@@ -9,5 +9,7 @@
         Task<IEnumerable<JokeCategoryViewModel>> GetAllCategoriesAsync();
 
         Task<IEnumerable<string>> GetAllCategoriesNamesAsync();
+
+        Task<int> GetCategoryIdAsync(Guid id);
     }
 }

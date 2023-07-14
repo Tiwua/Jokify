@@ -3,6 +3,7 @@
     using Jokify.Core.Models.Joke;
     using Jokify.Core.Models.Joke.Enums;
     using Jokify.Infrastructure.Data.Models.JokeEntities;
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -22,5 +23,6 @@
         public Task<JokeDetailsViewModel> JokeDetailsByTitle(string title, int currentPage, bool hasLiked, string userId);
 
         public Task AddCommentToJokeAsync(string title, string commentContent, string userId);
+        Task<JokeViewModel> GetJokeById(Guid id);
     }
 }

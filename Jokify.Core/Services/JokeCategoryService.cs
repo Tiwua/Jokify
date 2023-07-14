@@ -37,5 +37,12 @@
                 .Distinct()
                 .ToListAsync();
         }
+
+        public async Task<int> GetCategoryIdAsync(Guid id)
+        {
+            var joke = await repository.GetByIdAsync<Joke>(id);
+
+            return joke.JokeCategoryId;
+        }
     }
 }

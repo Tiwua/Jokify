@@ -159,7 +159,7 @@
         {
             var comments = await repository.AllReadonly<Comment>()
                 .Where(c => !c.IsDeleted)
-                .Where(c => c.Joke.Title ==  title)
+                .Where(c => c.Joke.Title == title)
                 .ToListAsync();
 
             var user = await repository.AllReadonly<User>()
@@ -197,12 +197,20 @@
                     Comments = commentModel
                 }).FirstAsync();
 
-            ;
-
             return result;
         }
 
-
-
+        public async Task<JokeViewModel> GetJokeById(Guid id)
+        {
+            return await repository.AllReadonly<Joke>()
+                .Where(j => !j.IsDeleted)
+                .Where(j => j.Id == id)
+                .Select(j => new JokeViewModel()
+                {
+                    Punchline = j.Punchline,
+                    Setup = j.Setup,
+                    Title = j.Title         
+                }).FirstAsync(); 
+        }
     }
 }

@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Add a Joke";
+﻿@model JokeViewModel
+
+@{
+    ViewData["Title"] = "Edit Joke";
 }
 
 @section Styles{
@@ -14,10 +16,8 @@
 <h1 class="centered-lowered-div">@ViewData["Title"]</h1>
 
 <partial name="_JokeFormPartial" model="@Model"></partial>
-
 <div class="centered">
-    <input class="button" type="submit" value="Add a Joke" />
+    <input class="button" type="submit" value="Edit Joke" />
 </div>
 <partial name="_ValidationScriptsPartial" />
-
 <script src="~/js/script.js"></script>

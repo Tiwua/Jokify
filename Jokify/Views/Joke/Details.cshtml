@@ -296,8 +296,11 @@
     </div>
     @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.OwnerName)
     {
+        <form method="get">
+
         <button class="edit-button" asp-controller="Joke" asp-action="Edit"
        asp-route-id="@Model.Id">Edit</button>
+        </form>
 
         <form method="post" asp-controller="Joke"
           asp-action="Delete"

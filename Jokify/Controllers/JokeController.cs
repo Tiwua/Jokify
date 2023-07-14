@@ -92,7 +92,6 @@
         {
             try
             {
-
                 var userId = GetUserId();
                 var hasLiked = await likeService.HasLikedJoke(title, userId);
 
@@ -126,7 +125,6 @@
 
             await jokeService.AddCommentToJokeAsync(title, commentContent, userId);
 
-
             return RedirectToAction("Details", "Joke", new { title, page });
         }
 
@@ -142,7 +140,6 @@
 
             await likeService.LikeJokeAsync(id, userId);
 
-
             return RedirectToAction("Details", "Joke", new { title, page });
         }
 
@@ -154,6 +151,52 @@
             await likeService.DislikeJokeAsync(id, userId);
 
             return RedirectToAction("Details", "Joke", new { title, page });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var categoryId = await jokeCategoryService.GetCategoryIdAsync(id);
+            var joke = await jokeService.GetJokeById(id);
+
+            var model = new JokeViewModel()
+            {
+                Title = joke.Title,
+                Setup = joke.Setup,
+                Punchline = joke.Punchline,
+                CategoryId = categoryId,
+                Categories = await jokeCategoryService.GetAllCategoriesAsync()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(JokeViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.Categories = await jokeCategoryService.GetAllCategoriesAsync();
+
+                ViewBag.Class = "add";
+
+                return View(model);
+            }
+
+            try
+            {
+                string userId = GetUserId();
+
+                await jokeService.AddJokeAsync(model, userId);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return RedirectToAction("All", "Joke");
         }
     }
 }
