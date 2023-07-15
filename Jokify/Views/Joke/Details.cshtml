@@ -281,9 +281,9 @@
         }
 
     .edit-comment-button {
-        position: absolute;
-        bottom: 10px;
-        right: 15px;
+        position: static;
+        top: 35px;
+        left: 85px;
         opacity: 0;
         transition: opacity 0.3s ease;
         visibility: hidden;
@@ -293,6 +293,21 @@
         .edit-comment-button:hover {
             color: #ff4b2b;
         }
+
+    .comment:hover .edit-comment-button {
+        visibility: visible;
+        opacity: 1;
+    }
+
+
+    a{
+
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    }
 
 </style>
 
@@ -382,18 +397,16 @@
                 else
                 {
                     <div class="comment">
-                    @if (User.Identity.IsAuthenticated && User.Identity.Name == comment.User)
-                    {
-                        <form method="get">
-
-                            <button class="edit-comment-button" asp-controller="Joke" asp-action="Edit"
-                            asp-route-id="@Model.Id">
-                                Edit
-                            </button>
-                        </form>
-                    }
                         <p>@comment.Content</p>
                         <span class="comment-author">Posted by @comment.User @now hours ago</span>
+                    @if (User.Identity.IsAuthenticated && User.Identity.Name == comment.User)
+                    {
+                            <a class="edit-comment-button" asp-controller="Joke" asp-action="Edit"
+                            asp-route-id="@Model.Id">
+                                   Edit
+                            </a>
+                        }
+
                     </div>
 
                 }
