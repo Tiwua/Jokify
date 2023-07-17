@@ -200,5 +200,26 @@
 
             return RedirectToAction("All", "Joke");
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateComment(Guid id, [FromBody] CommentViewModel updatedComment)
+        {
+            // Retrieve the existing comment from the repository based on the id
+            //var existingComment = _commentRepository.GetCommentById(id);
+            //if (existingComment == null)
+            //{
+            //    return NotFound();
+            //}
+
+            // Update the existing comment properties with the data from the request
+            //existingComment.Content = updatedComment.Content;
+            // Update other properties as needed
+            //_commentRepository.UpdateComment(existingComment);
+
+            // Save the updated comment back to the repository
+
+            // Return a response indicating the successful update of the comment
+            return Ok(new { success = true });
+        }
     }
 }

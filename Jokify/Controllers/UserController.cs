@@ -64,16 +64,20 @@
 		}
 
 		[HttpGet]
-		public IActionResult Login()
+		public IActionResult Login(string returnUrl)
 		{
-			var model = new LoginViewModel();
+			var model = new LoginViewModel()
+			{
+				ReturnUrl = returnUrl
+			};
+
             ViewBag.Class = "login";
 
             return View(model);
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Login(LoginViewModel model)
+		public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -89,8 +93,15 @@
 
 				if (result.Succeeded)
 				{
-					return RedirectToAction("Index", "Home");
-				}
+                    if (Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
 			}
 
 			ModelState.AddModelError("", "Invalid login");

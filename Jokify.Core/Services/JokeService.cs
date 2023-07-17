@@ -172,6 +172,7 @@
             var commentModel = paginatedComments
                     .Select(c => new CommentViewModel()
                     {
+                        Id = c.Id,
                         Content = c.Content,
                         CreatedOn = c.CreatedOn.ToString(),
                         User = user.UserName,

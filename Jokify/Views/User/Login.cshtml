@@ -9,6 +9,11 @@
     <link href="~/css/login.css" rel="stylesheet" />
 }
 
+@if (Model.ReturnUrl != null)
+{
+    <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+}
+
 <h1 class="centered">@ViewData["Title"]</h1>
 
 <div class="row">

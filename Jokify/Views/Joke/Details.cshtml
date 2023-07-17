@@ -17,7 +17,7 @@
         border-radius: 10px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         transition: box-shadow 0.3s ease;
-        margin-bottom: 10px; 
+        margin-bottom: 10px;
         z-index: 9999;
     }
 
@@ -29,11 +29,11 @@
             resize: none; /* Prevent resizing of the textarea */
         }
 
-        .container-wrapper {
+    .container-wrapper {
         position: fixed;
         top: 50px; /* Adjust as needed */
         left: 50px; /* Adjust as needed */
-        }
+    }
 
     .details-button {
         position: absolute;
@@ -93,7 +93,8 @@
         color: white;
         margin-right: 10px;
     }
-    .edit-button:hover {
+
+        .edit-button:hover {
             background-color: #ff4b2b;
             transform: scale(1.1);
         }
@@ -139,10 +140,10 @@
         /* Additional styles for the fixed elements */
     }
 
-        .likes i {
-            color: #FF0000;
-            margin-right: 5px;
-        }
+    .likes i {
+        color: #FF0000;
+        margin-right: 5px;
+    }
 
     .likes-count {
         font-size: 20px;
@@ -276,9 +277,10 @@
             color: white;
             transform: scale(1.1);
         }
-        .form-control{
-            width: 461px;
-        }
+
+    .form-control {
+        width: 461px;
+    }
 
     .edit-comment-button {
         position: static;
@@ -300,35 +302,108 @@
     }
 
 
-    a{
-
-    display: block;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+    a {
+        display: block;
     }
 
+    /* Edit Button Style */
+    .edit-button {
+        background-color: #007bff;
+        color: #fff;
+        width: 65px;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 3px;
+        margin-right: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    /* Edit Form Style */
+    .edit-form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+        .edit-form textarea {
+            resize: vertical;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+
+        .edit-form button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+
+    /* Cancel Button Style */
+    .cancel-button {
+        background-color: #007bff;
+        color: #fff;
+        width: 65px;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 3px;
+        margin-right: 5px;
+        margin-top: 10px;
+    }
+
+        .cancel-button:hover {
+            background-color: #ff4b2b;
+            transform: scale(1.1);
+        }
+
+    /* Save Button Style */
+    .save-button {
+        background-color: #007bff;
+        color: #fff;
+        width: 65px;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 3px;
+        margin-right: 5px;
+        margin-bottom: 10px;
+    }
+
+        .save-button:hover {
+            background-color: #ff4b2b;
+            transform: scale(1.1);
+        }
+
+   .textarea.comment-content {
+        resize: none;
+   }
 </style>
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <div class="joke-container" data-id="@Model.Id">
-    
+
     <h2>@Model.Title</h2>
     <p class="setup">@Model.Setup</p>
     <p class="punchline">@Model.Punchline</p>
     <div id="likes" class="likes">
-    <div class="fixed-elements">
-        <i class="fas fa-heart"></i>
-        <span class="likes-count">@Model.LikesCount</span>
-    </div>
+        <div class="fixed-elements">
+            <i class="fas fa-heart"></i>
+            <span class="likes-count">@Model.LikesCount</span>
+        </div>
     </div>
     @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.OwnerName)
     {
         <form method="get">
 
-        <button class="edit-button" asp-controller="Joke" asp-action="Edit"
-       asp-route-id="@Model.Id">Edit</button>
+            <button class="edit-button" asp-controller="Joke" asp-action="Edit"
+                asp-route-id="@Model.Id">
+                Edit
+            </button>
         </form>
 
         <form method="post" asp-controller="Joke"
@@ -387,28 +462,20 @@
                 var date = DateTime.Parse(stringDate).Hour;
                 var now = DateTime.Now.Hour;
 
-                if (now > 24)
-                {
-                    <div class="comment">
-                        <p class="comment-content">@comment.Content</p>
-                        <span class="comment-author">Posted by @comment.User on @comment.CreatedOn</span>
-                    </div>
-                }
-                else
-                {
-                    <div class="comment">
-                        <p>@comment.Content</p>
-                        <span class="comment-author">Posted by @comment.User @now hours ago</span>
-                    @if (User.Identity.IsAuthenticated && User.Identity.Name == comment.User)
-                    {
-                            <a class="edit-comment-button" asp-controller="Joke" asp-action="Edit"
-                            asp-route-id="@Model.Id">
-                                   Edit
-                            </a>
-                        }
 
-                    </div>
-
+                <div class="comment">
+                    <p class="text">@comment.Content</p>
+                    <span class="comment-author">Posted by @comment.User @now hours ago</span>
+                </div>
+                <form class="edit-form" data-comment-id="@comment.Id" style="display:none;">
+                    <textarea class="form-control" asp-for="@Model.CommentContent" rows="3"></textarea>
+                    <span asp-validation-for="@Model.CommentContent" class="text-danger"></span>
+                    <button type="button" class="cancel-button">Cancel</button>
+                    <button type="button" class="save-button">Save</button>
+                </form>
+                @if (User.Identity.IsAuthenticated && User.Identity.Name == comment.User)
+                {
+                    <a class="edit-button" data-comment-id="@comment.Id">Edit</a>
                 }
             }
         }
@@ -465,27 +532,91 @@
     </div>
 </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
-           <script>
-    $(document).ready(function () {
-        $('.dislike-button').on('click', function () {
-            var jokeContainer = $(this).closest('.joke');
-            var id = $(this).closest('.joke-container').data('id');
-            var likesContainer = jokeContainer.find('.likes-count');
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-            // Perform AJAX request to update dislike count on the server
+<script>
+    $(document).ready(function () {
+        $(".cancel-button").on("click", function () {
+            var commentId = $(this).closest(".edit-form").data("comment-id");
+            var editButton = $(".edit-button[data-comment-id='" + commentId + "']");
+            var editForm = $(".edit-form[data-comment-id='" + commentId + "']");
+
+            // Show the "Edit" button again and hide the edit form
+            editButton.show();
+            editForm.hide();
+        });
+    });
+
+    $(document).ready(function () {
+        $(".edit-button").on("click", function () {
+            var commentId = $(this).data("comment-id");
+            var editForm = $(this).closest(".comment-section").find(".edit-form");
+            var commentContent = document.querySelector('.text').textContent;
+
+            // Hide the "Edit" button
+            $(this).hide();
+
+            // Show the edit form and populate it with the current comment content
+            editForm.find("textarea").val(commentContent).focus(); // Focus on the textarea
+            editForm.show();
+        });
+    });
+
+    $(document).ready(function () {
+        $(".save-button").on("click", function () {
+            const editForm = this.closest(".edit-form");
+            const commentId = $(this).closest(".edit-form").data("comment-id");
+            const commentTextarea = document.querySelector('.comment-content');
+            const jokeContainer = document.querySelector('.joke-container');
+            const commentElement = document.querySelector('.page');
+            const comment = document.querySelector('.text');
+            const jokeTitleElement = jokeContainer.querySelector('h2');
+
+            // Get the content of the comment
+            const commentContent = commentTextarea.value;
+            // Get the title of the comment
+            const jokeTitle = jokeTitleElement.innerText;
+            // Get the page of the comment
+            const commentPage = commentElement.innerText
+            // Get the userId from the comment
+
+            // Now you have the extracted variables, you can use them in your AJAX request
+            const ajaxUrl = "https://localhost:7085/api/content/" + commentId;
+            '/Joke/Details/Skeletons/1/4dc84e20-ff90-4254-ab28-683ea59d055a'
+            // Send the edited comment data to the server using AJAX with the updated URL
             $.ajax({
-                url: 'api/statistics/' + id, // Replace with your server-side endpoint
-                method: 'POST',
-                data: { id: id }, // Pass any necessary data (e.g., post ID)
+                url: ajaxUrl,
+                type: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify(commentContent),
                 success: function (response) {
-                    // Update the dislike count on the page
-                    likesContainer.text(parseInt(likesContainer.text()) - 1);
+                    // Handle the response as needed
+                    if (response.success) {
+                        comment.textContent = commentContent;
+
+                        // Hide the edit form and show the "Edit" button
+                        editForm.style.display = "none";
+                        var editButton = $(".edit-button[data-comment-id='" + commentId + "']");
+                        editButton.show();
+                    } else {
+                        // Handle server-side errors if necessary
+                        console.log(response.errorMessage);
+                    }
                 },
-                error: function () {
-                    console.log('Error occurred while disliking the post.');
+                error: function (xhr, status, error) {
+                    // Handle AJAX errors if necessary
+                    console.log("AJAX request failed: " + status + ", " + error);
+
+                    // Check if responseText is available
+                    if (xhr.responseText) {
+                        console.log("Raw Response:", xhr.responseText);
+                    }
+
+                    // Check if status and statusText are available
+                    console.log("Status Code:", xhr.status);
+                    console.log("Status Text:", xhr.statusText);
                 }
             });
         });
     });
-           </script>
+</script>

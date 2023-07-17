@@ -1,6 +1,8 @@
 namespace Jokify.WebApi
 {
     using HouseRentingSystem.Infrastructure.Data.Common;
+    using Jokify.Common.Contracts;
+    using Jokify.Common.Services;
     using Jokify.Core.Contracts;
     using Jokify.Core.Services;
     using Jokify.Infrastructure.Data;
@@ -17,7 +19,18 @@ namespace Jokify.WebApi
                 opt.UseSqlServer(connectionString));
 
             builder.Services.AddScoped<ILikeService, LikeService>();
+            builder.Services.AddScoped<IJokeService, JokeService>();
             builder.Services.AddScoped<IRepository, Repository>();
+
+            builder.Services.AddCors(setup =>
+            {
+                setup.AddPolicy("JokifySystem", policyBuilder =>
+                {
+                    policyBuilder.WithOrigins("https://localhost:7099")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
 
             builder.Services.AddControllers();
 
@@ -38,6 +51,8 @@ namespace Jokify.WebApi
 
 
             app.MapControllers();
+
+            app.UseCors("JokifySystem");
 
             app.Run();
         }

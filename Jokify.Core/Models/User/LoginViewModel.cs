@@ -13,5 +13,7 @@
         [Required(ErrorMessage = InvalidPassswordErrorMsg)]
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;
+
+        public string? ReturnUrl { get; set; }
     }
 }

@@ -8,7 +8,10 @@ namespace Jokify
     using Jokify.Extensions;
     using Jokify.Infrastructure.Data;
 	using Jokify.Infrastructure.Data.Models;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+    using System.Security.Claims;
+
     public class Program
     {
         public static void Main(string[] args)
@@ -37,6 +40,8 @@ namespace Jokify
 
 			builder.Services.AddControllersWithViews();
 			builder.Services.AddApplicationServices();
+            builder.Services.Configure<IdentityOptions>(options => options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
+			builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();
 
