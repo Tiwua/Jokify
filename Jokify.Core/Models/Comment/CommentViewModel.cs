@@ -15,7 +15,10 @@
 
         public string User { get; set; } = null!;
 
+        public string UserId { get; set; } = null!;
+
         public string CreatedOn { get; set; } = null!;
 
+        public bool IsUserOwner { get; set; }
     }
 }

@@ -28,44 +28,6 @@
             this.context = context;
         }
 
-        public async Task AddCommentToJokeAsync(string title, string commentContent, string userId)
-        {
-            var joke = await repository.AllReadonly<Joke>()
-                .Where(j => !j.IsDeleted)
-                .Where(j => j.Title == title)
-                .FirstAsync();
-
-            if (commentContent == null)
-            {
-                return;
-            }
-
-            var user = await repository.GetByIdAsync<User>(userId);
-
-            var date = DateTime.Now.ToString("F");
-
-            var comment = new Comment()
-            {
-                Content = commentContent,
-                CreatedOn = DateTime.Parse(date),
-                JokeId = joke.Id,
-                UserId = userId
-            };
-
-            var jokeComment = new JokeComment()
-            {
-                JokeId = joke.Id,
-                CommentId = comment.Id
-            };
-
-            joke.Comments.Add(comment);
-
-            await repository.AddAsync(jokeComment);
-            await repository.AddAsync(comment);
-            await repository.SaveChangesAsync();
-
-        }
-
         public async Task AddJokeAsync(JokeViewModel model, string userId)
         {
             var user = await repository.GetByIdAsync<User>(userId);
@@ -155,17 +117,24 @@
             return result;
         }
 
-        public async Task<JokeDetailsViewModel> JokeDetailsByTitle(string title, int currentPage, bool hasLiked, string userId)
+        public async Task<JokeDetailsViewModel> JokeDetailsByTitle(string title, int currentPage, bool hasCommented, bool hasLiked, string userId)
         {
             var comments = await repository.AllReadonly<Comment>()
                 .Where(c => !c.IsDeleted)
                 .Where(c => c.Joke.Title == title)
+                    .Include(u => u.User)
                 .ToListAsync();
 
             var user = await repository.AllReadonly<User>()
                 .Where(u => !u.IsDeleted)
                 .Where(u => u.Id == userId)
                 .FirstAsync();
+
+            bool isUserOwner = false;
+            if (comments.Any(c => c.UserId == userId))
+            {
+                isUserOwner = true;
+            }
 
             var paginatedComments = comments.Skip((currentPage - 1) * 3).Take(3).ToHashSet();
 
@@ -175,7 +144,9 @@
                         Id = c.Id,
                         Content = c.Content,
                         CreatedOn = c.CreatedOn.ToString(),
-                        User = user.UserName,
+                        User = c.User.UserName,
+                        UserId = c.UserId,
+                        IsUserOwner = isUserOwner
                     }).ToHashSet();
 
             var result = await repository.AllReadonly<Joke>()
@@ -187,10 +158,11 @@
                     Title = j.Title,
                     Setup = j.Setup,
                     Punchline = j.Punchline,
-                    IsPopular = j.IsPopular,
                     IsEdited = j.IsEdited,
+                    HasUserCommented = hasCommented,
                     LikesCount = j.LikesCount,
                     OwnerName = j.User.UserName,
+                    CurrUser = userId,
                     CurrentPage = currentPage,
                     TotalPages = (int)Math.Ceiling((double)comments.Count / 3),
                     PageSize = 3,
@@ -213,5 +185,7 @@
                     Title = j.Title         
                 }).FirstAsync(); 
         }
+
+
     }
 }

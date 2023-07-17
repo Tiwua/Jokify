@@ -14,6 +14,7 @@
             Comments = new HashSet<CommentViewModel>();
             CurrentPage = 1;
             PageSize = 3;
+            HasUserCommented = false;
         }
 
         public Guid Id { get; set; }
@@ -26,13 +27,17 @@
 
         public string OwnerName { get; set; } = null!;
 
+        public string CurrUser { get; set; } = null!;
+
         public bool IsDeleted { get; set; }
 
         public bool IsEdited { get; set; }
 
-        public bool IsPopular { get; set; }
+        public bool HasUserCommented { get; set; }
 
         public bool HasLiked { get; set; }
+
+        public bool HasCreatedComment { get; set; }
 
         [Display(Name = "Likes")]
         public int LikesCount { get; set; }
@@ -47,7 +52,6 @@
         public int TotalPages { get; set; }
 
         public int TotalComments { get; set; }
-
 
         public ICollection<CommentViewModel> Comments { get; set; }
     }

@@ -13,7 +13,6 @@
         public Comment()
         {
             Id = Guid.NewGuid();
-            IsPopular = false;
             IsEdited = false;
             IsDeleted = false;
         }
@@ -33,9 +32,6 @@
         [Comment("Edit flag that shows if the comment has been edited")]
         public bool IsEdited { get; set; }
 
-
-        [Comment("Popular flag that shows if the comment is popular")]
-        public bool IsPopular { get; set; }
 
         [Comment("Date of creation")]
         public DateTime CreatedOn { get; set; }

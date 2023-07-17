@@ -20,9 +20,8 @@
 
         public Task<bool> Exists(int id);
 
-        public Task<JokeDetailsViewModel> JokeDetailsByTitle(string title, int currentPage, bool hasLiked, string userId);
+        public Task<JokeDetailsViewModel> JokeDetailsByTitle(string title, int currentPage,bool hasCommented, bool hasLiked, string userId);
 
-        public Task AddCommentToJokeAsync(string title, string commentContent, string userId);
-        Task<JokeViewModel> GetJokeById(Guid id);
+        Task<JokeViewModel> GetJokeById(Guid id);    
     }
 }

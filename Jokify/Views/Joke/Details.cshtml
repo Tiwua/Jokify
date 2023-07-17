@@ -133,13 +133,6 @@
         align-items: center;
     }
 
-    .fixted-elements {
-        position: fixed;
-        top: 250px; /* Adjust as needed */
-        right: 900px; /* Adjust as needed */
-        /* Additional styles for the fixed elements */
-    }
-
     .likes i {
         color: #FF0000;
         margin-right: 5px;
@@ -247,20 +240,20 @@
     }
 
     .comment {
-        margin-bottom: 25px; /* Add space between comments */
-        margin-top: 10px; /* Add space above comment content */
-        text-align: center; /* Center-align the comment content */
+        margin-bottom: 25px;
+        margin-top: 10px;
+        text-align: center;
         box-shadow: 0 2px 5px rgba(0, 1, 1, 0.3);
     }
 
     .comment-content {
-        margin-bottom: 20px; /* Add space between comment content and comment author */
+        margin-bottom: 20px;
     }
 
     .comment-author {
-        font-weight: bold; /* Apply different styling to comment author */
-        margin-top: 30px; /* Add space above comment content */
-        text-align: center; /* Center-align the comment content */
+        font-weight: bold;
+        margin-top: 30px;
+        text-align: center;
     }
 
     .text-center {
@@ -282,20 +275,6 @@
         width: 461px;
     }
 
-    .edit-comment-button {
-        position: static;
-        top: 35px;
-        left: 85px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        visibility: hidden;
-        color: black;
-    }
-
-        .edit-comment-button:hover {
-            color: #ff4b2b;
-        }
-
     .comment:hover .edit-comment-button {
         visibility: visible;
         opacity: 1;
@@ -306,7 +285,6 @@
         display: block;
     }
 
-    /* Edit Button Style */
     .edit-button {
         background-color: #007bff;
         color: #fff;
@@ -320,7 +298,6 @@
         margin-bottom: 10px;
     }
 
-    /* Edit Form Style */
     .edit-form {
         display: flex;
         flex-direction: column;
@@ -343,7 +320,6 @@
             margin-right: 5px;
         }
 
-    /* Cancel Button Style */
     .cancel-button {
         background-color: #007bff;
         color: #fff;
@@ -361,7 +337,6 @@
             transform: scale(1.1);
         }
 
-    /* Save Button Style */
     .save-button {
         background-color: #007bff;
         color: #fff;
@@ -379,9 +354,28 @@
             transform: scale(1.1);
         }
 
-   .textarea.comment-content {
+    form.edit-form textarea.comment-content {
         resize: none;
-   }
+    }
+
+    .delete-comment-button {
+        background-color: #007bff;
+        color: #fff;
+        width: 65px;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 3px;
+        margin-right: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .delete-comment-button:hover {
+            background-color: #ff4b2b;
+            transform: scale(1.1);
+        }
+
 </style>
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -442,7 +436,6 @@
         }
     }
 </div>
-
 <div class="comment-section">
     <h2>Comments</h2>
 
@@ -457,7 +450,6 @@
         foreach (var comment in Model.Comments)
         {
             {
-                // Declare variables within the foreach loop
                 var stringDate = comment.CreatedOn;
                 var date = DateTime.Parse(stringDate).Hour;
                 var now = DateTime.Now.Hour;
@@ -467,30 +459,41 @@
                     <p class="text">@comment.Content</p>
                     <span class="comment-author">Posted by @comment.User @now hours ago</span>
                 </div>
+            }
+            @if (User.Identity.IsAuthenticated && comment.UserId == Model.CurrUser)
+                {
                 <form class="edit-form" data-comment-id="@comment.Id" style="display:none;">
-                    <textarea class="form-control" asp-for="@Model.CommentContent" rows="3"></textarea>
+                    <textarea class="comment-content" asp-for="@Model.CommentContent" rows="3"></textarea>
                     <span asp-validation-for="@Model.CommentContent" class="text-danger"></span>
                     <button type="button" class="cancel-button">Cancel</button>
                     <button type="button" class="save-button">Save</button>
                 </form>
-                @if (User.Identity.IsAuthenticated && User.Identity.Name == comment.User)
-                {
                     <a class="edit-button" data-comment-id="@comment.Id">Edit</a>
+                    <form method="post" asp-controller="Comment"
+                        asp-action="Delete"
+                        asp-route-id="@Model.Id"
+                        asp-route-title="@Model.Title"
+                        asp-route-page="@Model.CurrentPage">
+
+                        <button type="submit" class="delete-comment-button">Delete</button>
+                    </form>
                 }
-            }
         }
     }
-
-    <form method="post" asp-controller="Joke"
+  
+    @if (!Model.HasUserCommented)
+    {
+        <form method="post" asp-controller="Comment"
           asp-action="AddComment"
           asp-route-title="@Model.Title"
           asp-route-page="@Model.CurrentPage">
 
-        <h3>Add a Comment</h3>
-        <textarea class="form-control" asp-for="@Model.CommentContent" rows="3"></textarea>
-        <span asp-validation-for="@Model.CommentContent" class="text-danger"></span>
-        <button type="submit" class="comment-button">Post Comment</button>
-    </form>
+            <h3>Add a Comment</h3>
+            <textarea class="form-control" asp-for="@Model.CommentContent" rows="3"></textarea>
+            <span asp-validation-for="@Model.CommentContent" class="text-danger"></span>
+            <button type="submit" class="comment-button">Post Comment</button>
+        </form>
+    }
     @{
         var previousPage = Model.CurrentPage - 1;
         if (previousPage < 1)
@@ -503,7 +506,6 @@
     }
 
     @{
-        var prevPageButtonStatus = Model.CurrentPage == 1 ? "disabled" : string.Empty;
         var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
         !Model.Comments.Any();
     }
@@ -532,8 +534,8 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
         $(".cancel-button").on("click", function () {
@@ -541,7 +543,7 @@
             var editButton = $(".edit-button[data-comment-id='" + commentId + "']");
             var editForm = $(".edit-form[data-comment-id='" + commentId + "']");
 
-            // Show the "Edit" button again and hide the edit form
+
             editButton.show();
             editForm.hide();
         });
@@ -553,11 +555,9 @@
             var editForm = $(this).closest(".comment-section").find(".edit-form");
             var commentContent = document.querySelector('.text').textContent;
 
-            // Hide the "Edit" button
             $(this).hide();
 
-            // Show the edit form and populate it with the current comment content
-            editForm.find("textarea").val(commentContent).focus(); // Focus on the textarea
+            editForm.find("textarea").val(commentContent).focus();
             editForm.show();
         });
     });
@@ -565,56 +565,33 @@
     $(document).ready(function () {
         $(".save-button").on("click", function () {
             const editForm = this.closest(".edit-form");
+
             const commentId = $(this).closest(".edit-form").data("comment-id");
             const commentTextarea = document.querySelector('.comment-content');
-            const jokeContainer = document.querySelector('.joke-container');
             const commentElement = document.querySelector('.page');
             const comment = document.querySelector('.text');
-            const jokeTitleElement = jokeContainer.querySelector('h2');
 
-            // Get the content of the comment
             const commentContent = commentTextarea.value;
-            // Get the title of the comment
-            const jokeTitle = jokeTitleElement.innerText;
-            // Get the page of the comment
-            const commentPage = commentElement.innerText
-            // Get the userId from the comment
 
-            // Now you have the extracted variables, you can use them in your AJAX request
             const ajaxUrl = "https://localhost:7085/api/content/" + commentId;
-            '/Joke/Details/Skeletons/1/4dc84e20-ff90-4254-ab28-683ea59d055a'
-            // Send the edited comment data to the server using AJAX with the updated URL
             $.ajax({
                 url: ajaxUrl,
                 type: "PUT",
                 contentType: "application/json",
                 data: JSON.stringify(commentContent),
                 success: function (response) {
-                    // Handle the response as needed
                     if (response.success) {
                         comment.textContent = commentContent;
 
-                        // Hide the edit form and show the "Edit" button
                         editForm.style.display = "none";
                         var editButton = $(".edit-button[data-comment-id='" + commentId + "']");
                         editButton.show();
                     } else {
-                        // Handle server-side errors if necessary
                         console.log(response.errorMessage);
                     }
                 },
-                error: function (xhr, status, error) {
-                    // Handle AJAX errors if necessary
-                    console.log("AJAX request failed: " + status + ", " + error);
-
-                    // Check if responseText is available
-                    if (xhr.responseText) {
-                        console.log("Raw Response:", xhr.responseText);
-                    }
-
-                    // Check if status and statusText are available
-                    console.log("Status Code:", xhr.status);
-                    console.log("Status Text:", xhr.statusText);
+                error: function () {
+                    console.log("Failed");
                 }
             });
         });

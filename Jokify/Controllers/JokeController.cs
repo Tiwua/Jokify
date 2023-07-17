@@ -17,15 +17,18 @@
         private readonly IJokeService jokeService;
         private readonly IJokeCategoryService jokeCategoryService;
         private readonly ILikeService likeService;
+        private readonly ICommentService commentService;
 
         public JokeController(
             IJokeService jokeService,
             IJokeCategoryService jokeCategoryService,
-            ILikeService likeService)
+            ILikeService likeService,
+            ICommentService commentService)
         {
             this.jokeService = jokeService;
             this.jokeCategoryService = jokeCategoryService;
             this.likeService = likeService;
+            this.commentService = commentService;
         }
 
         [HttpGet]
@@ -94,11 +97,14 @@
             try
             {
                 var userId = GetUserId();
-                var hasLiked = await likeService.HasLikedJoke(title, userId);
 
-                var model = await jokeService.JokeDetailsByTitle(title, page, hasLiked, userId);
+                var hasLiked = await likeService.HasLikedJoke(title, userId);
+                var hasCommented = await commentService.HasUserCommentedAsync(title, userId);
+
+                var model = await jokeService.JokeDetailsByTitle(title, page, hasCommented, hasLiked, userId);
 
                 model.HasLiked = hasLiked;
+                model.HasUserCommented = hasCommented;
 
                 return View(model);
             }
@@ -109,29 +115,6 @@
 
                 return RedirectToAction(nameof(All));
             }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddComment(string title, int page, JokeDetailsViewModel model)
-        {
-            if (IsCommentValid(model.CommentContent))
-            {
-
-                return RedirectToAction("Details", "Joke", new { title, page });
-            }
-
-            var userId = GetUserId();
-
-            var commentContent = model.CommentContent;
-
-            await jokeService.AddCommentToJokeAsync(title, commentContent, userId);
-
-            return RedirectToAction("Details", "Joke", new { title, page });
-        }
-
-        private bool IsCommentValid(string commentContent)
-        {
-            return commentContent.Length < 5 || commentContent.Length > 195;
         }
 
         [HttpPost]
@@ -199,27 +182,6 @@
             }
 
             return RedirectToAction("All", "Joke");
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult UpdateComment(Guid id, [FromBody] CommentViewModel updatedComment)
-        {
-            // Retrieve the existing comment from the repository based on the id
-            //var existingComment = _commentRepository.GetCommentById(id);
-            //if (existingComment == null)
-            //{
-            //    return NotFound();
-            //}
-
-            // Update the existing comment properties with the data from the request
-            //existingComment.Content = updatedComment.Content;
-            // Update other properties as needed
-            //_commentRepository.UpdateComment(existingComment);
-
-            // Save the updated comment back to the repository
-
-            // Return a response indicating the successful update of the comment
-            return Ok(new { success = true });
         }
     }
 }
