@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Jokify.Core\Jokify.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Common\" />
-  </ItemGroup>
-
 </Project>

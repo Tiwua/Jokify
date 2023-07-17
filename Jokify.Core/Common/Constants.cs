@@ -6,7 +6,11 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    internal class Constants
+    public class Constants
     {
+        public class Error
+        {
+            public const string InvalidComment = "Invalid Comment";
+        }
     }
 }

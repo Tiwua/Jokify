@@ -18,8 +18,7 @@ namespace Jokify.WebApi
             builder.Services.AddDbContext<JokifyDbContext>(opt =>
                 opt.UseSqlServer(connectionString));
 
-            builder.Services.AddScoped<ILikeService, LikeService>();
-            builder.Services.AddScoped<IJokeService, JokeService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<IRepository, Repository>();
 
             builder.Services.AddCors(setup =>

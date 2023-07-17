@@ -10,6 +10,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using static Jokify.Core.Common.Constants.Error;
 
     public class CommentService : ICommentService
     {
@@ -71,6 +72,21 @@
             }
 
             return false;
+        }
+
+        public async Task UpdateComment(Guid id, string content)
+        {
+            var commentToEdit = await repository.GetByIdAsync<Comment>(id);
+
+            if (commentToEdit == null)
+            {
+                throw new ArgumentNullException(InvalidComment);
+            }
+
+            commentToEdit.Content = content;
+            commentToEdit.IsEdited = true;
+
+            await repository.SaveChangesAsync();
         }
     }
 }

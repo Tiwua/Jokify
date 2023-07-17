@@ -10,18 +10,17 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using System.Security.Claims;
+    using static Jokify.Common.Constants.Error;
 
     [ApiController]
     [Route("api/content")]
     public class CommentApiController : Controller
     {
-        private readonly JokifyDbContext context;
-        private readonly IJokeService jokeService;
+        private readonly ICommentService commentService;
 
-        public CommentApiController(JokifyDbContext context, IJokeService jokeService)
+        public CommentApiController(ICommentService commentService)
         {
-            this.context = context;
-            this.jokeService = jokeService;
+            this.commentService = commentService;
         }
 
         [HttpPut, Route("{id:Guid}")]
@@ -33,22 +32,10 @@
             {
                 if (string.IsNullOrEmpty(content))
                 {
-                    throw new ArgumentException("Content is empty!");
-                }
+                    throw new ArgumentException(EmptyCommentUpdate);
+                }        
 
-                var commentToEdit = await context.Comments.Where(c => c.Id == id ).FirstOrDefaultAsync();
-
-                if (commentToEdit == null)
-                {
-                    throw new ArgumentNullException("Invalid Comment");
-                }
-
-                var userId = commentToEdit.UserId;
-
-                commentToEdit.Content = content;
-                commentToEdit.IsEdited = true;
-
-                await context.SaveChangesAsync();
+                await commentService.UpdateComment(id, content);
 
                 return this.Ok(new { success = true });
             }

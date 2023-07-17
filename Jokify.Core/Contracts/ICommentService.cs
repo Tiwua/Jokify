@@ -11,5 +11,7 @@
         public Task AddCommentToJokeAsync(string title, string commentContent, string userId);
 
         public Task<bool> HasUserCommentedAsync(string title, string userId);
+
+        public Task UpdateComment(Guid id, string content);
     }
 }
