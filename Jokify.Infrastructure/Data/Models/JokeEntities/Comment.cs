@@ -34,6 +34,8 @@
 
 
         [Comment("Date of creation")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime CreatedOn { get; set; }
 
 

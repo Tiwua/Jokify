@@ -20,6 +20,6 @@
         public string CreatedOn { get; set; } = null!;
 
         public bool IsUserOwner { get; set; }
-        public bool IsEditted { get; set; }
+        public bool IsEdited { get; set; }
     }
 }

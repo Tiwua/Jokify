@@ -4,6 +4,7 @@ using Jokify.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jokify.Infrastructure.Migrations
 {
     [DbContext(typeof(JokifyDbContext))]
-    partial class JokifyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230718211250_CommentDateAlter")]
+    partial class CommentDateAlter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,7 +127,7 @@ namespace Jokify.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4495c6d3-d0fe-48ab-8e88-b01bb30def71"),
+                            Id = new Guid("b2e71610-908f-467f-97f3-0db8f277c837"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -138,7 +140,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7d2ae3d7-49ce-4876-ae1e-0de440d00229"),
+                            Id = new Guid("91195852-e50d-4235-adfe-65c8b663cb21"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -151,7 +153,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("69ef545f-5463-4c20-9f3d-ef47c36bbdda"),
+                            Id = new Guid("0cbb7b31-84e9-4243-a2bf-b50be6e5e9e6"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -164,7 +166,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1cc701b9-9fa1-45df-ab4e-772bcb8cbf77"),
+                            Id = new Guid("61a63654-0cf8-4115-a7a3-5be981ce8569"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -177,7 +179,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("820fa999-8195-43f1-9bcb-e2a58a8ea820"),
+                            Id = new Guid("571a1993-9f15-4293-9cc8-eebd69180b52"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -190,7 +192,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("aa9572e8-6451-4a87-849f-a02141c8132b"),
+                            Id = new Guid("d9b9aef7-155f-4755-bcb0-9791ebe6df4d"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -203,7 +205,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bb978587-8dda-4ba7-8e69-eb20f25c1d1b"),
+                            Id = new Guid("c906b719-d9cb-41d1-bfd5-71204768d5b6"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -216,7 +218,7 @@ namespace Jokify.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f5094e6c-724f-4a06-89c2-1d9a689a95d2"),
+                            Id = new Guid("058bd211-a9cc-4a06-9643-f99c7b38a199"),
                             IsDeleted = false,
                             IsEdited = false,
                             IsPopular = false,
@@ -414,16 +416,16 @@ namespace Jokify.Infrastructure.Migrations
                         {
                             Id = "cfbab976-a6d3-44c2-bdce-51c3b6b0412c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "aa1a2d5b-4191-43d8-88a7-91b15d244e1b",
+                            ConcurrencyStamp = "11ade1d7-a27a-4250-835c-7d0df91c9524",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJr8rXmm9ybmJOToErFXVxG4kf05FJxxp99UDIwOAWjNROjNOEQahmCxaZOQSL91Mg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKMemQD9gZUlYjdO535ei5fP3X2e3Qs+WHhTLkHLjtDqUqL7NdlcJ2zJUrlRhS+KaQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9325abf2-914f-4d39-a94e-5752a1beb59f",
+                            SecurityStamp = "8406a2f8-007f-49c9-a8cd-af4fa4937f0a",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
@@ -431,16 +433,16 @@ namespace Jokify.Infrastructure.Migrations
                         {
                             Id = "ae64ca1c-5403-4f2f-a25d-0a1249145ad3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b2e6fcd7-dd20-4186-92f3-6b963810b664",
+                            ConcurrencyStamp = "a77a56e8-2ca3-49bc-9cde-76f11fafe06e",
                             Email = "someone@gmail.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "SOMEONE@GMAIL.COM",
                             NormalizedUserName = "SOMEONE",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKu9WSznHE7GasGqzmDuQZohjd7UpiBcsKsVYWhFWVEttSqDNV9Xgw9EOKkXrkKW/Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJRu1GF6qPl1keHupb0ktj36FKZ/ObXQEVTN9ebKvangn/26Z2z92dLne6pgm6sk+g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9aab0d87-409b-4997-a486-205f66d93fbf",
+                            SecurityStamp = "bebc48b2-9aaa-4c3c-9332-93be2f5bd2f2",
                             TwoFactorEnabled = false,
                             UserName = "someone"
                         });

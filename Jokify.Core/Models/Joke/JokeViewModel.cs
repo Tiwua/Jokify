@@ -16,6 +16,7 @@
         public JokeViewModel()
         {
             IsEditMode = false;
+            IsEdited = false;
             Categories = new HashSet<JokeCategoryViewModel>();
         }
 
@@ -33,6 +34,8 @@
 
         [Range(IntegerIdMinValue, int.MaxValue)]
         public int CategoryId { get; set; }
+
+        public bool IsEdited { get; set; }
 
         public bool IsEditMode { get; set; }
 

@@ -87,6 +87,7 @@
             query.TotalJokesCount = result.JokesCount;
             query.Categories = await jokeCategoryService.GetAllCategoriesNamesAsync();
             query.Jokes = result.Jokes;
+            
 
             return View(query);
         }
@@ -157,7 +158,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(JokeViewModel model)
+        public async Task<IActionResult> Edit(JokeViewModel model, Guid id)
         {
             if (!ModelState.IsValid)
             {
@@ -167,12 +168,12 @@
 
                 return View(model);
             }
-
+                
             try
             {
                 string userId = GetUserId();
 
-                await jokeService.AddJokeAsync(model, userId);
+                await jokeService.EditJokeAsync(model, id);
 
             }
             catch (Exception)

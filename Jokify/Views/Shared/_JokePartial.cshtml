@@ -1,6 +1,10 @@
 ﻿@model JokeServiceModel
 
 <div class="joke-box">
+    @if (Model.IsEdited)
+    {
+        <span class="edited-label">(edited)</span>
+    }
     <h2>@Model.Title</h2>
     <p class="joke-startup">@Model.Setup</p>
     <p class="joke-punchline">@Model.Punchline</p>

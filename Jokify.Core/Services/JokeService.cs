@@ -16,7 +16,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-
+    using static Jokify.Core.Common.Constants.Page;
     public class JokeService : IJokeService
     {
         private readonly IRepository repository;
@@ -90,9 +90,9 @@
             jokes = sorting switch
             {
                 JokeSorting.PopularAscending => jokes
-                     .OrderBy(j => j.UserFavoriteJokes.Count()),
+                     .OrderBy(j => j.LikesCount),
                 JokeSorting.PopularDescending => jokes
-                     .OrderByDescending(j => j.UserFavoriteJokes.Count()),
+                     .OrderByDescending(j => j.LikesCount),
                 JokeSorting.Title => jokes
                      .OrderBy(j => j.Title),
                 _ => jokes.OrderByDescending(j => j.Id)
@@ -136,7 +136,9 @@
                 isUserOwner = true;
             }
 
-            var paginatedComments = comments.Skip((currentPage - 1) * 3).Take(3).ToHashSet();
+            var paginatedComments = comments.Skip((currentPage - 1) * CommentEntitiesPerPage)
+                .Take(CommentEntitiesPerPage)
+                .ToHashSet();
 
             var commentModel = paginatedComments
                     .Select(c => new CommentViewModel()
@@ -147,7 +149,7 @@
                         User = c.User.UserName,
                         UserId = c.UserId,
                         IsUserOwner = isUserOwner,
-                        IsEditted = c.IsEdited
+                        IsEdited = c.IsEdited
                     }).ToHashSet();
 
             var result = await repository.AllReadonly<Joke>()
@@ -165,8 +167,8 @@
                     OwnerName = j.User.UserName,
                     CurrUser = userId,
                     CurrentPage = currentPage,
-                    TotalPages = (int)Math.Ceiling((double)comments.Count / 3),
-                    PageSize = 3,
+                    TotalPages = (int)Math.Ceiling((double)comments.Count / CommentEntitiesPerPage),
+                    PageSize = CommentEntitiesPerPage,
                     TotalComments = comments.Count,
                     Comments = commentModel
                 }).FirstAsync();
@@ -187,6 +189,16 @@
                 }).FirstAsync(); 
         }
 
+        public async Task EditJokeAsync(JokeViewModel model, Guid jokeId)
+        {
+            var joke = await repository.GetByIdAsync<Joke>(jokeId);
 
+            joke.Title = model.Title;
+            joke.Setup = model.Setup;
+            joke.Punchline = joke.Punchline;
+            joke.IsEdited = true;
+
+            await repository.SaveChangesAsync();
+        }
     }
 }

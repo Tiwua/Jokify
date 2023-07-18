@@ -10,6 +10,6 @@
     {
         PopularDescending = 0,
         PopularAscending = 1,
-        Title = 3
+        Title = 2
     }
 }

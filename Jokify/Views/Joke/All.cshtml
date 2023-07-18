@@ -7,7 +7,17 @@
 
     <style>
 
-
+        .edited-label {
+            color: #999;
+            font-size: 12px;
+            position: relative;
+            left: 220px;
+            bottom: 20px;
+        }
+        .sortDropdown {
+            position: relative;
+            bottom: 50px;
+        }
     </style>
     <link href="~/css/all-jokes.css" rel="stylesheet" />
 
@@ -57,12 +67,10 @@
 
 
 
+    <form method="get">
 
-    <select id="sortDropdown" asp-for="Sorting">
-        <option value="0">Popular</option>
-        <option value="1">Least Popular</option>
-        <option value="2">Title</option>
-    </select>
+    
+    </form>
 
 
     @if (!Model.Jokes.Any())
@@ -102,13 +110,19 @@
     </div>
 
     <form method="get">
+       
         <div class="search-bar">
+            
             <input class="search-input" asp-for="SearchTerm" placeholder="Find a joke">
             <button type="submit" class="search-button">
                 <span class="search-icon">&#128269;</span>
             </button>
         </div>
-         
+        <select class="sortDropdown" asp-for="Sorting">
+            <option value="0">Popular</option>
+            <option value="1">Least Popular</option>
+            <option value="2">Title</option>
+        </select>
     </form>
 </body>
 

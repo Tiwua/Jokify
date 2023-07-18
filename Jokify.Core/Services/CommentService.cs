@@ -83,6 +83,11 @@
                 throw new ArgumentNullException(InvalidComment);
             }
 
+            if (commentToEdit.Content == content)
+            {
+                throw new ArgumentException(SameComment);
+            }
+
             commentToEdit.Content = content;
             commentToEdit.IsEdited = true;
 

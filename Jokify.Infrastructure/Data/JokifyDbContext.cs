@@ -8,6 +8,7 @@
     using Microsoft.EntityFrameworkCore;
     using System.Reflection.Emit;
     using System.Runtime.CompilerServices;
+    using System.Xml;
     using static Jokify.Infrastructure.Common.DataConstants.Joke;
 
     public class JokifyDbContext : IdentityDbContext<User>
@@ -75,6 +76,11 @@
                 .WithMany(c => c.Comments)
                 .HasForeignKey(j => j.JokeId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+
+            builder.Entity<Comment>()
+                    .Property(e => e.CreatedOn)
+                    .HasColumnType("datetime2(0)");
 
             base.OnModelCreating(builder);
         }

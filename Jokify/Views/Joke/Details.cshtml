@@ -99,9 +99,24 @@
             transform: scale(1.1);
         }
 
-    .delete-button {
-        background-color: #ff4b2b;
-        color: white;
+    .delete-joke-button {
+        font-size: 18px;
+        background-color: #007bff;
+        color: #fff;
+        width: 70px;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 3px;
+        margin-right: 5px;
+        margin-left: 15px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .delete-joke-button:hover{
+            background-color: #ff4b2b;
+            transform: scale(1.1);
     }
 
     .like-button {
@@ -394,8 +409,18 @@
         position:relative;
         left: 200px;
     }
-    .save-button disabled{
-        background: black;
+
+    .edited-joke-label {
+        color: #999;
+        font-size: 12px;
+        position: relative;
+        left: 420px;
+        bottom: 45px;
+    }
+    .save-button.disabled {
+        /* Your styles to visually indicate the button is disabled */
+        opacity: 0.6; /* Example: reduce opacity */
+        cursor: not-allowed; /* Example: change cursor style */
     }
 
 </style>
@@ -404,6 +429,10 @@
 <div class="joke-container" data-id="@Model.Id">
 
     <h2>@Model.Title</h2>
+    @if (@Model.IsEdited)
+    {
+        <span class="edited-joke-label">(edited)</span>
+    }
     <p class="setup">@Model.Setup</p>
     <p class="punchline">@Model.Punchline</p>
     <div id="likes" class="likes">
@@ -428,7 +457,7 @@
           asp-route-title="@Model.Title"
           asp-route-page="@Model.CurrentPage">
 
-            <button type="submit" class="dislike-button">Delete</button>
+            <button type="submit" class="delete-joke-button">Delete</button>
         </form>
     }
     else
@@ -477,7 +506,7 @@
 
 
                 <div class="comment">
-                    @if (comment.IsEditted)
+                    @if (comment.IsEdited)
                     {
                         <span class="edited-label">(edited)</span>
                     }
@@ -580,7 +609,7 @@
             const target = event.target;
             const commentId = $(this).data("comment-id"); 
             const editForm = $(this).closest(".comment-section").find(".edit-form");
-            const saveButton = editForm.find(".save-button");
+            const saveButton = document.querySelector('.save-button');
 
             const commentContainer = document.querySelector('.comment');
             const commentElement = target.closest('.comment');
@@ -599,12 +628,14 @@
                 editForm.show();
                 function updateSaveButtonState() {
                     const hasChanges = commentTextElement.textContent !== editContent.value;
-                    saveButton.prop("disabled", !hasChanges);
 
-                    if (saveButton.prop("disabled")) {
-                        saveButton.attr("disabled");
+                    if (hasChanges) {
+                        saveButton.disabled = false;
+                        saveButton.classList.remove('disabled');
                     } else {
-                        saveButton.removeClass("saved-button disabled");
+                        saveButton.disabled = true;
+                        saveButton.classList.add('disabled');
+
                     }
                 }
 
@@ -612,7 +643,7 @@
                 updateSaveButtonState();
 
                 // Attach an input event listener to the textarea to enable/disable the save button dynamically
-                $(editContent).on("input", updateSaveButtonState)
+                editContent.addEventListener('input', updateSaveButtonState);
             }
 
         });
