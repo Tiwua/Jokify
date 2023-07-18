@@ -388,6 +388,16 @@
             transform: scale(1.1);
         }
 
+    .edited-label {
+        color: #999;
+        font-size: 12px;
+        position:relative;
+        left: 200px;
+    }
+    .save-button disabled{
+        background: black;
+    }
+
 </style>
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -467,8 +477,12 @@
 
 
                 <div class="comment">
+                    @if (comment.IsEditted)
+                    {
+                        <span class="edited-label">(edited)</span>
+                    }
                     <p class="text">@comment.Content</p>
-                    <span class="comment-author">Posted by @comment.User @now hours ago</span>
+                    <span class="comment-author">Posted by @comment.User</span>
             @if (User.Identity.IsAuthenticated && comment.UserId == Model.CurrUser)
                 {
                 <form class="edit-form" data-comment-id="@comment.Id" style="display:none;">
@@ -480,7 +494,8 @@
                     <a class="edit-button" data-comment-id="@comment.Id">Edit</a>
                     <form method="post" asp-controller="Comment"
                         asp-action="Delete"
-                        asp-route-id="@Model.Id"
+                        asp-route-id="@comment.Id",
+                        asp-route-jokeId="@Model.Id"
                         asp-route-title="@Model.Title"
                         asp-route-page="@Model.CurrentPage">
 
@@ -562,11 +577,17 @@
 
     $(document).ready(function () {
         $(".edit-button").on("click", function () {
-            const commentId = $(this).data("comment-id");
-            const editForm = $(this).closest(".comment-section").find(".edit-form");
-            const commentContainer = document.querySelector('.comment');
-
             const target = event.target;
+            const commentId = $(this).data("comment-id"); 
+            const editForm = $(this).closest(".comment-section").find(".edit-form");
+            const saveButton = editForm.find(".save-button");
+
+            const commentContainer = document.querySelector('.comment');
+            const commentElement = target.closest('.comment');
+            const commentTextElement = commentElement.querySelector('.text');
+
+            const oldText = commentElement.querySelector(".text").textContent;
+            const editContent = commentContainer.querySelector(".comment-content");
             if (target.classList.contains('edit-button') || target.classList.contains('delete-button')) {
 
                 $(this).hide();
@@ -576,6 +597,22 @@
 
                 editForm.find("textarea").val(commentTextElement.textContent).focus();
                 editForm.show();
+                function updateSaveButtonState() {
+                    const hasChanges = commentTextElement.textContent !== editContent.value;
+                    saveButton.prop("disabled", !hasChanges);
+
+                    if (saveButton.prop("disabled")) {
+                        saveButton.attr("disabled");
+                    } else {
+                        saveButton.removeClass("saved-button disabled");
+                    }
+                }
+
+                // Call the function initially
+                updateSaveButtonState();
+
+                // Attach an input event listener to the textarea to enable/disable the save button dynamically
+                $(editContent).on("input", updateSaveButtonState)
             }
 
         });
@@ -603,6 +640,16 @@
                 success: function (response) {
                     if (response.success) {
                         const commentElement = target.closest('.comment');
+                        const hasSpanClass = commentElement.querySelector("span");
+
+                        if(!hasSpanClass){
+                            const editedSpan = document.createElement('span');
+                            editedSpan.classList.add('edited-label');
+                            editedSpan.textContent = '(edited)';
+
+                            commentElement.prepend(editedSpan);
+                        }
+
                         const commentTextElement = commentElement.querySelector('.text');
 
                         const commentTextarea = document.querySelector('.comment-content');

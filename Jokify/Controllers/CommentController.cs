@@ -4,6 +4,7 @@
     using Jokify.Core.Models.Joke;
     using Jokify.Core.Services;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
 
     public class CommentController : BaseController
     {
@@ -33,6 +34,16 @@
         private bool IsCommentValid(string commentContent)
         {
             return commentContent.Length < 5 || commentContent.Length > 195;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid id, string title, int page, Guid jokeId)
+        {
+            var userId = GetUserId();
+
+            await commentService.DeleteCommentAsync(id, userId, jokeId);
+
+            return RedirectToAction("Details", "Joke", new { title, page });
         }
     }
 }

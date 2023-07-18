@@ -88,5 +88,19 @@
 
             await repository.SaveChangesAsync();
         }
+
+        public async Task DeleteCommentAsync(Guid id, string userId, Guid jokeId)
+        {
+            var comment = await repository.GetByIdAsync<Comment>(id);
+
+            comment.IsDeleted = true;
+            var user = await repository.GetByIdAsync<User>(userId);
+            var joke = await repository.GetByIdAsync<Joke>(jokeId);
+
+            
+            joke.Comments.Remove(comment);
+
+            await repository.SaveChangesAsync();
+        }
     }
 }

@@ -146,7 +146,8 @@
                         CreatedOn = c.CreatedOn.ToString(),
                         User = c.User.UserName,
                         UserId = c.UserId,
-                        IsUserOwner = isUserOwner
+                        IsUserOwner = isUserOwner,
+                        IsEditted = c.IsEdited
                     }).ToHashSet();
 
             var result = await repository.AllReadonly<Joke>()

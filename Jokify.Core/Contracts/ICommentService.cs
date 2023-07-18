@@ -13,5 +13,7 @@
         public Task<bool> HasUserCommentedAsync(string title, string userId);
 
         public Task UpdateComment(Guid id, string content);
+
+        Task DeleteCommentAsync(Guid id, string userId, Guid jokeId);
     }
 }

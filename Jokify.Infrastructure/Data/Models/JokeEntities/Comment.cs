@@ -36,15 +36,14 @@
         [Comment("Date of creation")]
         public DateTime CreatedOn { get; set; }
 
-        [Required]
+
         [ForeignKey(nameof(User))]
-        public string UserId { get; set; } = null!;
-        public User User { get; set; } = null!;
+        public string? UserId { get; set; }
+        public User? User { get; set; }
 
 
-        [Required]
         [ForeignKey(nameof(Joke))]
-        public Guid JokeId { get; set; }
-        public Joke Joke { get; set; } = null!;
+        public Guid? JokeId { get; set; }
+        public Joke? Joke { get; set; }
     }
 }
