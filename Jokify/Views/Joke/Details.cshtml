@@ -286,14 +286,16 @@
     }
 
     .edit-button {
+        font-size: 18px;
         background-color: #007bff;
         color: #fff;
-        width: 65px;
+        width: 70px;
         border: none;
         padding: 5px 10px;
         cursor: pointer;
         border-radius: 3px;
         margin-right: 5px;
+        margin-left: 15px;
         margin-top: 10px;
         margin-bottom: 10px;
     }
@@ -321,15 +323,17 @@
         }
 
     .cancel-button {
+        font-size: 18px;
         background-color: #007bff;
         color: #fff;
-        width: 65px;
+        width: 70px;
         border: none;
         padding: 5px 10px;
         cursor: pointer;
         border-radius: 3px;
         margin-right: 5px;
         margin-top: 10px;
+        margin-left: 15px;
     }
 
         .cancel-button:hover {
@@ -338,15 +342,17 @@
         }
 
     .save-button {
+        font-size: 18px;
         background-color: #007bff;
         color: #fff;
-        width: 65px;
+        width: 70px;
         border: none;
         padding: 5px 10px;
         cursor: pointer;
         border-radius: 3px;
         margin-right: 5px;
         margin-bottom: 10px;
+        margin-left: 15px;
     }
 
         .save-button:hover {
@@ -356,12 +362,14 @@
 
     form.edit-form textarea.comment-content {
         resize: none;
+        margin-left: 15px;
+        margin-right: 15px;
     }
 
     .delete-comment-button {
         background-color: #007bff;
         color: #fff;
-        width: 65px;
+        width: 70px;
         border: none;
         padding: 5px 10px;
         cursor: pointer;
@@ -369,6 +377,10 @@
         margin-right: 5px;
         margin-top: 10px;
         margin-bottom: 10px;
+        margin-left: 35px;
+        position: relative;
+        right: 195px;
+        font-size: 18px;
     }
 
     .delete-comment-button:hover {
@@ -440,7 +452,6 @@
     <h2>Comments</h2>
 
 
-
     @if (Model.Comments.Count == 0)
     {
         <p>No comments yet.</p>
@@ -458,8 +469,6 @@
                 <div class="comment">
                     <p class="text">@comment.Content</p>
                     <span class="comment-author">Posted by @comment.User @now hours ago</span>
-                </div>
-            }
             @if (User.Identity.IsAuthenticated && comment.UserId == Model.CurrUser)
                 {
                 <form class="edit-form" data-comment-id="@comment.Id" style="display:none;">
@@ -478,6 +487,8 @@
                         <button type="submit" class="delete-comment-button">Delete</button>
                     </form>
                 }
+                </div>
+            }
         }
     }
   
@@ -539,9 +550,9 @@
 <script>
     $(document).ready(function () {
         $(".cancel-button").on("click", function () {
-            var commentId = $(this).closest(".edit-form").data("comment-id");
-            var editButton = $(".edit-button[data-comment-id='" + commentId + "']");
-            var editForm = $(".edit-form[data-comment-id='" + commentId + "']");
+            const commentId = $(this).closest(".edit-form").data("comment-id");
+            const editButton = $(".edit-button[data-comment-id='" + commentId + "']");
+            const editForm = $(".edit-form[data-comment-id='" + commentId + "']");
 
 
             editButton.show();
@@ -551,27 +562,37 @@
 
     $(document).ready(function () {
         $(".edit-button").on("click", function () {
-            var commentId = $(this).data("comment-id");
-            var editForm = $(this).closest(".comment-section").find(".edit-form");
-            var commentContent = document.querySelector('.text').textContent;
+            const commentId = $(this).data("comment-id");
+            const editForm = $(this).closest(".comment-section").find(".edit-form");
+            const commentContainer = document.querySelector('.comment');
 
-            $(this).hide();
+            const target = event.target;
+            if (target.classList.contains('edit-button') || target.classList.contains('delete-button')) {
 
-            editForm.find("textarea").val(commentContent).focus();
-            editForm.show();
+                $(this).hide();
+
+                const commentElement = target.closest('.comment');
+                const commentTextElement = commentElement.querySelector('.text');
+
+                editForm.find("textarea").val(commentTextElement.textContent).focus();
+                editForm.show();
+            }
+
         });
     });
 
     $(document).ready(function () {
         $(".save-button").on("click", function () {
-            const editForm = this.closest(".edit-form");
 
             const commentId = $(this).closest(".edit-form").data("comment-id");
             const commentTextarea = document.querySelector('.comment-content');
             const commentElement = document.querySelector('.page');
-            const comment = document.querySelector('.text');
 
+            const commentContainer = document.querySelector('.comment');
+            const target = event.target;
             const commentContent = commentTextarea.value;
+
+            const editForm = $(this).closest(".comment-section").find(".edit-form");
 
             const ajaxUrl = "https://localhost:7085/api/content/" + commentId;
             $.ajax({
@@ -581,9 +602,15 @@
                 data: JSON.stringify(commentContent),
                 success: function (response) {
                     if (response.success) {
-                        comment.textContent = commentContent;
+                        const commentElement = target.closest('.comment');
+                        const commentTextElement = commentElement.querySelector('.text');
 
-                        editForm.style.display = "none";
+                        const commentTextarea = document.querySelector('.comment-content');
+
+                        const text = commentElement.querySelector(".text");
+                        commentTextElement.textContent = commentTextarea.value;
+
+                        editForm.hide();
                         var editButton = $(".edit-button[data-comment-id='" + commentId + "']");
                         editButton.show();
                     } else {
