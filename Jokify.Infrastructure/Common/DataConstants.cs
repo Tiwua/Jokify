@@ -16,10 +16,10 @@
 			public const string JokeRatingMaxValue = "5.00";
 
 			public const int JokeSetupMinValue = 10;
-			public const int JokeSetupMaxValue = 5000;
+			public const int JokeSetupMaxValue = 100;
 
             public const int JokePunchlineMinValue = 10;
-            public const int JokePunchlineMaxValue = 5000;
+            public const int JokePunchlineMaxValue = 100;
 
 			public const string DecimalFluentApiPrecision = "decimal(3,2)";
         }
@@ -27,7 +27,7 @@
 		public class Comment
 		{
 			public const int CommentContentMinValue = 5;
-			public const int CommentContentMaxValue = 500;
+			public const int CommentContentMaxValue = 150;
 		}
 		public class User
 		{

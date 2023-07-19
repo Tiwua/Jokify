@@ -66,8 +66,14 @@
             throw new NotImplementedException();
         }
 
-        public async Task<JokeQueryModel> GetAllJokesAsync(string? category = null, string? searchTerm = null, JokeSorting sorting = JokeSorting.PopularDescending, int currentPage = 1, int jokesPerPage = 6)
+        public async Task<JokeQueryModel> GetAllJokesAsync(
+            string? category = null,
+            string? searchTerm = null,
+            JokeSorting sorting = JokeSorting.PopularDescending,
+            int currentPage = CurrentPage,
+            int jokesPerPage = JokesPerPage)
         {
+
             var result = new JokeQueryModel();
             var jokes = repository.AllReadonly<Joke>()
                 .Where(j => !j.IsDeleted);
@@ -136,8 +142,8 @@
                 isUserOwner = true;
             }
 
-            var paginatedComments = comments.Skip((currentPage - 1) * CommentEntitiesPerPage)
-                .Take(CommentEntitiesPerPage)
+            var paginatedComments = comments.Skip((currentPage - 1) * CommentsPerPage)
+                .Take(CommentsPerPage)
                 .ToHashSet();
 
             var commentModel = paginatedComments
@@ -167,8 +173,8 @@
                     OwnerName = j.User.UserName,
                     CurrUser = userId,
                     CurrentPage = currentPage,
-                    TotalPages = (int)Math.Ceiling((double)comments.Count / CommentEntitiesPerPage),
-                    PageSize = CommentEntitiesPerPage,
+                    TotalPages = (int)Math.Ceiling((double)comments.Count / CommentsPerPage),
+                    PageSize = CommentsPerPage,
                     TotalComments = comments.Count,
                     Comments = commentModel
                 }).FirstAsync();
@@ -195,10 +201,27 @@
 
             joke.Title = model.Title;
             joke.Setup = model.Setup;
-            joke.Punchline = joke.Punchline;
+            joke.Punchline = model.Punchline;
             joke.IsEdited = true;
 
             await repository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<JokeServiceModel>> AllJokesByUser(string userId)
+        {
+            var jokes = await repository.AllReadonly<Joke>()
+                .Where(j => !j.IsDeleted)
+                .Where(j => j.UserId == userId)
+                .Select(j => new JokeServiceModel()
+            {
+                Title = j.Title,
+                Setup = j.Setup,
+                Punchline = j.Punchline,
+                IsEdited = j.IsEdited,
+                Id = j.Id
+            }).ToListAsync();
+
+            return jokes;
         }
     }
 }

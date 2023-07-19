@@ -14,7 +14,7 @@
             string? searchTerm = null,
             JokeSorting sorting = JokeSorting.PopularAscending,
             int currentPage = CurrentPage,
-            int jokesPerPage = EntitiesPerPage);
+            int jokesPerPage = JokesPerPage);
 
         public Task AddJokeAsync(JokeViewModel model, string userId);
         public Task EditJokeAsync(JokeViewModel model, Guid jokeId);
@@ -28,6 +28,7 @@
             bool hasLiked, 
             string userId);
 
-        Task<JokeViewModel> GetJokeById(Guid id);    
+        Task<JokeViewModel> GetJokeById(Guid id);
+        Task<IEnumerable<JokeServiceModel>> AllJokesByUser(string userId);
     }
 }

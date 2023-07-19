@@ -210,3 +210,16 @@
     color: white;
     font-size: 18px;
 }
+
+.edited-label {
+    color: #999;
+    font-size: 12px;
+    position: relative;
+    left: 220px;
+    bottom: 20px;
+}
+
+.sortDropdown {
+    position: relative;
+    bottom: 50px;
+}

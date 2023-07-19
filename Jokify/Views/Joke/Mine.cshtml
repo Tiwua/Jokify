@@ -1,0 +1,23 @@
+﻿@model IEnumerable<JokeServiceModel>
+
+@{
+    ViewBag.Title = "My Houses";
+}
+<link href="~/css/all-jokes.css" rel="stylesheet" />
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+@if (Model.Any())
+{
+    <div class="jokes-container">
+        @foreach (var house in Model)
+        {
+            <partial name="_JokePartial" model="@house" />
+        }
+    </div>
+}
+else
+{
+    <h3 class="text-center">You have not created any jokes yet!</h3>
+}

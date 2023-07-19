@@ -17,9 +17,9 @@
 
         public class Page
         {
-            public const int EntitiesPerPage = 6;
+            public const int JokesPerPage = 6;
 
-            public const int CommentEntitiesPerPage = 3;
+            public const int CommentsPerPage = 3;
 
             public const int CurrentPage = 1;
         }

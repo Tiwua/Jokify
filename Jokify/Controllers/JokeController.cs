@@ -88,7 +88,6 @@
             query.Categories = await jokeCategoryService.GetAllCategoriesNamesAsync();
             query.Jokes = result.Jokes;
             
-
             return View(query);
         }
 
@@ -183,6 +182,16 @@
             }
 
             return RedirectToAction("All", "Joke");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            var userId = GetUserId();
+
+            IEnumerable<JokeServiceModel> userJokes = await jokeService.AllJokesByUser(userId);      
+
+            return View(userJokes);
         }
     }
 }
