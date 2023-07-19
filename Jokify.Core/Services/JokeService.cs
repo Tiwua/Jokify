@@ -223,5 +223,29 @@
 
             return jokes;
         }
+
+        public async Task DeleteJokeAsync(string userId, Guid jokeId)
+        {
+            var joke = await repository.GetByIdAsync<Joke>(jokeId);
+
+            if (joke == null)
+            {
+                throw new ArgumentNullException("Invalid joke!");
+            }
+
+            joke.IsDeleted = true;
+
+            var user = await repository.GetByIdAsync<User>(userId);
+
+            var userJoke = new UserJoke()
+            {
+                JokeId = joke.Id,
+                UserId = userId,
+            };
+
+            user.CreatedJokes.Remove(userJoke);
+
+            await repository.SaveChangesAsync();
+        }
     }
 }

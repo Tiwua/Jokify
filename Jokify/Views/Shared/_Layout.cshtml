@@ -1,11 +1,16 @@
 ﻿@{
-    string homeActiveClass = ViewBag.Class == "home" ? "active" : "";
-    string addActiveClass = ViewBag.Class == "add" ? "active" : "";
+    string homeActiveClass = ViewBag.Class == "home" ? "active" : string.Empty;
+    string addActiveClass = ViewBag.Class == "add" ? "active" : string.Empty;
+    string mineActiveClass = ViewBag.Class == "mine" ? "active" : string.Empty;
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+
+
+    </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Jokify</title>
@@ -26,14 +31,11 @@
                     asp-area="" asp-controller="Home" asp-action="Index">Home
                 </a>
             </li>
-            <li class="nav-link"><a href="#">TBD</a></li>
             @if (User?.Identity?.IsAuthenticated ?? false)
             {
                 <li><a class="@addActiveClass" asp-area="" asp-controller="Joke" asp-action="Add">Create a Joke</a></li>
-                
+                <li><a class="@mineActiveClass" asp-area="" asp-controller="Joke" asp-action="Mine">My Jokes</a></li>
             }
-            <li><a href="#">TBD</a></li>
-            <li><a href="#">TBD</a></li>
         </ul>
             <partial name="_LoginPartial" />
         <div class="h-main">

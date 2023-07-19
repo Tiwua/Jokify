@@ -7,10 +7,17 @@
     top: 150px;
     color: white;
 }
-
+.text-center {
+    position: relative;
+    top: 200px;
+    left: 650px;
+    color: white;
+    width: 600px;
+    text-align: center;
+}
 .joke-box {
     position: relative;
-    height: 200px;
+    height: auto;
     top: 250px;
     left: 350px;
     width: 300px;

@@ -10,6 +10,8 @@
     using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
+    using static Jokify.Core.Common.Constants;
+    using static Jokify.Infrastructure.Common.DataConstants;
 
 
     public class JokeController : BaseController
@@ -71,7 +73,7 @@
                 throw;
             }
 
-            return RedirectToAction("All", "Joke");
+            return RedirectToAction("Mine", "Joke");
         }
 
         [HttpGet]
@@ -150,14 +152,15 @@
                 Punchline = joke.Punchline,
                 CategoryId = categoryId,
                 Categories = await jokeCategoryService.GetAllCategoriesAsync(),
-                IsEditMode = true
+                IsEditMode = true,
+                IsEdited = joke.IsEdited
             };
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(JokeViewModel model, Guid id)
+        public async Task<IActionResult> Edit(JokeViewModel model, Guid id, string title, int page = 1)
         {
             if (!ModelState.IsValid)
             {
@@ -177,11 +180,10 @@
             }
             catch (Exception)
             {
-
                 throw;
             }
 
-            return RedirectToAction("All", "Joke");
+            return RedirectToAction("Details", "Joke", new { title, page });
         }
 
         [HttpGet]
@@ -189,9 +191,20 @@
         {
             var userId = GetUserId();
 
-            IEnumerable<JokeServiceModel> userJokes = await jokeService.AllJokesByUser(userId);      
+            IEnumerable<JokeServiceModel> userJokes = await jokeService.AllJokesByUser(userId);
+            ViewBag.Class = "mine";
 
             return View(userJokes);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var userId = GetUserId();
+
+            await jokeService.DeleteJokeAsync(userId, id);
+
+            return RedirectToAction("Mine", "Joke");
         }
     }
 }

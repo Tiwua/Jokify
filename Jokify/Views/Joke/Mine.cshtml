@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<JokeServiceModel>
 
 @{
-    ViewBag.Title = "My Houses";
+    ViewBag.Title = "My Jokes";
 }
 <link href="~/css/all-jokes.css" rel="stylesheet" />
 
-<h2 class="text-center">@ViewBag.Title</h2>
-<hr />
+<style>
+
+</style>
+
 
 @if (Model.Any())
 {
+    <h1 class="text-center">@ViewBag.Title</h1>
     <div class="jokes-container">
         @foreach (var house in Model)
         {
@@ -19,5 +22,5 @@
 }
 else
 {
-    <h3 class="text-center">You have not created any jokes yet!</h3>
+    <h1 class="text-center">You have not created any jokes yet</h1>
 }

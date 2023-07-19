@@ -5,7 +5,9 @@
 @inject UserManager<User> UserManager
 
 <link href="~/css/logout.css" rel="stylesheet" />
+<style>
 
+</style>
 @{
     string loginActiveClass = ViewBag.Class == "login" ? "active" : "";
     string registerActiveClass = ViewBag.Class == "register" ? "active" : "";
@@ -14,13 +16,11 @@
 <ul class="navlist">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a class="logout" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
-    </li>
+    <li class="nav-item"><a class="logout" asp-area="" asp-controller="User" asp-action="Logout">Logout</a></li>
 }
 else
 {
-        <li><a class="@loginActiveClass" asp-area="" asp-controller="User" asp-action="Login">Login</a></li>
-        <li><a class="@registerActiveClass" asp-area="" asp-controller="User" asp-action="Register">Register</a></li>
+    <li><a class="@loginActiveClass" asp-area="" asp-controller="User" asp-action="Login">Login</a></li>
+    <li><a class="@registerActiveClass" asp-area="" asp-controller="User" asp-action="Register">Register</a></li>
 }
 </ul>
