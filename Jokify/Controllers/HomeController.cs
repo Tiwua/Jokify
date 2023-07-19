@@ -1,6 +1,7 @@
 ﻿namespace Jokify.Controllers
 {
-	using Jokify.Models;
+    using Jokify.Common.Contracts;
+    using Jokify.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 	using System.Diagnostics;
@@ -8,11 +9,20 @@
 	[AllowAnonymous]
 	public class HomeController : BaseController
 	{
+		private readonly IJokeService jokeService;
 
-		public IActionResult Index()
+        public HomeController(IJokeService jokeService)
+        {
+			this.jokeService = jokeService;    
+        }
+
+        public async Task<IActionResult> Index()
 		{
+			var model = await jokeService.GetThreeMostPopularJokes();
+
 			ViewBag.Class = "home";
-			return View();
+
+			return View(model);
 		}
 	}
 }

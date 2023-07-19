@@ -247,5 +247,18 @@
 
             await repository.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<JokeHomeView>> GetThreeMostPopularJokes()
+        {
+            return await repository.AllReadonly<Joke>()
+                .Where(j => !j.IsDeleted)
+                .OrderByDescending(j => j.LikesCount)
+                .Select(j => new JokeHomeView()
+                {
+                    Category = j.Category.Name
+                })
+                .Take(3)
+                .ToListAsync();
+        }
     }
 }
