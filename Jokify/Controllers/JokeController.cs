@@ -85,6 +85,7 @@
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery] AllJokesQueryModel query)
         {
             var result = await jokeService.GetAllJokesAsync(
@@ -102,8 +103,14 @@
         }
 
         [HttpGet("Joke/Details/{title}/{page}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string title, int page = 1)
         {
+            if (await jokeService.ExistsByTitleAsync(title) == false)
+            {
+                return RedirectToAction("All", "Joke");
+            }
+
             try
             {
                 var userId = GetUserId();
@@ -155,21 +162,21 @@
                 return RedirectToAction("Mine", "Joke");
             }
 
-            var categoryId = await jokeCategoryService.GetCategoryIdAsync(id);
             var joke = await jokeService.GetJokeById(id);
 
-            var model = new JokeViewModel()
+            if (joke.UserId != GetUserId() && !User.IsInRole("Admin"))
             {
-                Id = id,
-                Title = joke.Title,
-                Setup = joke.Setup,
-                Punchline = joke.Punchline,
-                CategoryId = categoryId,
-                Categories = await jokeCategoryService.GetAllCategoriesAsync(),
-                IsEditMode = true,
-                IsEdited = joke.IsEdited
-            };
+                return RedirectToAction("Mine", "Joke");
+            }
 
+            var categoryId = await jokeCategoryService.GetCategoryIdAsync(id);
+
+            var model = jokeService.GetJokeForEdit(joke);
+
+            model.Id = id;
+            model.CategoryId = categoryId;
+            model.Categories = await jokeCategoryService.GetAllCategoriesAsync();
+            
             return View(model);
         }
 
@@ -200,8 +207,6 @@
             if (!ModelState.IsValid)
             {
                 model.Categories = await jokeCategoryService.GetAllCategoriesAsync();
-
-                ViewBag.Class = "add";
 
                 return View(model);
             }

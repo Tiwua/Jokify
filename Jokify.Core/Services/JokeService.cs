@@ -191,7 +191,8 @@
                 {
                     Punchline = j.Punchline,
                     Setup = j.Setup,
-                    Title = j.Title         
+                    Title = j.Title,
+                    UserId = j.UserId
                 }).FirstAsync(); 
         }
 
@@ -259,6 +260,35 @@
                 })
                 .Take(3)
                 .ToListAsync();
+        }
+
+        public async Task<bool> ExistsByTitleAsync(string title)
+        {
+            var jokeExists = await repository.AllReadonly<Joke>()
+                .Where(j => !j.IsDeleted)
+                .Where(j => j.Title == title)
+                .FirstOrDefaultAsync();
+
+            if (jokeExists == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public JokeViewModel GetJokeForEdit(JokeViewModel joke)
+        {
+            var model = new JokeViewModel()
+            {
+                Title = joke.Title,
+                Setup = joke.Setup,
+                Punchline = joke.Punchline,
+                IsEdited = joke.IsEdited,
+                IsEditMode = true
+            };
+
+            return model;
         }
     }
 }
