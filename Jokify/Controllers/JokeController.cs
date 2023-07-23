@@ -12,6 +12,7 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using static Jokify.Core.Common.Constants;
     using static Jokify.Infrastructure.Common.DataConstants;
+    using static Jokify.Common.Constants.Error;
 
 
     public class JokeController : BaseController
@@ -56,6 +57,13 @@
                 model.Categories = await jokeCategoryService.GetAllCategoriesAsync();
 
                 ViewBag.Class = "add";
+
+                return View(model);
+            }
+
+            if ((await jokeCategoryService.CategoryExistsAsync(model.CategoryId)) == false)
+            {
+                ModelState.AddModelError(nameof(model.CategoryId), InvalidCategory);
 
                 return View(model);
             }
@@ -142,11 +150,17 @@
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
+            if ((await jokeService.ExistsAsync(id)) == false)
+            {
+                return RedirectToAction("Mine", "Joke");
+            }
+
             var categoryId = await jokeCategoryService.GetCategoryIdAsync(id);
             var joke = await jokeService.GetJokeById(id);
 
             var model = new JokeViewModel()
             {
+                Id = id,
                 Title = joke.Title,
                 Setup = joke.Setup,
                 Punchline = joke.Punchline,
@@ -162,6 +176,27 @@
         [HttpPost]
         public async Task<IActionResult> Edit(JokeViewModel model, Guid id, string title, int page = 1)
         {
+            if (model.Id != id)
+            {
+				return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+			}
+
+            if ((await jokeService.ExistsAsync(id)) == false)
+            {
+                ModelState.AddModelError(string.Empty, "Joke does not exist");
+                model.Categories = await jokeCategoryService.GetAllCategoriesAsync();
+
+                return View(model);
+            }
+
+            if ((await jokeCategoryService.CategoryExistsAsync(model.CategoryId)) == false)
+            {
+                ModelState.AddModelError(nameof(model.CategoryId), "Category does not exist");
+                model.Categories = await jokeCategoryService.GetAllCategoriesAsync();
+
+                return View(model);
+            }
+
             if (!ModelState.IsValid)
             {
                 model.Categories = await jokeCategoryService.GetAllCategoriesAsync();

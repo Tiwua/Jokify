@@ -1,17 +1,12 @@
 namespace Jokify
 {
-    using HouseRentingSystem.Infrastructure.Data.Common;
-    using Jokify.Common.Contracts;
-    using Jokify.Common.Services;
-    using Jokify.Core.Contracts;
-    using Jokify.Core.Services;
     using Jokify.Extensions;
     using Jokify.Infrastructure.Data;
 	using Jokify.Infrastructure.Data.Models;
+	using static Jokify.Areas.Admin.Constants.AdminConstants;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using System.Security.Claims;
-
     public class Program
     {
         public static void Main(string[] args)
@@ -33,6 +28,7 @@ namespace Jokify
 				options.Password.RequireNonAlphanumeric = false;
 				options.Password.RequiredLength = 6;
 			})
+				.AddRoles<IdentityRole>()
 				.AddEntityFrameworkStores<JokifyDbContext>();
 			builder.Services.ConfigureApplicationCookie(options =>
 			{
@@ -65,6 +61,8 @@ namespace Jokify
 
 			app.UseAuthentication();
 			app.UseAuthorization();
+
+			app.SeedAdmin(AdminEmail);
 
 			app.MapControllerRoute(
 				name: "default",

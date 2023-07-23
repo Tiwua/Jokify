@@ -20,6 +20,8 @@
             Categories = new HashSet<JokeCategoryViewModel>();
         }
 
+        public Guid Id { get; set; }
+
         [Required]
         [StringLength(JokeTitleMaxValue, MinimumLength = JokeTitleMinValue)]
         public string Title { get; set; } = null!;

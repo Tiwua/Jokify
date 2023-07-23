@@ -19,7 +19,7 @@
         public Task AddJokeAsync(JokeViewModel model, string userId);
         public Task EditJokeAsync(JokeViewModel model, Guid jokeId);
 
-        public Task<bool> Exists(int id);
+        public Task<bool> ExistsAsync(Guid id);
 
         public Task<JokeDetailsViewModel> JokeDetailsByTitle(
             string title, 

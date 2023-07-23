@@ -20,7 +20,12 @@
             this.repository = repository;
         }
 
-        public async Task<IEnumerable<JokeCategoryViewModel>> GetAllCategoriesAsync()
+		public async Task<bool> CategoryExistsAsync(int categoryId)
+		{
+			return await repository.AllReadonly<JokeCategory>().AnyAsync(c => c.Id == categoryId);
+		}
+
+		public async Task<IEnumerable<JokeCategoryViewModel>> GetAllCategoriesAsync()
         {
             return await repository.AllReadonly<JokeCategory>()
                 .Select(c => new JokeCategoryViewModel()

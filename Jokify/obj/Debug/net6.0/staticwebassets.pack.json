@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\css\\button.css"
     },
     {
+      "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\css\\details.css",
+      "PackagePath": "staticwebassets\\css\\details.css"
+    },
+    {
       "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\css\\homeJokeButon.css",
       "PackagePath": "staticwebassets\\css\\homeJokeButon.css"
     },
@@ -37,6 +41,10 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\css\\sweetalert.min.css",
+      "PackagePath": "staticwebassets\\css\\sweetalert.min.css"
+    },
+    {
       "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
@@ -53,8 +61,16 @@
       "PackagePath": "staticwebassets\\images\\gradiantBlue.jpg"
     },
     {
+      "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\js\\details.js",
+      "PackagePath": "staticwebassets\\js\\details.js"
+    },
+    {
       "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\js\\script.js",
       "PackagePath": "staticwebassets\\js\\script.js"
+    },
+    {
+      "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\js\\sweetalert.min.js",
+      "PackagePath": "staticwebassets\\js\\sweetalert.min.js"
     },
     {
       "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\lib\\bootstrap\\LICENSE",
@@ -283,6 +299,30 @@
     {
       "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\lib\\limonte-sweetalert2\\sweetalert2.all.js",
+      "PackagePath": "staticwebassets\\lib\\limonte-sweetalert2\\sweetalert2.all.js"
+    },
+    {
+      "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\lib\\limonte-sweetalert2\\sweetalert2.all.min.js",
+      "PackagePath": "staticwebassets\\lib\\limonte-sweetalert2\\sweetalert2.all.min.js"
+    },
+    {
+      "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\lib\\limonte-sweetalert2\\sweetalert2.css",
+      "PackagePath": "staticwebassets\\lib\\limonte-sweetalert2\\sweetalert2.css"
+    },
+    {
+      "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\lib\\limonte-sweetalert2\\sweetalert2.js",
+      "PackagePath": "staticwebassets\\lib\\limonte-sweetalert2\\sweetalert2.js"
+    },
+    {
+      "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\lib\\limonte-sweetalert2\\sweetalert2.min.css",
+      "PackagePath": "staticwebassets\\lib\\limonte-sweetalert2\\sweetalert2.min.css"
+    },
+    {
+      "Id": "D:\\Softuni\\Project\\Jokify\\Jokify\\wwwroot\\lib\\limonte-sweetalert2\\sweetalert2.min.js",
+      "PackagePath": "staticwebassets\\lib\\limonte-sweetalert2\\sweetalert2.min.js"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.Jokify.Microsoft.AspNetCore.StaticWebAssets.props",

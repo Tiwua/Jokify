@@ -11,5 +11,7 @@
         Task<IEnumerable<string>> GetAllCategoriesNamesAsync();
 
         Task<int> GetCategoryIdAsync(Guid id);
+
+        Task<bool> CategoryExistsAsync(int categoryId);
     }
 }

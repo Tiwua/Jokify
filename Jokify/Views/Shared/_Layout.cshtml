@@ -1,4 +1,4 @@
-﻿@{
+﻿﻿@{
     string homeActiveClass = ViewBag.Class == "home" ? "active" : string.Empty;
     string addActiveClass = ViewBag.Class == "add" ? "active" : string.Empty;
     string mineActiveClass = ViewBag.Class == "mine" ? "active" : string.Empty;
@@ -7,17 +7,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-
-
-    </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Jokify</title>
-    @RenderSection("styles", false)
-    @RenderSection("Scripts", required: false)
 
-    
+    @await RenderSectionAsync("Styles", false)
+
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet"
           href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -28,7 +23,8 @@
         <ul class="navlist">
             <li>
                 <a class="@homeActiveClass"
-                    asp-area="" asp-controller="Home" asp-action="Index">Home
+                   asp-area="" asp-controller="Home" asp-action="Index">
+                    Home
                 </a>
             </li>
             @if (User?.Identity?.IsAuthenticated ?? false)
@@ -37,7 +33,7 @@
                 <li><a class="@mineActiveClass" asp-area="" asp-controller="Joke" asp-action="Mine">My Jokes</a></li>
             }
         </ul>
-            <partial name="_LoginPartial" />
+        <partial name="_LoginPartial" />
         <div class="h-main">
             <a asp-controller="Joke" asp-action="All" class="h-btn">Explore</a>
         </div>
@@ -49,13 +45,15 @@
         </main>
     </div>
 
-   @* <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; @DateTime.Now.Year - Jokify
-        </div>
+    @* <footer class="border-top footer text-muted">
+    <div class="container">
+    &copy; @DateTime.Now.Year - Jokify
+    </div>
     </footer>*@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

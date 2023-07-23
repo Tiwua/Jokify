@@ -3,11 +3,14 @@
 
 @{
     ViewData["Title"] = "Log in";
+    Layout = "_Layout";
 }
 
-@section Styles {
+@section Styles{
+
     <link href="~/css/login.css" rel="stylesheet" />
 }
+
 
 @if (Model.ReturnUrl != null)
 {
@@ -39,6 +42,5 @@
 
 <script src="~/js/script.js"></script>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+
+ <partial name="_ValidationScriptsPartial" />

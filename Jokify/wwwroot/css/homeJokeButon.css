@@ -31,15 +31,7 @@
     border: 2px solid white;
 }
 
-    .box a {
-        font-size: 20px;
-        font-weight: 500;
-        margin-bottom: 7px;
-    }
-
-    .box:hover h2 {
-        color: white;
-    }
+    
 
     .box:hover {
         transform: translateY(-5px) scale(1.1);

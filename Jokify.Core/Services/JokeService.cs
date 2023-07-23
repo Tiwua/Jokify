@@ -61,9 +61,9 @@
             await repository.SaveChangesAsync();
         }
 
-        public Task<bool> Exists(int id)
+        public async Task<bool> ExistsAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await repository.AllReadonly<Joke>().AnyAsync(j => j.Id == id);
         }
 
         public async Task<JokeQueryModel> GetAllJokesAsync(

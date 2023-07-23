@@ -19,4 +19,9 @@
     <ProjectReference Include="..\Jokify.Core\Jokify.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\" />
+  </ItemGroup>
+
 </Project>
