@@ -107,5 +107,10 @@
 
             await repository.SaveChangesAsync();
         }
+
+        public async Task<bool> ExistsAsnyc(Guid id)
+        {
+            return await repository.AllReadonly<Comment>().AnyAsync(c => c.Id == id);
+        }
     }
 }

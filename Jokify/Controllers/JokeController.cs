@@ -138,6 +138,11 @@
         [HttpPost]
         public async Task<IActionResult> Like(Guid id, string title, int page)
         {
+            if (await JokeExists(id) == false)
+            {
+                return RedirectToAction("All", "Joke");
+            }
+
             var userId = GetUserId();
 
             await likeService.LikeJokeAsync(id, userId);
@@ -148,6 +153,11 @@
         [HttpPost]
         public async Task<IActionResult> Dislike(Guid id, string title, int page)
         {
+            if (await JokeExists(id) == false)
+            {
+                return RedirectToAction("All", "Joke");
+            }
+
             var userId = GetUserId();
 
             await likeService.DislikeJokeAsync(id, userId);
@@ -158,7 +168,7 @@
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            if ((await jokeService.ExistsAsync(id)) == false)
+            if (await JokeExists(id) == false)
             {
                 return RedirectToAction("Mine", "Joke");
             }
@@ -186,10 +196,10 @@
         {
             if (model.Id != id)
             {
-				return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+                return RedirectToAction("Mine", "Joke");
 			}
 
-            if ((await jokeService.ExistsAsync(id)) == false)
+            if (await JokeExists(id) == false)
             {
                 ModelState.AddModelError(string.Empty, "Joke does not exist");
                 model.Categories = await jokeCategoryService.GetAllCategoriesAsync();
@@ -230,6 +240,11 @@
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
+            if (User.IsInRole(AdminRoleName))
+            {
+                //return RedirectToAction("Mine", "Joke", new { area = AreaName });
+            }
+
             var userId = GetUserId();
 
             IEnumerable<JokeServiceModel> userJokes = await jokeService.AllJokesByUser(userId);
@@ -241,11 +256,21 @@
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
         {
+            if (await JokeExists(id) == false)
+            {
+                return RedirectToAction("Mine", "Joke");
+            }
+
             var userId = GetUserId();
 
             await jokeService.DeleteJokeAsync(userId, id);
 
             return RedirectToAction("Mine", "Joke");
+        }
+
+        public async Task<bool> JokeExists(Guid id)
+        {
+            return await jokeService.ExistsAsync(id);
         }
     }
 }
