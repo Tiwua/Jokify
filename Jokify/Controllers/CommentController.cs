@@ -18,6 +18,11 @@
         [HttpPost]
         public async Task<IActionResult> AddComment(string title, int page, JokeDetailsViewModel model)
         {
+            if (await commentService.ExistsAsnyc()
+            {
+
+            }
+
             if (IsCommentValid(model.CommentContent))
             {
                 return RedirectToAction("Details", "Joke", new { title, page });

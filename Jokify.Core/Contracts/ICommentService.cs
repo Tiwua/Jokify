@@ -16,6 +16,6 @@
 
         Task DeleteCommentAsync(Guid id, string userId, Guid jokeId);
 
-        Task<bool> ExistsAsnyc(Guid id);
+        Task<bool> ExistsAsync(Guid id);
     }
 }
