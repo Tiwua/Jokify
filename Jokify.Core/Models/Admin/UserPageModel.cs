@@ -12,6 +12,6 @@
 
         public int TotalUsers { get; set; }
 
-        public ICollection<UserViewModel> Users { get; set; } = new HashSet<UserViewModel>();
+        public IEnumerable<UserViewModel> Users { get; set; } = new HashSet<UserViewModel>();
     }
 }
