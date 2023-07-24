@@ -13,6 +13,7 @@
     using static Jokify.Core.Common.Constants;
     using static Jokify.Infrastructure.Common.DataConstants;
     using static Jokify.Common.Constants.Error;
+    using static Jokify.Areas.Admin.Constants.AdminConstants;
 
 
     public class JokeController : BaseController
@@ -164,7 +165,7 @@
 
             var joke = await jokeService.GetJokeById(id);
 
-            if (joke.UserId != GetUserId() && !User.IsInRole("Admin"))
+            if (joke.UserId != GetUserId() && !IsAdmin())
             {
                 return RedirectToAction("Mine", "Joke");
             }
