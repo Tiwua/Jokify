@@ -2,9 +2,10 @@
 {
     using HouseRentingSystem.Infrastructure.Data.Common;
     using Jokify.Common.Contracts;
-    using Jokify.Common.Services;
     using Jokify.Core.Contracts;
-    using Jokify.Core.Services;
+    using Jokify.Core.Contracts.Admin;
+    using Jokify.Core.Services.Admin;
+    using Jokify.Core.Services.AverageUser;
     using System.Runtime.CompilerServices;
 
     public static class JokifyServiceCollectionExtension
@@ -16,6 +17,7 @@
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<ILikeService, LikeService>();
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }

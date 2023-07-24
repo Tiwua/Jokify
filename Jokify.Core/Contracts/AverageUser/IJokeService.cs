@@ -40,5 +40,7 @@
         Task<IEnumerable<JokeHomeView>> GetThreeMostPopularJokes();
 
         JokeViewModel GetJokeForEdit(JokeViewModel joke);
+
+        //Task<JokeViewModel> GetRandomJoke();
     }
 }

@@ -1,10 +1,11 @@
 ﻿namespace Jokify.Controllers
 {
+    using Jokify.Common.Contracts;
+    using Jokify.Core.Models.Joke;
     using Jokify.Infrastructure.Data.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Security.Claims;
-
     using static Jokify.Areas.Admin.Constants.AdminConstants;
 
     [Authorize]

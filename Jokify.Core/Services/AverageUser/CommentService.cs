@@ -1,4 +1,4 @@
-﻿namespace Jokify.Core.Services
+﻿namespace Jokify.Core.Services.AverageUser
 {
     using HouseRentingSystem.Infrastructure.Data.Common;
     using Jokify.Core.Contracts;
@@ -98,11 +98,16 @@
         {
             var comment = await repository.GetByIdAsync<Comment>(id);
 
+            if (comment.UserId != userId)
+            {
+                return;
+            }
+
             comment.IsDeleted = true;
             var user = await repository.GetByIdAsync<User>(userId);
             var joke = await repository.GetByIdAsync<Joke>(jokeId);
 
-            
+            user.CreatedComments.Remove(comment);
             joke.Comments.Remove(comment);
 
             await repository.SaveChangesAsync();

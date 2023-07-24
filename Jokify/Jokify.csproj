@@ -21,7 +21,8 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\" />
+    <Folder Include="Areas\Admin\Views\Joke\" />
+    <Folder Include="Areas\Admin\Views\Admin\" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 ﻿namespace Jokify.Controllers
 {
+    using Jokify.Common.Contracts;
     using Jokify.Core.Contracts;
     using Jokify.Core.Models.Joke;
     using Jokify.Core.Services;
@@ -9,18 +10,22 @@
     public class CommentController : BaseController
     {
         private readonly ICommentService commentService;
+        private readonly IJokeService jokeService;
 
-        public CommentController(ICommentService commentService)
+        public CommentController(
+            ICommentService commentService,
+            IJokeService jokeService)
         {
             this.commentService = commentService;
+            this.jokeService = jokeService;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddComment(string title, int page, JokeDetailsViewModel model)
         {
-            if (await commentService.ExistsAsnyc()
+            if (await jokeService.ExistsAsync(model.Id) == false)
             {
-
+                return RedirectToAction("All", "Joke");
             }
 
             if (IsCommentValid(model.CommentContent))
@@ -44,6 +49,11 @@
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id, string title, int page, Guid jokeId)
         {
+            if (await commentService.ExistsAsync(id) == false)
+            {
+                return RedirectToAction("All", "Joke");
+            }
+
             var userId = GetUserId();
 
             await commentService.DeleteCommentAsync(id, userId, jokeId);

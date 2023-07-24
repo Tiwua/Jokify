@@ -1,0 +1,162 @@
+﻿@using Jokify.Core.Models.Admin;
+@model UserPageModel
+
+<style>
+    .arrow-box-disabled {
+        display: none;
+    }
+
+    .arrow-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 45px;
+        height: 35px;
+        background-color: #ff4b2b;
+        padding: 10px;
+        transition: transform 0.3s ease;
+        border-radius: 10px;
+    }
+
+    .arrow {
+        color: white;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        transition: transform 0.3s ease;
+        font-weight: 900;
+        font-size: 25px;
+        line-height: 0.5;
+    }
+
+        .arrow::before,
+        .arrow::after {
+            position: absolute;
+            width: 10px;
+            height: 2px;
+        }
+
+    .button-left::before,
+    .button-left::after,
+    .button-right::before,
+    .button-right::after {
+        background-color: #fff;
+    }
+
+    .button-left::before {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    .button-left::after {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .button-right::before {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(135deg);
+    }
+
+    .button-right::after {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-135deg);
+    }
+
+    .arrow-box:hover {
+        transform: scale(1.1);
+    }
+
+    .arrow:hover {
+        transform: scale(1.1);
+    }
+
+    .right {
+        position: absolute;
+        top: 20px;
+        left: 430px;
+    }
+
+    .left {
+        position: absolute;
+        top: 20px;
+        left: 370px;
+    }
+</style>
+
+<h2>User List</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>IsDeleted</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Username</td>
+                    <td>@user.Email</td>
+                    <td>@(user.IsDeleted ? "Yes" : "No")</td>
+                    <td>
+                        <form asp-controller="Admin" asp-action="DeleteUser" method="post">
+                            <input type="hidden" name="userId" value="@user.UserId" />
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+                        </form>
+                        <form asp-controller="Admin" asp-action="ForgetUser" method="post">
+                            <input type="hidden" name="userId" value="@user.UserId" />
+                            <button type="submit" class="btn btn-warning" onclick="return confirm('Are you sure you want to forget this user?')">Forget</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@{
+    var previousPage = Model.CurrentPage - 1;
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+
+    var maxPage = Math.Ceiling((double)Model.TotalUsers /
+    Model.PageSize);
+}
+
+@{
+    var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
+    Model.TotalUsers == 0;
+}
+
+<div class="left">
+    <a class="arrow-box@(Model.CurrentPage == 1 ? "-disabled" : string.Empty)"
+       asp-controller="Joke"
+       asp-action="Details"
+       asp-route-page="@previousPage">
+        <span class="arrow button-left">
+            &larr;
+        </span>
+    </a>
+</div>
+
+
+<div class="right">
+    <a class="arrow-box@(shouldButtonBeDisabled ? "-disabled" : string.Empty)"
+       asp-controller="Joke"
+       asp-action="Details"
+       asp-route-page="@(Model.CurrentPage + 1)">
+        <span class="arrow button-right">
+            &rarr;
+        </span>
+    </a>
+</div>

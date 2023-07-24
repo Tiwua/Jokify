@@ -1,4 +1,4 @@
-﻿namespace Jokify.Core.Services
+﻿namespace Jokify.Core.Services.AverageUser
 {
     using HouseRentingSystem.Infrastructure.Data.Common;
     using Jokify.Core.Contracts;
@@ -20,12 +20,12 @@
             this.repository = repository;
         }
 
-		public async Task<bool> CategoryExistsAsync(int categoryId)
-		{
-			return await repository.AllReadonly<JokeCategory>().AnyAsync(c => c.Id == categoryId);
-		}
+        public async Task<bool> CategoryExistsAsync(int categoryId)
+        {
+            return await repository.AllReadonly<JokeCategory>().AnyAsync(c => c.Id == categoryId);
+        }
 
-		public async Task<IEnumerable<JokeCategoryViewModel>> GetAllCategoriesAsync()
+        public async Task<IEnumerable<JokeCategoryViewModel>> GetAllCategoriesAsync()
         {
             return await repository.AllReadonly<JokeCategory>()
                 .Select(c => new JokeCategoryViewModel()

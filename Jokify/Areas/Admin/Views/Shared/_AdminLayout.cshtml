@@ -1,0 +1,69 @@
+﻿﻿@{
+    string homeActiveClass = ViewBag.Class == "home" ? "active" : string.Empty;
+    string addActiveClass = ViewBag.Class == "add" ? "active" : string.Empty;
+    string mineActiveClass = ViewBag.Class == "mine" ? "active" : string.Empty;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Jokify</title>
+
+    @await RenderSectionAsync("Styles", false)
+
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js"
+            integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css"
+          integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    <header>
+        <a href="#" class="logo"><i class='bx bx-stopwatch'></i>Jokify</a>
+        <ul class="navlist">
+            <li>
+                <a class="@homeActiveClass"
+                   asp-area="" asp-controller="Home" asp-action="Index">
+                    Home
+                </a>
+            </li>
+            @if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                <li><a class="@addActiveClass" asp-area="" asp-controller="Joke" asp-action="Add">Create a Joke</a></li>
+                <li><a class="@mineActiveClass" asp-area="" asp-controller="Joke" asp-action="Mine">My Jokes</a></li>
+            }
+                <li><a class="@mineActiveClass" asp-area="Admin" asp-controller="User" asp-action="All">All Users</a></li>
+        </ul>
+        <partial name="_LoginPartial" />
+        <div class="h-main">
+            <a asp-controller="Joke" asp-action="All" class="h-btn">Explore</a>
+        </div>
+    </header>
+
+    <partial name="_NotificationPartial" />
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    @* <footer class="border-top footer text-muted">
+    <div class="container">
+    &copy; @DateTime.Now.Year - Jokify
+    </div>
+    </footer>*@
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

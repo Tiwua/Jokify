@@ -1,10 +1,12 @@
-﻿@model JokeViewModel
+﻿
+@model JokeViewModel
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="~/css/button.css" rel="stylesheet" />
 <link href="~/css/inputbox.css" rel="stylesheet" />
 <link href="~/css/site.css" rel="stylesheet" />
+
 
 <div class="centered">
     <form method="post">
@@ -16,12 +18,12 @@
         <div class="centered">
             <label asp-for="@Model.Setup">Setup</label>
             <textarea class="form-control" asp-for="@Model.Setup" rows="5"></textarea>
-            <span asp-validation-for="Setup" class="text-danger"></span>
+            <span asp-validation-for="@Model.Setup" class="text-danger"></span>
         </div>
         <div class="centered">
             <label asp-for="@Model.Punchline">Punchline</label>
             <textarea class="form-control" asp-for="@Model.Punchline" rows="5"></textarea>
-            <span asp-validation-for="Punchline" class="text-danger"></span>
+            <span asp-validation-for="@Model.Punchline" class="text-danger"></span>
         </div>
         <div class="dropdown-input">
             <label asp-for="@Model.CategoryId" class="form-label">Genre</label>

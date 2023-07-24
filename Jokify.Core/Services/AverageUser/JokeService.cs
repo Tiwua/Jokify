@@ -1,4 +1,4 @@
-﻿namespace Jokify.Common.Services
+﻿namespace Jokify.Core.Services.AverageUser
 {
     using HouseRentingSystem.Infrastructure.Data.Common;
     using Jokify.Common.Contracts;
@@ -31,7 +31,10 @@
         public async Task AddJokeAsync(JokeViewModel model, string userId)
         {
             var user = await repository.GetByIdAsync<User>(userId);
-            var joke = await repository.AllReadonly<Joke>().Where(j => j.Title == model.Title).FirstOrDefaultAsync();
+            var joke = await repository.AllReadonly<Joke>()
+                .Where(j => !j.IsDeleted)
+                .Where(j => j.Title == model.Title)
+                .FirstOrDefaultAsync();
 
             if (joke != null)
             {
@@ -191,9 +194,8 @@
                 {
                     Punchline = j.Punchline,
                     Setup = j.Setup,
-                    Title = j.Title,
-                    UserId = j.UserId
-                }).FirstAsync(); 
+                    Title = j.Title
+                }).FirstAsync();
         }
 
         public async Task EditJokeAsync(JokeViewModel model, Guid jokeId)
@@ -214,13 +216,13 @@
                 .Where(j => !j.IsDeleted)
                 .Where(j => j.UserId == userId)
                 .Select(j => new JokeServiceModel()
-            {
-                Title = j.Title,
-                Setup = j.Setup,
-                Punchline = j.Punchline,
-                IsEdited = j.IsEdited,
-                Id = j.Id
-            }).ToListAsync();
+                {
+                    Title = j.Title,
+                    Setup = j.Setup,
+                    Punchline = j.Punchline,
+                    IsEdited = j.IsEdited,
+                    Id = j.Id
+                }).ToListAsync();
 
             return jokes;
         }
@@ -290,5 +292,15 @@
 
             return model;
         }
+
+        //public async Task<JokeViewModel> GetRandomJoke(string category)
+        //{
+        //    Random random = new Random();
+
+
+        //    int idx = random.Next(jokes.Length);
+
+        //    return joke;
+        //}
     }
 }

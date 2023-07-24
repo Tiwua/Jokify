@@ -19,7 +19,6 @@
             IsEdited = false;
             Categories = new HashSet<JokeCategoryViewModel>();
         }
-
         public Guid Id { get; set; }
 
         [Required]
@@ -33,9 +32,6 @@
         [Required]
         [StringLength(JokePunchlineMaxValue, MinimumLength = JokePunchlineMinValue)]
         public string Punchline { get; set; } = null!;
-
-        [Required]
-        public string UserId { get; set; } = null!;
 
         [Range(IntegerIdMinValue, int.MaxValue)]
         public int CategoryId { get; set; }

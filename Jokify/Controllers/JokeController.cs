@@ -14,6 +14,7 @@
     using static Jokify.Infrastructure.Common.DataConstants;
     using static Jokify.Common.Constants.Error;
     using static Jokify.Areas.Admin.Constants.AdminConstants;
+    using static Jokify.Common.Constants.NotificationMsg;
 
 
     public class JokeController : BaseController
@@ -75,6 +76,7 @@
 
                 await jokeService.AddJokeAsync(model, userId);
 
+                TempData[SuccessMessage] = "Joke has been added successfully!";
             }
             catch (Exception)
             {
@@ -103,12 +105,14 @@
             return View(query);
         }
 
-        [HttpGet("Joke/Details/{title}/{page}")]
         [AllowAnonymous]
+        [HttpGet("Joke/Details/{title}/{page}")]
         public async Task<IActionResult> Details(string title, int page = 1)
         {
             if (await jokeService.ExistsByTitleAsync(title) == false)
             {
+                TempData[ErrorMessage] = "Joke does not exist";
+
                 return RedirectToAction("All", "Joke");
             }
 
@@ -131,7 +135,7 @@
 
                 ModelState.AddModelError(string.Empty, "Invalid joke title");
 
-                return RedirectToAction(nameof(All));
+                return RedirectToAction("All", "Joke");
             }
         }
 
@@ -170,21 +174,17 @@
         {
             if (await JokeExists(id) == false)
             {
+                TempData[ErrorMessage] = "Joke does not exist";
+
                 return RedirectToAction("Mine", "Joke");
             }
 
             var joke = await jokeService.GetJokeById(id);
 
-            if (joke.UserId != GetUserId() && !IsAdmin())
-            {
-                return RedirectToAction("Mine", "Joke");
-            }
-
             var categoryId = await jokeCategoryService.GetCategoryIdAsync(id);
 
             var model = jokeService.GetJokeForEdit(joke);
 
-            model.Id = id;
             model.CategoryId = categoryId;
             model.Categories = await jokeCategoryService.GetAllCategoriesAsync();
             
@@ -194,17 +194,13 @@
         [HttpPost]
         public async Task<IActionResult> Edit(JokeViewModel model, Guid id, string title, int page = 1)
         {
-            if (model.Id != id)
-            {
-                return RedirectToAction("Mine", "Joke");
-			}
 
             if (await JokeExists(id) == false)
             {
-                ModelState.AddModelError(string.Empty, "Joke does not exist");
+                TempData[ErrorMessage] = "Joke does not exist";
                 model.Categories = await jokeCategoryService.GetAllCategoriesAsync();
 
-                return View(model);
+                return RedirectToAction("Mine", "Joke");
             }
 
             if ((await jokeCategoryService.CategoryExistsAsync(model.CategoryId)) == false)
@@ -242,7 +238,7 @@
         {
             if (User.IsInRole(AdminRoleName))
             {
-                //return RedirectToAction("Mine", "Joke", new { area = AreaName });
+                return RedirectToAction("Mine", "Joke", new { area = AreaName });
             }
 
             var userId = GetUserId();
