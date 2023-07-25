@@ -1,52 +1,54 @@
 ﻿@model IEnumerable<JokeHomeView>
 
 @{
-	ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home Page";
 }
 
 <!doctype html>
 <html>
 <head>
-        <link href="@Url.Content("~/css/site.css")" rel="stylesheet" type="text/css">
-        <link href="~/css/homejokebuton.css" rel="stylesheet" />
-	
-	<style>
-		.box a {
-			font-size: 20px;
-			font-weight: 500;
-			margin-bottom: 7px;
-		}
+    <link href="@Url.Content("~/css/site.css")" rel="stylesheet" type="text/css">
+    <link href="~/css/homejokebuton.css" rel="stylesheet" />
 
-		.box:hover a {
-			color: white;
-		}
-	</style>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        .box a {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 7px;
+            color: white;
+        }
+
+        .box:hover {
+            color: white;
+        }
+    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 </head>
 <body>
-	<!--hero section-->
-	<section class="hero">
-		<div class="hero-text">
-			<h1>TBD</h1>
-			<h4>TBD</h4>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				Aliquam congue sed et leo, dignissim odio justo.
-			</p>
-			<div class="hero-in">
-				@foreach (var joke in @Model)
-				{
-					<div class="box">
-						<a class="button">@joke.Category</a>
-					</div>
-					
-				}
-			</div>
-		</div>
-	</section>
+    <section class="hero">
+        <div class="hero-text">
+            <h1>TBD</h1>
+            <h4>TBD</h4>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Aliquam congue sed et leo, dignissim odio justo.
+            </p>
+            <div class="hero-in">
+                @foreach (var joke in @Model)
+                {
+                    <a asp-controller="Joke"
+                   asp-action="All"
+                   asp-route-currentPage="1"
+                   asp-route-category="@joke.Category"
+                       class="box">@joke.Category</a>
 
-	<script src="https://unpkg.com/scrollreveal"></script>
+                }
+            </div>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
     ViewBag.Title = "All Jokes";
 }
 
-    <link href="~/css/all-jokes.css" rel="stylesheet" />
+<link href="~/css/all-jokes.css" rel="stylesheet" />
 
 <h1 class="centered-lowered-div">@ViewData["Title"]</h1>
 
@@ -31,28 +31,22 @@
 
 
 <body>
-    @*
     <div class="row">
-    <div class="form-group col-md-3 d-flex justify-content-between">
-    <div class="form-group">
-    <label asp-for="Category"></label>
-    <select asp-for="Category" class="form-control">
-    <option value="">All</option>
-    @foreach (var category in Model.Categories)
-    {
-    <option value="@category">@category</option>
-    }
-    </select>
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="Category"></label>
+                <select asp-for="Category" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category">@category</option>
+                    }
+                </select>
+            </div>
+        </div>
     </div>
-    </div>
-    </div>
-    *@
-
-
 
     <form method="get">
-
-    
     </form>
 
 
@@ -91,9 +85,9 @@
     </div>
 
     <form method="get">
-       
+
         <div class="search-bar">
-            
+
             <input class="search-input" asp-for="SearchTerm" placeholder="Find a joke">
             <button type="submit" class="search-button">
                 <span class="search-icon">&#128269;</span>

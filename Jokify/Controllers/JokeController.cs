@@ -1,4 +1,8 @@
-﻿namespace Jokify.Controllers
+﻿using Jokify.Core.Services.AverageUser;
+using Jokify.Models;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Jokify.Controllers
 {
     using Jokify.Common.Contracts;
     using Jokify.Core.Contracts;
@@ -15,6 +19,7 @@
     using static Jokify.Common.Constants.Error;
     using static Jokify.Areas.Admin.Constants.AdminConstants;
     using static Jokify.Common.Constants.NotificationMsg;
+    using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
     public class JokeController : BaseController
@@ -102,7 +107,7 @@
             query.TotalJokesCount = result.JokesCount;
             query.Categories = await jokeCategoryService.GetAllCategoriesNamesAsync();
             query.Jokes = result.Jokes;
-            
+
             return View(query);
         }
 
@@ -188,7 +193,7 @@
 
             model.CategoryId = categoryId;
             model.Categories = await jokeCategoryService.GetAllCategoriesAsync();
-            
+
             return View(model);
         }
 
@@ -218,7 +223,7 @@
 
                 return View(model);
             }
-                
+
             try
             {
                 string userId = GetUserId();
@@ -235,22 +240,26 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Mine()
+        public async Task<IActionResult> Mine([FromQuery] AllJokesQueryModel query)
         {
             if (User.IsInRole(AdminRoleName))
             {
                 return RedirectToAction("Mine", "Joke", new { area = AreaName });
             }
 
-            var userId = GetUserId();
+            var result = await jokeService.GetAllJokesAsync(
+                query.UserId = GetUserId(),
+                query.Category,
+                query.SearchTerm,
+                query.Sorting,
+                query.CurrentPage,
+                query.JokesPerPage);
 
-            var userJokes = await jokeService.AllJokesByUser(userId);
-
-            
-
+            query.TotalJokesCount = result.JokesCount;
+            query.Jokes = result.Jokes;
             ViewBag.Class = "mine";
 
-            return View(userJokes);
+            return View(query);
         }
 
         [HttpPost]
