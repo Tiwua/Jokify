@@ -11,15 +11,19 @@
     <link href="~/css/homejokebuton.css" rel="stylesheet" />
 
     <style>
-        .box a {
+        .box {
             font-size: 20px;
             font-weight: 500;
             margin-bottom: 7px;
-            color: white;
+            color: black;
         }
 
         .box:hover {
             color: white;
+        }
+
+        .custom-p {
+            color: #ff4b2b;
         }
     </style>
     <meta charset="utf-8" />
@@ -29,20 +33,21 @@
 <body>
     <section class="hero">
         <div class="hero-text">
-            <h1>TBD</h1>
-            <h4>TBD</h4>
+            <h1>Welcome</h1>
+            <h4></h4>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Aliquam congue sed et leo, dignissim odio justo.
+                You can relax with some of our jokes.
+                Click below to visit a certain category.
             </p>
             <div class="hero-in">
                 @foreach (var joke in @Model)
                 {
                     <a asp-controller="Joke"
-                   asp-action="All"
-                   asp-route-currentPage="1"
-                   asp-route-category="@joke.Category"
-                       class="box">@joke.Category</a>
+                     asp-action="All"
+                     asp-route-currentPage="1"
+                     asp-route-category="@joke.Category"
+
+                     class="box">@joke.Category</a>
 
                 }
             </div>

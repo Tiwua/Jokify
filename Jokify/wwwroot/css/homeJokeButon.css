@@ -31,8 +31,6 @@
     border: 2px solid white;
 }
 
-    
-
     .box:hover {
         transform: translateY(-5px) scale(1.1);
         background-color: #000000;
@@ -64,10 +62,11 @@
 }
 
 .hero-text p {
-    color: var(--other-color);
+    color: lightblue;
     font-size: var(--p-font);
     font-weight: 500;
     line-height: 26px;
     max-width: 550px;
     margin-bottom: 4rem;
+    margin-top: 10px;
 }
