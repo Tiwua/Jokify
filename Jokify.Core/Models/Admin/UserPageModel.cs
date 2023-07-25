@@ -2,7 +2,12 @@
 {
     public class UserPageModel
     {
-        public bool IsForgotten { get; set; } = false;
+        public UserPageModel()
+        {
+            CurrentPage = 1;
+            PageSize = 2;
+            this.Users = new HashSet<UserViewModel>();
+        }
 
         public int CurrentPage { get; set; }
 
@@ -12,6 +17,6 @@
 
         public int TotalUsers { get; set; }
 
-        public IEnumerable<UserViewModel> Users { get; set; } = new HashSet<UserViewModel>();
+        public IEnumerable<UserViewModel> Users { get; set; }
     }
 }

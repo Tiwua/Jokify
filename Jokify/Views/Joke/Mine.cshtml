@@ -10,9 +10,9 @@
 {
     <h1 class="text-center">@ViewBag.Title</h1>
     <div class="jokes-container">
-        @foreach (var house in Model)
+        @foreach (var joke in Model)
         {
-            <partial name="_JokePartial" model="@house" />
+            <partial name="_JokePartial" model="@joke" />
         }
     </div>
 }

@@ -1,5 +1,6 @@
 ﻿namespace Jokify.Core.Models.Joke
 {
+    using Jokify.Core.Models.Admin;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -21,5 +22,11 @@
         public bool IsDeleted { get; set; }
 
         public bool IsEdited { get; set; }
+
+        public int CurrentPage { get; set; }
+
+        public int TotalJokesCount { get; set; }
+
+        public IEnumerable<JokeViewModel> jokes { get; set; } = new HashSet<JokeViewModel>();
     }
 }

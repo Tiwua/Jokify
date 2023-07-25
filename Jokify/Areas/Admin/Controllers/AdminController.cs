@@ -1,12 +1,22 @@
 ﻿namespace Jokify.Areas.Admin.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
+	using Jokify.Common.Contracts;
+	using Microsoft.AspNetCore.Mvc;
 
     public class AdminController : BaseController
     {
-        public IActionResult Index()
+        private readonly IJokeService jokeService;
+
+        public AdminController(IJokeService jokeService)
         {
-            return View();
+            this.jokeService = jokeService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+			var model = await jokeService.GetThreeMostPopularJokes();
+
+			return View(model);
         }
     }
 }

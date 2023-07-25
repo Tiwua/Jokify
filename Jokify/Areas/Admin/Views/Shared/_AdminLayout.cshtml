@@ -33,7 +33,7 @@
         <ul class="navlist">
             <li>
                 <a class="@homeActiveClass"
-                   asp-area="" asp-controller="Home" asp-action="Index">
+                   asp-area="Admin" asp-controller="Home" asp-action="Index">
                     Home
                 </a>
             </li>
@@ -41,8 +41,10 @@
             {
                 <li><a class="@addActiveClass" asp-area="" asp-controller="Joke" asp-action="Add">Create a Joke</a></li>
                 <li><a class="@mineActiveClass" asp-area="" asp-controller="Joke" asp-action="Mine">My Jokes</a></li>
+                <li><a class="@mineActiveClass" asp-area="Admin" asp-controller="User" asp-action="All" asp-page="1">All Users</a></li>
             }
-                <li><a class="@mineActiveClass" asp-area="Admin" asp-controller="User" asp-action="All">All Users</a></li>
+
+            
         </ul>
         <partial name="_LoginPartial" />
         <div class="h-main">

@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 	using System.Diagnostics;
+    using static Jokify.Areas.Admin.Constants.AdminConstants;
 
 	[AllowAnonymous]
 	public class HomeController : BaseController
@@ -18,7 +19,12 @@
 
         public async Task<IActionResult> Index()
 		{
-			var model = await jokeService.GetThreeMostPopularJokes();
+            if (User.IsInRole(AdminRoleName))
+            {
+				return RedirectToAction("Index", "Admin", new { area = "Admin" });
+			}
+
+            var model = await jokeService.GetThreeMostPopularJokes();
 
 			ViewBag.Class = "home";
 

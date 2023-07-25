@@ -9,6 +9,7 @@
     
     public interface IUserService
     {
-        Task<IEnumerable<UserViewModel>> AllUsersAsync();
+        Task<UserViewModel[]> AllUsersAsync(string userId);
+        UserPageModel AllUsersPaginated(UserViewModel[] users, int page);
     }
 }

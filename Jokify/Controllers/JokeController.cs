@@ -92,6 +92,7 @@
         public async Task<IActionResult> All([FromQuery] AllJokesQueryModel query)
         {
             var result = await jokeService.GetAllJokesAsync(
+                query.UserId,
                 query.Category,
                 query.SearchTerm,
                 query.Sorting,
@@ -243,7 +244,10 @@
 
             var userId = GetUserId();
 
-            IEnumerable<JokeServiceModel> userJokes = await jokeService.AllJokesByUser(userId);
+            var userJokes = await jokeService.AllJokesByUser(userId);
+
+            
+
             ViewBag.Class = "mine";
 
             return View(userJokes);

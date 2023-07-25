@@ -10,6 +10,7 @@
     public interface IJokeService
     {
         public Task<JokeQueryModel> GetAllJokesAsync(
+            string? userId = null,
             string? category = null,
             string? searchTerm = null,
             JokeSorting sorting = JokeSorting.PopularAscending,

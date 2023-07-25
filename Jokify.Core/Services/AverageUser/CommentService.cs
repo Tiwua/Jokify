@@ -26,7 +26,7 @@
             var joke = await repository.AllReadonly<Joke>()
                 .Where(j => !j.IsDeleted)
                 .Where(j => j.Title == title)
-            .FirstAsync();
+                .FirstAsync();
 
             if (commentContent == null)
             {

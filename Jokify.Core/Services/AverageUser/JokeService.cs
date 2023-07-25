@@ -70,6 +70,7 @@
         }
 
         public async Task<JokeQueryModel> GetAllJokesAsync(
+            string? userId = null,
             string? category = null,
             string? searchTerm = null,
             JokeSorting sorting = JokeSorting.PopularDescending,
@@ -80,6 +81,11 @@
             var result = new JokeQueryModel();
             var jokes = repository.AllReadonly<Joke>()
                 .Where(j => !j.IsDeleted);
+
+            if (userId != null)
+            {
+                jokes = jokes.Where(j => j.UserId == userId);
+            }
 
             if (!string.IsNullOrEmpty(category))
             {

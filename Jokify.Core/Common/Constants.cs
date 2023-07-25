@@ -22,6 +22,8 @@
             public const int CommentsPerPage = 3;
 
             public const int CurrentPage = 1;
+
+            public const int UsersPerPage = 3;
         }
     }
 }
