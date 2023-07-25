@@ -23,7 +23,8 @@
             var users = await userService.AllUsersAsync(userId);
 
             var model = userService.AllUsersPaginated(users, page);
-       
+
+            ViewBag.Class = "all";
             return View(model);
         }
 
