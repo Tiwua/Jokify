@@ -4,20 +4,6 @@
     ViewBag.Title = "Joke Details";
 }
 
-<style>
-    .comment-section {
-    position: relative;
-    top: 20px;
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f2f2f2;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 1, 1, 0.8);
-    margin-bottom: 40px;
-}
-</style>
-
 <h2 class="text-center">@ViewBag.Title</h2>
 <div class="joke-container" data-id="@Model.Id">
 
@@ -138,6 +124,7 @@
     {
         <form method="post" asp-controller="Comment"
           asp-action="AddComment"
+          asp-route-id="@Model.Id"
           asp-route-title="@Model.Title"
           asp-route-page="@Model.CurrentPage">
 

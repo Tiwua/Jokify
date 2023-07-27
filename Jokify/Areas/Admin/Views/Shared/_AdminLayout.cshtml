@@ -40,8 +40,8 @@
             </li>
             @if (User?.Identity?.IsAuthenticated ?? false)
             {
-                <li><a class="@addActiveClass" asp-area="Admin" asp-controller="Joke" asp-action="Add">Create a Joke</a></li>
-                <li><a class="@mineActiveClass" asp-area="Admin" asp-controller="Joke" asp-action="Mine" asp-route-page="1">My Jokes</a></li>
+                <li><a class="@addActiveClass" asp-area="" asp-controller="Joke" asp-action="Add">Create a Joke</a></li>
+                <li><a class="@mineActiveClass" asp-area="" asp-controller="Joke" asp-action="Mine" asp-route-page="1">My Jokes</a></li>
                 <li><a class="@allActiveClass" asp-area="Admin" asp-controller="User" asp-action="All" asp-route-page="1">All Users</a></li>
             }
 

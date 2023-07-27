@@ -7,7 +7,9 @@ namespace Jokify
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using System.Security.Claims;
-    public class Program
+	using Jokify.ActionFilters.FIlters;
+
+	public class Program
     {
         public static void Main(string[] args)
         {
@@ -30,19 +32,23 @@ namespace Jokify
 			})
 				.AddRoles<IdentityRole>()
 				.AddEntityFrameworkStores<JokifyDbContext>();
+
 			builder.Services.ConfigureApplicationCookie(options =>
 			{
 				options.LoginPath = "/User/Login";
 			});
 
-			builder.Services.AddControllersWithViews();
+			builder.Services.AddControllersWithViews(options =>
+			{
+				options.Filters.Add(typeof(DynamicLayoutActionFilter));
+			});
+
 			builder.Services.AddApplicationServices();
             builder.Services.Configure<IdentityOptions>(options => options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
 			builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();
 
-			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
 			{
 				app.UseMigrationsEndPoint();
@@ -50,7 +56,6 @@ namespace Jokify
 			else
 			{
 				app.UseExceptionHandler("/Home/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
 

@@ -5,7 +5,8 @@
     using Jokify.Infrastructure.Data.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using System.Security.Claims;
+	using Microsoft.AspNetCore.Mvc.Filters;
+	using System.Security.Claims;
     using static Jokify.Areas.Admin.Constants.AdminConstants;
 
     [Authorize]
@@ -32,5 +33,19 @@
 
             return false;
         }
-    }
+
+		public override void OnActionExecuting(ActionExecutingContext context)
+		{
+			if (User.IsInRole("Admin"))
+			{
+				ViewData["Layout"] = "~/Views/Shared/_AdminLayout.cshtml";
+			}
+			else
+			{
+				ViewData["Layout"] = "~/Views/Shared/_Layout.cshtml";
+			}
+
+			base.OnActionExecuting(context);
+		}
+	}
 }

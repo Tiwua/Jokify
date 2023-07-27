@@ -117,5 +117,10 @@
         {
             return await repository.AllReadonly<Comment>().AnyAsync(c => c.Id == id);
         }
-    }
+
+		public async Task RemoveCommentsByUserAsync(string id)
+		{
+            var userComments = await repository.All<Comment>().Where(c => c.UserId == id).ToListAsync();
+		}
+	}
 }

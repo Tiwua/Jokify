@@ -25,5 +25,12 @@
 
             public const int UsersPerPage = 3;
         }
+
+        public class Forgotten
+        {
+            public const string ForgottenUsername = "Forgotten Username";
+
+            public const string ForgottenEmail = "Forgotten Email";
+        }
     }
 }

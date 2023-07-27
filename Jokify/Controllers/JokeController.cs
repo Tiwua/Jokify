@@ -20,6 +20,7 @@ namespace Jokify.Controllers
     using static Jokify.Areas.Admin.Constants.AdminConstants;
     using static Jokify.Common.Constants.NotificationMsg;
     using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+	using Microsoft.AspNetCore.Mvc.Filters;
 
 
     public class JokeController : BaseController
@@ -242,11 +243,6 @@ namespace Jokify.Controllers
         [HttpGet]
         public async Task<IActionResult> Mine([FromQuery] AllJokesQueryModel query)
         {
-            if (User.IsInRole(AdminRoleName))
-            {
-                return RedirectToAction("Mine", "Joke", new { area = AreaName });
-            }
-
             var result = await jokeService.GetAllJokesAsync(
                 query.UserId = GetUserId(),
                 query.Category,
@@ -281,5 +277,7 @@ namespace Jokify.Controllers
         {
             return await jokeService.ExistsAsync(id);
         }
-    }
+
+		
+	}
 }

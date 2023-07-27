@@ -1,18 +1,23 @@
 ﻿namespace Jokify.Areas.Admin.Controllers
 {
-    using Jokify.Core.Contracts.Admin;
+	using Jokify.Core.Contracts;
+	using Jokify.Core.Contracts.Admin;
     using Jokify.Core.Models.Admin;
     using Microsoft.AspNetCore.Mvc;
 
+	using static Jokify.Common.Constants.NotificationMsg;
 
-    [Route("/Admin/[controller]/[Action]/{page}")]
+	[Route("/Admin/[controller]/[Action]/{page}")]
     public class UserController : BaseController
     {
         private readonly IUserService userService;
-
-        public UserController(IUserService userService)
+        private readonly ICommentService commentService;
+        public UserController(
+            IUserService userService,
+            ICommentService commentService)
         {
             this.userService = userService;
+            this.commentService = commentService;
         }
 
 
@@ -29,19 +34,30 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete()
+        public async Task<IActionResult> Delete(string id, int page)
         {
-            var userId = GetUserId();
+            await userService.DeleteUserAsync(id);
 
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Forget()
+        public async Task<IActionResult> Forget(string id, int page)
         {
-            var userId = GetUserId();
+			bool result = await userService.ForgetUserAsync(id);
 
-            return View();
+            await commentService.RemoveCommentsByUserAsync(id);
+
+			if (result)
+			{
+				TempData[SuccessMessage] = "User is now forgotten";
+			}
+			else
+			{
+				TempData[ErrorMessage] = "User is unforgetable";
+			}
+
+			return RedirectToAction("");
         }
     }
 }

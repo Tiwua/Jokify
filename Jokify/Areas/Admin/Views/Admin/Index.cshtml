@@ -11,15 +11,17 @@
 	<link href="~/css/homejokebuton.css" rel="stylesheet" />
 
 	<style>
-		.box a {
+		.box {
 			font-size: 20px;
 			font-weight: 500;
 			margin-bottom: 7px;
+			color: black;
 		}
 
-		.box:hover a {
-			color: white;
-		}
+			.box:hover {
+				color: white;
+			}
+
 	</style>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,11 +31,11 @@
 	<!--hero section-->
 	<section class="hero">
 		<div class="hero-text">
-			<h1>TBD</h1>
-			<h4>TBD</h4>
+			<h1>Welcome</h1>
+			<h4></h4>
 			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				Aliquam congue sed et leo, dignissim odio justo.
+				You can relax with some of our jokes.
+				Click below to visit a certain category.
 			</p>
 			<div class="hero-in">
 				@foreach (var joke in @Model)
