@@ -1,6 +1,7 @@
 ﻿namespace Jokify.Common.Contracts
 {
-    using Jokify.Core.Models.Joke;
+	using Jokify.Core.Models.Admin;
+	using Jokify.Core.Models.Joke;
     using Jokify.Core.Models.Joke.Enums;
     using Jokify.Infrastructure.Data.Models.JokeEntities;
     using System;
@@ -42,6 +43,8 @@
 
         JokeViewModel GetJokeForEdit(JokeViewModel joke);
 
-        //Task<JokeViewModel> GetRandomJoke();
-    }
+		Task<AdminJokeHomeView> GetAllJokesCountAsync();
+
+		//Task<JokeViewModel> GetRandomJoke();
+	}
 }

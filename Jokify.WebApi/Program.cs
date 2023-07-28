@@ -19,6 +19,7 @@ namespace Jokify.WebApi
 
             builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<IRepository, Repository>();
+            builder.Services.AddScoped<IJokeService, JokeService>();
 
             builder.Services.AddCors(setup =>
             {

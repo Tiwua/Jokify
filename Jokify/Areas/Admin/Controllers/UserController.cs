@@ -20,7 +20,7 @@
             this.commentService = commentService;
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> All(int page = 1)
         {
             var userId = GetUserId();

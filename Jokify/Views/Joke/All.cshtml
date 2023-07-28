@@ -8,8 +8,13 @@
 
 <h1 class="centered-lowered-div">@ViewData["Title"]</h1>
 
+<link href="~/css/background.css" rel="stylesheet" />
 <head>
+   
 
+
+
+    </style>
 </head>
 @{
     var previousPage = Model.CurrentPage - 1;
@@ -64,56 +69,104 @@
                asp-route-sorting="@((int)Model.Sorting)"></a>
         </div>
     </div>
+    <div>
 
-    <form method="get">
+        <form method="get">
 
-        <div class="search-bar">
+            <div class="search-bar">
 
-            <input class="search-input" asp-for="SearchTerm" placeholder="Find a joke">
-            <button type="submit" class="search-button">
-                <span class="search-icon">&#128269;</span>
-            </button>
-        </div>
-        <select class="sortDropdown" asp-for="Sorting">
-            <option value="0">Popular</option>
-            <option value="1">Least Popular</option>
-            <option value="2">Title</option>
-        </select>
-        <div class="row">
-            <div class="form-group col-md-3 d-flex justify-content-between">
-                <div class="form-group">
-                    <label asp-for="Category"></label>
-                    <select asp-for="Category" class="form-control">
-                        <option value="">All</option>
-                        @foreach (var category in Model.Categories)
-                        {
-                            <option value="@category">@category</option>
-                        }
-                    </select>
-                </div>
+                <input class="search-input" asp-for="SearchTerm" placeholder="Find a joke">
+                <button type="submit" class="search-button">
+                    <span class="search-icon">&#128269;</span>
+                </button>
             </div>
-        </div>
-    </form>
+            @if (Model.CurrentPage == 1)
+            {
+
+                <div class="dropdown">
+
+                    <div class="dropdown-content">
+                        <select class="sortDropdown" asp-for="Sorting">
+                            <option value="0">Popular</option>
+                            <option value="1">Least Popular</option>
+                            <option value="2">Title</option>
+
+                        </select>
+                    </div>
+                </div>
+
+               
+            }
+                    <div class="dropdown-categories">
+                        <div class="dropdown-content-categories">
+                            <select class="sortDropdown-categories" asp-for="Category">
+                                <option value="">All</option>
+                                @foreach (var category in Model.Categories)
+                                {
+                                    <option value="@category">@category</option>
+                                }
+                            </select>
+                    </div>
+                </div>
+        </form>
+    </div>
 </body>
 
 <script>
-    document.getElementById("sortDropdown").addEventListener("change", function () {
-        var selectedOption = this.value;
 
-        if (selectedOption) {
-            // Perform AJAX request to load the sorted entities
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var entityContent = xhr.responseText;
-                    document.getElementsByClassName("joke-box").innerHTML = entityContent;
-                }
-            };
-            xhr.open("GET", "/Joke/All/SortEntities?option=" + selectedOption, true);
-            xhr.send();
-        } else {
-            document.getElementByClassName("joke-box").innerHTML = "";
-        }
+    function updateJokes(sorting) {
+        const sortDropdown = document.getElementsByClassName("sortDropdown");
+
+        const buttonRight = document.querySelector(".button-right");
+        // Change the selected value to "1" (Least Popular)
+        // Get the selected value from the dropdown
+        const newSortingValue = sortDropdown.Sorting.value;
+
+        // Get the current href of the anchor tag
+        const currentHref = buttonRight.getAttribute("href");
+
+        // Update the sorting value in the href with the new sorting value
+        const newHref = currentHref.replace(/sorting=\d+/, 'sorting=' + newSortingValue);
+
+        // Set the updated href back to the anchor tag
+        buttonRight.setAttribute("href", newHref);
+
+
+        $.ajax({
+            type: "GET",
+            url: "https://localhost:7085/api/sort/" + sorting,
+            success: function (result) {
+
+                var jokesHtml = '';
+                $.each(result, function (index, result) {
+
+                    jokesHtml += '<div class="joke-box">';
+                    if (result.isEdited) {
+                        jokesHtml += '<span class="edited-label">(edited)</span>';
+                    }
+                    jokesHtml += '<h2>' + result.title + '</h2>';
+                    jokesHtml += '<p class="joke-startup">' + result.setup + '</p>';
+                    jokesHtml += '<p class="joke-punchline">' + result.punchline + '</p>';
+                    jokesHtml += '<a asp-area="" asp-controller="Joke" asp-action="Details" asp-route-title="' + result.title + '" asp-route-page="1" class="details-button">Details</a>';
+                    jokesHtml += '</div>';
+                });
+                $(".jokes-container").html(jokesHtml);
+            },
+            error: function () {
+                alert("Error while fetching jokes.");
+            }
+        });
+    }
+
+    // Event handler for the dropdown menu change event
+    $(document).on("change", ".sortDropdown", function () {
+        var selectedSorting = $(this).val();
+        updateJokes(selectedSorting);
+
+
+        // Add event listener to the sorting dropdown to dynamically update the anchor tag URL
+
+
     });
 </script>
 

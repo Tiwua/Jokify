@@ -4,6 +4,14 @@
     ViewBag.Title = "Joke Details";
 }
 
+<style>
+    .admin-button{
+        position:relative;
+        right: 20px;
+        margin-top: 10px;
+    }
+</style>
+
 <h2 class="text-center">@ViewBag.Title</h2>
 <div class="joke-container" data-id="@Model.Id">
 
@@ -20,8 +28,8 @@
             <span class="likes-count">@Model.LikesCount</span>
         </div>
     </div>
-    @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.OwnerName)
-    {
+    @if ((User.Identity.IsAuthenticated && User.Identity.Name == Model.OwnerName) )
+    {      
         <form method="get">
 
             <button class="edit-button" asp-controller="Joke" asp-action="Edit"
@@ -58,7 +66,7 @@
         }
         else
         {
-            <form id="delete-form" method="post" asp-controller="Joke"
+            <form method="post" asp-controller="Joke"
           asp-action="Like"
           asp-route-id="@Model.Id"
           asp-route-title="@Model.Title"
@@ -69,7 +77,36 @@
 
         }
     }
+    @if ((User.Identity.IsAuthenticated && User.Identity.Name != Model.OwnerName) && User.IsInRole("Administrator"))
+    {
+        <div class="admin-button">
+
+            <form method="get">
+
+                <button class="edit-button" asp-controller="Joke" asp-action="Edit"
+                    asp-route-id="@Model.Id"
+                    asp-route-title="@Model.Title"
+                    asp-route-page="@Model.CurrentPage">
+                    Edit
+                </button>
+            </form>
+
+            <form method="post" asp-controller="Joke"
+              asp-action="Delete"
+              asp-route-id="@Model.Id"
+              asp-route-title="@Model.Title"
+              asp-route-page="@Model.CurrentPage">
+                <div>
+
+                    <button type="submit" onclick="jokeConfirm(event)" class="delete-joke-button">Delete</button>
+                </div>
+            </form>
+        </div>
+    }
 </div>
+
+
+
 <div class="comment-section">
     <h2>Comments</h2>
 

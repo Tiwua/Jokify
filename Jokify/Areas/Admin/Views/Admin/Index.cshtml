@@ -1,50 +1,64 @@
-﻿@model IEnumerable<JokeHomeView>
+﻿@model AdminJokeHomeView
 
 @{
-	ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home";
 }
 
-<!doctype html>
 <html>
 <head>
-	<link href="@Url.Content("~/css/site.css")" rel="stylesheet" type="text/css">
-	<link href="~/css/homejokebuton.css" rel="stylesheet" />
-
 	<style>
-		.box {
-			font-size: 20px;
-			font-weight: 500;
-			margin-bottom: 7px;
-			color: black;
+		.total-jokes-container {
+			text-align: center;
+			margin-top: 50px;
 		}
 
-			.box:hover {
-				color: white;
-			}
+		.jokes-count {
+			background-color: #ff4b2b;
+			color: #fff;
+			font-size: 26px;
+			font-weight: bold;
+			width: 70px;
+			height: 70px;
+			line-height: 70px;
+			border-radius: 50%;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			display: inline-block;
+			position: relative;
+			left: 400px;
+			text-align: center;
+		}
+
+.hero-text h1 {
+	position: relative;
+	left: 400px;
+    font-size: 40px;
+    line-height: 1.3;
+    font-weight: 800;
+    color: white;
+	margin-bottom: 20px;
+	text-align: center;
+}
+.head {
+	position: relative;
+	bottom: 100px;
+}
+
 
 	</style>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 </head>
 <body>
-	<!--hero section-->
 	<section class="hero">
 		<div class="hero-text">
-			<h1>Welcome</h1>
-			<h4></h4>
-			<p>
-				You can relax with some of our jokes.
-				Click below to visit a certain category.
-			</p>
-			<div class="hero-in">
-				@foreach (var joke in @Model)
-				{
-					<div class="box">
-						<a class="button">@joke.Category</a>
-					</div>
 
-				}
+			<h1 class="head">Welcome to the Admin interface</h1>
+
+			<div class="total-jokes-container">
+				<h1>Total Jokes Count</h1>
+				<div class="jokes-count">
+					<span>@Model.JokesCount</span>
+				</div>
 			</div>
 		</div>
 	</section>

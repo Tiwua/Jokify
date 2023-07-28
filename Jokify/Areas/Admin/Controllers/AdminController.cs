@@ -12,11 +12,12 @@
             this.jokeService = jokeService;
         }
 
-        public async Task<IActionResult> Index()
-        {
-			var model = await jokeService.GetThreeMostPopularJokes();
+		[HttpGet]
+		public async Task<IActionResult> Index()
+		{
+			var model = await jokeService.GetAllJokesCountAsync();
 
 			return View(model);
-        }
-    }
+		}
+	}
 }

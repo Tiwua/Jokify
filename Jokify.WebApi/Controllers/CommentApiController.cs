@@ -33,7 +33,7 @@
                 if (string.IsNullOrEmpty(content))
                 {
                     throw new ArgumentException(EmptyCommentUpdate);
-                }        
+                }
 
                 await commentService.UpdateComment(id, content);
 
