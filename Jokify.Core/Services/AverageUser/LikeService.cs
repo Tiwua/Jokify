@@ -12,12 +12,10 @@
     public class LikeService : ILikeService
     {
         private readonly IRepository repository;
-        private readonly JokifyDbContext context;
 
-        public LikeService(IRepository repository, JokifyDbContext context)
+        public LikeService(IRepository repository)
         {
             this.repository = repository;
-            this.context = context;
         }
 
 
@@ -67,14 +65,14 @@
         {
             var joke = await repository.GetByIdAsync<Joke>(id);
 
-            var user = await context.Users
+            var user = await repository.All<User>()
                 .Where(u => !u.IsDeleted)
                 .Where(u => u.Id == userId)
                 .Include(j => j.FavoriteJokes)
                     .ThenInclude(j => j.Joke)
                 .FirstAsync();
 
-            var userFavJoke = await context.UsersFavoritesJokes.Where(u => u.UserId == userId && u.JokeId == id).FirstAsync();
+            var userFavJoke = await repository.All<UserFavoriteJoke>().Where(u => u.UserId == userId && u.JokeId == id).FirstAsync();
 
             if (!user.FavoriteJokes.Contains(userFavJoke))
             {
@@ -85,8 +83,8 @@
             user.FavoriteJokes.Remove(userFavJoke);
             joke.UserFavoriteJokes.Remove(userFavJoke);
 
-            context.UsersFavoritesJokes.Remove(userFavJoke);
-            await context.SaveChangesAsync();
+            repository.Delete(userFavJoke);
+            await repository.SaveChangesAsync();
         }
 
         public async Task<int> GetLikesCount(Guid id)

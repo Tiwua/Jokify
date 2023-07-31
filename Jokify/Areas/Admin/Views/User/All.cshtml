@@ -1,5 +1,10 @@
 ﻿@using Jokify.Core.Models.Admin;
+@using Jokify.Infrastructure.Data.Models;
+@using Microsoft.AspNetCore.Identity;
 @model UserPageModel
+
+
+@inject UserManager<User> UserManager
 
 <style>
     body {
@@ -193,6 +198,9 @@
     }
 </style>
 
+@{
+    bool isAdmin = await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin");
+}
 
 @{
     var previousPage = Model.CurrentPage - 1;
@@ -247,6 +255,10 @@
         <tbody>
             @foreach (var user in Model.Users)
             {
+                @if (user.IsForgotten || isAdmin)
+                {
+                    continue;
+                }
                 <tr>
                     <td>@user.Username</td>
                     <td>@user.Email</td>
@@ -263,6 +275,7 @@
 
                                 <button type="submit" class="delete-user-button" onclick="deleteUserConfirm(event)">Delete</button>
                             </form>
+
                         }
                         @if (!user.IsForgotten)
                         {
@@ -275,7 +288,16 @@
 
                                 <button type="submit" class="forget-user-button" onclick="forgetConfirm(event)">Forget</button>
                             </form>
-                        }           
+                        }
+                        <form method="post"
+                          asp-area="Admin"
+                          asp-controller="User"
+                          asp-action="Forget"
+                          asp-route-id="@user.UserId"
+                          asp-route-page="@Model.CurrentPage">
+
+                            <button type="submit" class="forget-user-button" onclick="forgetConfirm(event)">Make Admin</button>
+                        </form>
                     </td>
                 </tr>
             }

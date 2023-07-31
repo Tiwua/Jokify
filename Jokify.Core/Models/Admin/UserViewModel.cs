@@ -9,6 +9,7 @@
         public string Email { get; init; } = null!;
 
         public bool IsDeleted { get; set; }
+
         public bool IsForgotten { get; set; }
     }
 }

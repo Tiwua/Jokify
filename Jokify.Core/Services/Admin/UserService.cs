@@ -43,7 +43,8 @@
 					UserId = u.Id,
 					Email = u.Email,
 					IsDeleted = u.IsDeleted,
-					Username = u.UserName
+					Username = u.UserName,
+					IsForgotten = u.IsForgotten
 				}).ToArrayAsync();
 
 			return users;
@@ -79,8 +80,7 @@
 			var user = await context.Users
 				.Where(u => u.Id == id)
 				.Include(c => c.CreatedComments)
-				.Include(j => j.CreatedJokes)
-					
+				.Include(j => j.CreatedJokes)			
 				.FirstAsync();
 
 			var isAdmin = await userManager.IsInRoleAsync(user, "Admin");
@@ -98,6 +98,7 @@
 			user.PasswordHash = null;
             user.CreatedJokes.Clear();
 			user.CreatedComments.Clear();
+			user.IsForgotten = true;
 
 			
 		    repository.DeleteRange<UserJoke>(user.CreatedJokes);

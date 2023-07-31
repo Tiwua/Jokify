@@ -15,6 +15,7 @@
             CreatedJokes = new HashSet<UserJoke>();
             CreatedComments = new HashSet<Comment>();
             IsDeleted = false;
+            IsForgotten = false;
         }
 
         [Required]
@@ -35,6 +36,7 @@
 
         public bool IsDeleted { get; set; }
 
+        public bool IsForgotten { get; set; }
 
         public ICollection<Comment> CreatedComments { get; set; }
 

@@ -226,7 +226,6 @@
     bottom: 20px;
 }
 
-<style >
 .dropdown-content {
     position: fixed;
     bottom: 760px;
@@ -240,6 +239,8 @@
     background-color: white;
     padding: 8px;
     width: 150px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     cursor: pointer;
     position: absolute;
     top: 0;
@@ -286,6 +287,8 @@
     -moz-appearance: none;
     background-color: white;
     padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     width: 150px;
     cursor: pointer;
     position: absolute;
@@ -315,8 +318,7 @@
 
     .sortDropdown-categories option:hover {
         background-color: #f2f2f2;
-        border: 1px solid #ccc;
-        border-radius: 20px;
+       
     }
 
 .sortDropdown-categories::-ms-expand {
