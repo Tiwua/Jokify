@@ -57,7 +57,7 @@
 				TempData[ErrorMessage] = "User is unforgetable";
 			}
 
-			return RedirectToAction("");
+			return RedirectToAction("All", "User");
         }
     }
 }

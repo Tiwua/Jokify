@@ -4,6 +4,7 @@
     using Jokify.Core.Contracts;
     using Jokify.Infrastructure.Data.Models;
     using Jokify.Infrastructure.Data.Models.JokeEntities;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
@@ -15,10 +16,15 @@
     public class CommentService : ICommentService
     {
         private readonly IRepository repository;
+        private readonly UserManager<User> userManager;
 
-        public CommentService(IRepository repository)
+        public CommentService(
+            IRepository repository,
+            UserManager<User> userManager)
         {
             this.repository = repository;
+            this.userManager = userManager;
+
         }
 
         public async Task AddCommentToJokeAsync(string title, string commentContent, string userId)
@@ -120,7 +126,27 @@
 
 		public async Task RemoveCommentsByUserAsync(string id)
 		{
-            var userComments = await repository.All<Comment>().Where(c => c.UserId == id).ToListAsync();
+            var user = await repository.All<User>().Where(u => u.Id == id).FirstAsync();
+
+            var isAdmin = await userManager.IsInRoleAsync(user, "Admin");
+            if (isAdmin)
+            {
+                return;
+            }
+
+            var userComments = await repository.All<Comment>().Where(c => c.UserId == id).Include(u => u.User).ToListAsync();
+
+            if (userComments.Count == 0)
+            {
+                return;
+            }
+
+            foreach (var comment in userComments)
+            {
+                comment.IsDeleted = true;
+            }
+
+            await repository.SaveChangesAsync();
 		}
 	}
 }

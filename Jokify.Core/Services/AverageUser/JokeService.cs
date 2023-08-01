@@ -21,12 +21,10 @@
 	public class JokeService : IJokeService
 	{
 		private readonly IRepository repository;
-		private readonly JokifyDbContext context;
 
-		public JokeService(IRepository repository, JokifyDbContext context)
+		public JokeService(IRepository repository)
 		{
 			this.repository = repository;
-			this.context = context;
 		}
 
 		public async Task AddJokeAsync(JokeViewModel model, string userId)
@@ -157,6 +155,7 @@
 				.ToHashSet();
 
 			var commentModel = paginatedComments
+					.Where(c => !c.IsDeleted)
 					.Select(c => new CommentViewModel()
 					{
 						Id = c.Id,
@@ -318,7 +317,7 @@
 		//public async Task<JokeViewModel> GetRandomJoke(string category)
 		//{
 		//    Random random = new Random();
-		//    var jokes = await repository.GetAllJokesAsync();
+		//    var jokes = await repository.AllReadonly<Joke>();
 
 		//    int index = random.Next(jokes.Length);
 

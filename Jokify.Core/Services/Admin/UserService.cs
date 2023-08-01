@@ -37,6 +37,8 @@
 		public async Task<UserViewModel[]> AllUsersAsync(string userId)
 		{
 			var users = await repository.AllReadonly<User>()
+				.Where(u => !u.IsDeleted)
+				.Where(u => !u.IsForgotten)
 				.Where(u => u.Id != userId)
 				.Select(u => new UserViewModel()
 				{
@@ -46,6 +48,9 @@
 					Username = u.UserName,
 					IsForgotten = u.IsForgotten
 				}).ToArrayAsync();
+
+			var test = repository.AllReadonly<User>().ToList();
+			;
 
 			return users;
 		}
@@ -72,7 +77,13 @@
 		{
 			var user = await repository.GetByIdAsync<User>(id);
 
-			user.IsDeleted = true;
+            var isAdmin = await userManager.IsInRoleAsync(user, "Admin");
+
+            if (!isAdmin)
+            {
+				user.IsDeleted = true;
+            }
+
 		}
 
 		public async Task<bool> ForgetUserAsync(string id)
@@ -86,7 +97,7 @@
 			var isAdmin = await userManager.IsInRoleAsync(user, "Admin");
 
 			if (isAdmin)
-			{
+			{	
 				return false;
 			}
 
@@ -96,18 +107,17 @@
 			user.NormalizedEmail = null;
 			user.NormalizedUserName = null;
 			user.PasswordHash = null;
-            user.CreatedJokes.Clear();
+			user.CreatedJokes.Clear();
 			user.CreatedComments.Clear();
 			user.IsForgotten = true;
 
-			
-		    repository.DeleteRange<UserJoke>(user.CreatedJokes);
+
+			repository.DeleteRange<UserJoke>(user.CreatedJokes);
 
 
 			var result = await userManager.UpdateAsync(user);
 
-			var error = result.Errors;
-			
+
 			return result.Succeeded;
 		}
 	}

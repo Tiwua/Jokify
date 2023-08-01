@@ -112,7 +112,6 @@ namespace Jokify.Controllers
             return View(query);
         }
 
-        [AllowAnonymous]
         [HttpGet("Joke/Details/{title}/{page}")]
         public async Task<IActionResult> Details(string title, int page = 1)
         {
