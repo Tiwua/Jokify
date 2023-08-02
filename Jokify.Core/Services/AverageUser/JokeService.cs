@@ -115,6 +115,7 @@
 			result.Jokes = await jokes
 				.Skip((currentPage - 1) * jokesPerPage)
 				.Take(jokesPerPage)
+				.Where(j => !j.IsDeleted)
 				.Select(j => new JokeServiceModel()
 				{
 					Id = j.Id,
@@ -126,7 +127,7 @@
 					IsDeleted = j.IsDeleted,
 				}).ToListAsync();
 
-			result.JokesCount = await jokes.CountAsync();
+			result.JokesCount = jokes.Count();
 
 			return result;
 		}
@@ -240,6 +241,11 @@
 			if (joke == null)
 			{
 				throw new ArgumentNullException("Invalid joke!");
+			}
+
+			if(joke.UserId != userId)
+			{
+				throw new ArgumentException("You are not the owner of this joke!");
 			}
 
 			joke.IsDeleted = true;
