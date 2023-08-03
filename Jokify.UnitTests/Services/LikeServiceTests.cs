@@ -6,7 +6,17 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    internal class LikeServiceTests
+    public class LikeServiceTests
     {
+        [SetUp]
+        public void Setup()
+        {
+        }
+
+        [Test]
+        public void Test1()
+        {
+            Assert.Pass();
+        }
     }
 }
