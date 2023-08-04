@@ -34,7 +34,7 @@
                 .Where(j => j.Title == title)
                 .FirstAsync();
 
-            if (commentContent == null)
+            if (string.IsNullOrWhiteSpace(commentContent))
             {
                 return;
             }
