@@ -40,31 +40,30 @@
 
         public async Task LikeJokeAsync(Guid id, string userId)
         {
-            var joke = await repository.GetByIdAsync<Joke>(id);
-
             var user = await repository.GetByIdAsync<User>(userId);
 
             var userFavJoke = new UserFavoriteJoke()
             {
                 UserId = userId,
-                JokeId = joke.Id
+                JokeId = id
             };
 
-            if (user.FavoriteJokes.Contains(userFavJoke))
+            if (user.FavoriteJokes.Any(fj => fj.UserId == userId && fj.JokeId == id))
             {
                 return;
             }
 
+            var joke = await repository.GetByIdAsync<Joke>(id);
+
             joke.LikesCount++;
             user.FavoriteJokes.Add(userFavJoke);
+            joke.UserFavoriteJokes.Add(userFavJoke);
 
             await repository.AddAsync(userFavJoke);
             await repository.SaveChangesAsync();
         }
         public async Task DislikeJokeAsync(Guid id, string userId)
         {
-            var joke = await repository.GetByIdAsync<Joke>(id);
-
             var user = await repository.All<User>()
                 .Where(u => !u.IsDeleted)
                 .Where(u => u.Id == userId)
@@ -74,11 +73,13 @@
 
             var userFavJoke = await repository.All<UserFavoriteJoke>().Where(u => u.UserId == userId && u.JokeId == id).FirstAsync();
 
-            if (!user.FavoriteJokes.Contains(userFavJoke))
+            if (!user.FavoriteJokes.Any(fj => fj.UserId == userId && fj.JokeId == id))
             {
                 return;
             }
 
+            var joke = await repository.GetByIdAsync<Joke>(id);
+            
             joke.LikesCount--;
             user.FavoriteJokes.Remove(userFavJoke);
             joke.UserFavoriteJokes.Remove(userFavJoke);

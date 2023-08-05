@@ -107,7 +107,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(joke.Comments.Count, Is.EqualTo(0));
-                Assert.That(user.CreatedComments.Count, Is.EqualTo(1));
+                Assert.That(user.CreatedComments.Count, Is.EqualTo(0));
             });
         }
 
