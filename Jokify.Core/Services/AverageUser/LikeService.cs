@@ -71,7 +71,11 @@
                     .ThenInclude(j => j.Joke)
                 .FirstAsync();
 
-            var userFavJoke = await repository.All<UserFavoriteJoke>().Where(u => u.UserId == userId && u.JokeId == id).FirstAsync();
+            var userFavJoke = new UserFavoriteJoke()
+            {
+                UserId = userId,
+                JokeId = id
+            };
 
             if (!user.FavoriteJokes.Any(fj => fj.UserId == userId && fj.JokeId == id))
             {

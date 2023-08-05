@@ -142,5 +142,98 @@
                 Assert.That(joke.LikesCount, Is.EqualTo(0));
             });
         }
+
+        [Test]
+        public async Task DislikeDoesNothingWhenUserHasntLiked()
+        {
+            //Arrange
+            await repository.AddAsync(joke);
+            await repository.AddAsync(user);
+            await repository.SaveChangesAsync();
+
+            var userFavJoke = new UserFavoriteJoke()
+            {
+                UserId = "965a8773-bb8e-410e-a428-67798ffe2cda",
+                JokeId = new Guid("829046e9-9806-4886-907d-5950b73795e8")
+            };
+
+            //Act
+
+            await likeService.DislikeJokeAsync(joke.Id, user.Id);
+            //Assert
+
+            var dbEntity = await repository.AllReadonly<UserFavoriteJoke>(ufj => ufj.UserId == user.Id && ufj.JokeId == joke.Id).FirstOrDefaultAsync();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(dbEntity, Is.EqualTo(null));
+                Assert.That(user.FavoriteJokes, Has.Count.EqualTo(0));
+                Assert.That(joke.UserFavoriteJokes, Has.Count.EqualTo(0));
+                Assert.That(joke.LikesCount, Is.EqualTo(0));
+            });
+        }
+
+        [Test]
+        public async Task HasUserLikedReturnsTrue()
+        {
+            //Arrange
+            await repository.AddAsync(joke);
+            await repository.AddAsync(user);
+            await repository.SaveChangesAsync();
+
+            await likeService.LikeJokeAsync(joke.Id, user.Id);
+            await repository.SaveChangesAsync();
+
+            //Act
+
+            var result = await likeService.HasLikedJoke(joke.Title, user.Id);
+            //Assert
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(true));
+                Assert.That(joke.LikesCount, Is.EqualTo(1));
+            });
+        }
+
+        [Test]
+        public async Task HasUserLikedReturnsFalse()
+        {
+            //Arrange
+            await repository.AddAsync(joke);
+            await repository.AddAsync(user);
+            await repository.SaveChangesAsync();
+
+            //Act
+
+            var result = await likeService.HasLikedJoke(joke.Title, user.Id);
+            //Assert
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(false));
+                Assert.That(joke.LikesCount, Is.EqualTo(0));
+            });
+        }
+
+        [Test]
+        public async Task GetLikesCountWorksProperly()
+        {
+            //Arrange
+            joke.LikesCount += 10;
+            await repository.AddAsync(joke);
+            await repository.AddAsync(user);
+            await repository.SaveChangesAsync();
+
+            //Act
+
+            var result = await likeService.GetLikesCount(joke.Id);
+            //Assert
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(10));
+            });
+        }
     }
 }

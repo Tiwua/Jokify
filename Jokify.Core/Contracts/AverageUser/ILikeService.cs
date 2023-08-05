@@ -2,7 +2,7 @@
 {
     public interface ILikeService
     {
-        Task<bool> HasLikedJoke(string jokeId, string userId);
+        Task<bool> HasLikedJoke(string title, string userId);
 
         Task LikeJokeAsync(Guid id, string userId);
 
