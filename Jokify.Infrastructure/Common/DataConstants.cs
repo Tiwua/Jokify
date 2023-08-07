@@ -32,7 +32,7 @@
 		public class User
 		{
 			public const int UserNameMinValue = 3;
-			public const int UserNameMaxValue = 20;
+			public const int UserNameMaxValue = 60;
 
 			public const int EmailMinValue = 5;
 			public const int EmailMaxValue = 60;

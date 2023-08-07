@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Jokify</title>
+    <title>@ViewData["Title"]</title>
 
     @await RenderSectionAsync("Styles", false)
 
@@ -60,8 +60,6 @@
     &copy; @DateTime.Now.Year - Jokify
     </div>
     </footer>*@
-
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

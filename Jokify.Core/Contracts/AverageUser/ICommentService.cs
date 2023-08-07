@@ -1,5 +1,7 @@
 ﻿namespace Jokify.Core.Contracts
 {
+    using Jokify.Infrastructure.Data.Models;
+    using Microsoft.AspNetCore.Identity;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -12,7 +14,7 @@
 
         public Task<bool> HasUserCommentedAsync(string title, string userId);
 
-        public Task UpdateComment(Guid id, string content);
+        public Task UpdateComment(Guid id, string content, UserManager<User> userManager);
 
         Task DeleteCommentAsync(Guid id, string userId, Guid jokeId);
 

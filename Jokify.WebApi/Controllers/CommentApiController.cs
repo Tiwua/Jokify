@@ -6,7 +6,9 @@
     using Jokify.Core.Models.Statistics;
     using Jokify.Core.Services;
     using Jokify.Infrastructure.Data;
+    using Jokify.Infrastructure.Data.Models;
     using Jokify.Infrastructure.Data.Models.JokeEntities;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using System.Security.Claims;
@@ -17,10 +19,14 @@
     public class CommentApiController : Controller
     {
         private readonly ICommentService commentService;
+        private readonly UserManager<User> userManager;
 
-        public CommentApiController(ICommentService commentService)
+        public CommentApiController(
+            ICommentService commentService,
+            UserManager<User> userManager)
         {
             this.commentService = commentService;
+            this.userManager = userManager;
         }
 
         [HttpPut, Route("{id:Guid}")]
@@ -35,7 +41,7 @@
                     throw new ArgumentException(EmptyCommentUpdate);
                 }
 
-                await commentService.UpdateComment(id, content);
+                await commentService.UpdateComment(id, content, userManager);
 
                 return this.Ok(new { success = true });
             }

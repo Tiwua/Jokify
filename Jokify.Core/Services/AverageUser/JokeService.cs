@@ -217,23 +217,6 @@
 			await repository.SaveChangesAsync();
 		}
 
-		public async Task<IEnumerable<JokeServiceModel>> AllJokesByUser(string userId)
-		{
-			var jokes = await repository.AllReadonly<Joke>()
-				.Where(j => !j.IsDeleted)
-				.Where(j => j.UserId == userId)
-				.Select(j => new JokeServiceModel()
-				{
-					Title = j.Title,
-					Setup = j.Setup,
-					Punchline = j.Punchline,
-					IsEdited = j.IsEdited,
-					Id = j.Id
-				}).ToListAsync();
-
-			return jokes;
-		}
-
 		public async Task DeleteJokeAsync(string userId, Guid jokeId)
 		{
 			var joke = await repository.GetByIdAsync<Joke>(jokeId);

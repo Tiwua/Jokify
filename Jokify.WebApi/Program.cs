@@ -18,6 +18,10 @@ namespace Jokify.WebApi
             builder.Services.AddDbContext<JokifyDbContext>(opt =>
                 opt.UseSqlServer(connectionString));
 
+            builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<JokifyDbContext>()
+    .AddDefaultTokenProviders();
+
             builder.Services.AddScoped<IRepository, Repository>();
             builder.Services.AddScoped<ICommentService>(provider =>
             {

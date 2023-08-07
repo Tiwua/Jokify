@@ -423,3 +423,9 @@ form.edit-form textarea.comment-content {
     opacity: 0.6;
     cursor: not-allowed;
 }
+
+.admin-button {
+    position: relative;
+    right: 20px;
+    margin-top: 10px;
+}

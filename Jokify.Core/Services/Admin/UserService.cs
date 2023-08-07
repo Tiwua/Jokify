@@ -22,16 +22,13 @@
 	{
 		private readonly IRepository repository;
 		private readonly UserManager<User> userManager;
-		private readonly JokifyDbContext context;
 
 		public UserService(
 			IRepository repository,
-			UserManager<User> userManager,
-			JokifyDbContext context)
+			UserManager<User> userManager)
 		{
 			this.repository = repository;
 			this.userManager = userManager;
-			this.context = context;
 		}
 
 		public async Task<UserViewModel[]> AllUsersAsync(string userId)
@@ -57,21 +54,23 @@
 
 		public UserPageModel AllUsersPaginated(UserViewModel[] users, int currentPage)
 		{
-			var paginatedUsers = users.Skip((currentPage - 1) * UsersPerPage)
-				.Take(UsersPerPage)
-				.ToHashSet();
+            var paginatedUsers = users.Skip((currentPage - 1) * UsersPerPage)
+									  .Take(UsersPerPage)
+									  .ToHashSet();
+		
+            var totalPages = (int)Math.Ceiling((double)users.Length / UsersPerPage);
 
-			var result = paginatedUsers.Select(u => new UserPageModel
-			{
-				CurrentPage = currentPage,
-				PageSize = UsersPerPage,
-				TotalUsers = users.Length,
-				TotalPages = (int)Math.Ceiling((double)users.Length / UsersPerPage),
-				Users = paginatedUsers
-			}).First();
+            var result = new UserPageModel
+            {
+                CurrentPage = currentPage,
+                PageSize = UsersPerPage,
+                TotalUsers = users.Length,
+                TotalPages = totalPages,
+                Users = paginatedUsers
+            };
 
-			return result;
-		}
+            return result;
+        }
 
 		public async Task DeleteUserAsync(string id)
 		{
@@ -88,7 +87,7 @@
 
 		public async Task<bool> ForgetUserAsync(string id)
 		{
-			var user = await context.Users
+			var user = await repository.All<User>()
 				.Where(u => u.Id == id)
 				.Include(c => c.CreatedComments)
 				.Include(j => j.CreatedJokes)			
@@ -110,9 +109,10 @@
 			user.CreatedJokes.Clear();
 			user.CreatedComments.Clear();
 			user.IsForgotten = true;
+            user.UserName = $"Forgotten{DateTime.Now.Ticks}";
 
 
-			repository.DeleteRange<UserJoke>(user.CreatedJokes);
+            repository.DeleteRange<UserJoke>(user.CreatedJokes);
 
 
 			var result = await userManager.UpdateAsync(user);

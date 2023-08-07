@@ -3,7 +3,6 @@
 @using Microsoft.AspNetCore.Identity;
 @model UserPageModel
 
-
 @inject UserManager<User> UserManager
 
 <style>
@@ -41,6 +40,7 @@
     th {
         text-align: center;
     }
+
     thead th {
         background-color: #55608f;
     }
@@ -109,6 +109,7 @@
     .text-center {
         text-align: center;
     }
+
     .arrow-box-disabled {
         display: none;
     }
@@ -218,92 +219,100 @@
     Model.TotalUsers == 0;
 }
 
-<div class="left">
-    <a class="arrow-box@(Model.CurrentPage == 1 ? "-disabled" : string.Empty)"
-       asp-area="Admin"
-       asp-controller="User"
-       asp-action="All"
-       asp-route-page="@previousPage">
-        <span class="arrow button-left">
-            &larr;
-        </span>
-    </a>
-</div>
+@if (Model.TotalUsers == 0)
+{
+    <h2 class="text-center">No Users found!</h2>
+}
+else
+{
+    <div class="left">
+        <a class="arrow-box@(Model.CurrentPage == 1 ? "-disabled" : string.Empty)"
+           asp-area="Admin"
+           asp-controller="User"
+           asp-action="All"
+           asp-route-page="@previousPage">
+            <span class="arrow button-left">
+                &larr;
+            </span>
+        </a>
+    </div>
 
 
-<div class="right">
-    <a class="arrow-box@(shouldButtonBeDisabled ? "-disabled" : string.Empty)"
-       asp-area="Admin"
-       asp-controller="User"
-       asp-action="All"
-       asp-route-page="@(Model.CurrentPage + 1)">
-        <span class="arrow button-right">
-            &rarr;
-        </span>
-    </a>
-</div>
-<div class="container">
-    <table>
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>IsDeleted</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model.Users)
-            {
-                @if (user.IsForgotten || isAdmin)
-                {
-                    continue;
-                }
+    <div class="right">
+        <a class="arrow-box@(shouldButtonBeDisabled ? "-disabled" : string.Empty)"
+           asp-area="Admin"
+           asp-controller="User"
+           asp-action="All"
+           asp-route-page="@(Model.CurrentPage + 1)">
+            <span class="arrow button-right">
+                &rarr;
+            </span>
+        </a>
+    </div>
+    <div class="container">
+        <table>
+            <thead>
                 <tr>
-                    <td>@user.Username</td>
-                    <td>@user.Email</td>
-                    <td>@(user.IsDeleted ? "Yes" : "No")</td>
-                    <td>
-                        @if (!user.IsDeleted)
-                        {
-                            <form method="post"
-                             asp-area="Admin"
-                             asp-controller="User" 
-                             asp-action="Delete"
-                             asp-route-id="@user.UserId"
-                             asp-route-page="@Model.CurrentPage">
-
-                                <button type="submit" class="delete-user-button" onclick="deleteUserConfirm(event)">Delete</button>
-                            </form>
-
-                        }
-                        @if (!user.IsForgotten)
-                        {
-                            <form method ="post" 
-                             asp-area="Admin"
-                             asp-controller="User" 
-                             asp-action="Forget"  
-                             asp-route-id="@user.UserId"
-                             asp-route-page="@Model.CurrentPage">
-
-                                <button type="submit" class="forget-user-button" onclick="forgetConfirm(event)">Forget</button>
-                            </form>
-                        }
-                        <form method="post"
-                          asp-area="Admin"
-                          asp-controller="User"
-                          asp-action="Forget"
-                          asp-route-id="@user.UserId"
-                          asp-route-page="@Model.CurrentPage">
-
-                            <button type="submit" class="forget-user-button" onclick="forgetConfirm(event)">Make Admin</button>
-                        </form>
-                    </td>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>IsDeleted</th>
+                    <th>Action</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    @if (user.IsForgotten || isAdmin)
+                    {
+                        continue;
+                    }
+                    <tr>
+                        <td>@user.Username</td>
+                        <td>@user.Email</td>
+                        <td>@(user.IsDeleted ? "Yes" : "No")</td>
+                        <td>
+                            @if (!user.IsDeleted)
+                            {
+                                <form method="post"
+                                      asp-area="Admin"
+                                      asp-controller="User"
+                                      asp-action="Delete"
+                                      asp-route-id="@user.UserId"
+                                      asp-route-page="@Model.CurrentPage">
+
+                                    <button type="submit" class="delete-user-button" onclick="deleteUserConfirm(event)">Delete</button>
+                                </form>
+
+                            }
+                            @if (!user.IsForgotten)
+                            {
+                                <form method="post"
+                                      asp-area="Admin"
+                                      asp-controller="User"
+                                      asp-action="Forget"
+                                      asp-route-id="@user.UserId"
+                                      asp-route-page="@Model.CurrentPage">
+
+                                    <button type="submit" class="forget-user-button" onclick="forgetConfirm(event)">Forget</button>
+                                </form>
+                            }
+                            @*<form method="post"
+                                  asp-area="Admin"
+                                  asp-controller="User"
+                                  asp-action="Forget"
+                                  asp-route-id="@user.UserId"
+                                  asp-route-page="@Model.CurrentPage">
+
+                                <button type="submit" class="forget-user-button" onclick="forgetConfirm(event)">Make Admin</button>
+                            </form>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     function forgetConfirm(e) {
@@ -320,8 +329,8 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire(
-                    'Deleted!',
-                    'The user has been forgotten.',
+                    'Forgotten!',
+                    'Who was the user again?',
                     'success'
                 ).then((resultDeleted) => {
                     e.target.parentElement.submit();

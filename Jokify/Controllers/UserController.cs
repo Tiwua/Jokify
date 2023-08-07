@@ -87,7 +87,7 @@
 
 			var user = await userManager.FindByNameAsync(model.UserName);
 
-			if (user != null)
+			if (user != null && user.Email != null)
 			{
 				var result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
 

@@ -80,7 +80,7 @@
             return false;
         }
 
-        public async Task UpdateComment(Guid id, string content)
+        public async Task UpdateComment(Guid id, string content, UserManager<User> manager)
         {
             var commentToEdit = await repository.GetByIdAsync<Comment>(id);
 

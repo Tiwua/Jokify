@@ -22,7 +22,7 @@
 
         [HttpGet]
         public async Task<IActionResult> All(int page = 1)
-        {
+         {
             var userId = GetUserId();
 
             var users = await userService.AllUsersAsync(userId);

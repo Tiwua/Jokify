@@ -106,6 +106,7 @@
             query.Categories = await jokeCategoryService.GetAllCategoriesNamesAsync();
             query.Jokes = result.Jokes;
 
+            ViewBag.Class = "jokes";
             return View(query);
         }
 
