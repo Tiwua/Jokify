@@ -1,8 +1,4 @@
-﻿using Jokify.Core.Services.AverageUser;
-using Jokify.Models;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Jokify.Controllers
+﻿namespace Jokify.Controllers
 {
     using Jokify.Common.Contracts;
     using Jokify.Core.Contracts;
@@ -21,6 +17,7 @@ namespace Jokify.Controllers
     using static Jokify.Common.Constants.NotificationMsg;
     using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 	using Microsoft.AspNetCore.Mvc.Filters;
+    using Jokify.Core.Services.AverageUser;
 
 
     public class JokeController : BaseController

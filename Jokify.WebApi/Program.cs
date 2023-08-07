@@ -5,8 +5,9 @@ namespace Jokify.WebApi
     using Jokify.Core.Contracts;
     using Jokify.Core.Services.AverageUser;
     using Jokify.Infrastructure.Data;
+    using Jokify.Infrastructure.Data.Models;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-
     public class Program
     {
         public static void Main(string[] args)
@@ -17,8 +18,13 @@ namespace Jokify.WebApi
             builder.Services.AddDbContext<JokifyDbContext>(opt =>
                 opt.UseSqlServer(connectionString));
 
-            builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<IRepository, Repository>();
+            builder.Services.AddScoped<ICommentService>(provider =>
+            {
+                var userManager = provider.GetRequiredService<UserManager<User>>();
+                var repository = provider.GetRequiredService<IRepository>();
+                return new CommentService(repository, userManager);
+            });
             builder.Services.AddScoped<IJokeService, JokeService>();
 
             builder.Services.AddCors(setup =>
@@ -35,6 +41,12 @@ namespace Jokify.WebApi
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            var commentServiceDescriptor = builder.Services.FirstOrDefault(descriptor => descriptor.ServiceType == typeof(ICommentService));
+            if (commentServiceDescriptor != null)
+            {
+                Console.WriteLine("CommentService registered.");
+            }
 
             var app = builder.Build();
 

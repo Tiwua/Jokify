@@ -40,7 +40,12 @@
 
         public async Task LikeJokeAsync(Guid id, string userId)
         {
-            var user = await repository.GetByIdAsync<User>(userId);
+            var user = await repository.All<User>()
+                .Where(u => !u.IsDeleted)
+                .Where(u => u.Id == userId)
+                .Include(j => j.FavoriteJokes)
+                    .ThenInclude(j => j.Joke)
+                .FirstAsync();
 
             var userFavJoke = new UserFavoriteJoke()
             {
@@ -71,19 +76,16 @@
                     .ThenInclude(j => j.Joke)
                 .FirstAsync();
 
-            var userFavJoke = new UserFavoriteJoke()
-            {
-                UserId = userId,
-                JokeId = id
-            };
+            var userFavJoke = user.FavoriteJokes.FirstOrDefault(fj => fj.JokeId == id);
 
-            if (!user.FavoriteJokes.Any(fj => fj.UserId == userId && fj.JokeId == id))
+            if (userFavJoke == null)
             {
                 return;
             }
 
             var joke = await repository.GetByIdAsync<Joke>(id);
-            
+
+
             joke.LikesCount--;
             user.FavoriteJokes.Remove(userFavJoke);
             joke.UserFavoriteJokes.Remove(userFavJoke);

@@ -6,6 +6,9 @@
     using Jokify.Core.Contracts.Admin;
     using Jokify.Core.Services.Admin;
     using Jokify.Core.Services.AverageUser;
+    using Jokify.Infrastructure.Data;
+    using Jokify.Infrastructure.Data.Models;
+    using Microsoft.AspNetCore.Identity;
     using System.Runtime.CompilerServices;
 
     public static class JokifyServiceCollectionExtension
