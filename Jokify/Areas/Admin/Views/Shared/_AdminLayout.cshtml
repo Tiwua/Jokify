@@ -3,7 +3,7 @@
     string addActiveClass = ViewBag.Class == "add" ? "active" : string.Empty;
     string mineActiveClass = ViewBag.Class == "mine" ? "active" : string.Empty;
     string allActiveClass = ViewBag.Class == "all" ? "active" : string.Empty;
-    string jokeActiveClass = ViewBag.Class == "joke" ? "active" : string.Empty;
+    string jokesActiveClass = ViewBag.Class == "jokes" ? "active" : string.Empty;
 }
 
 <style>
@@ -43,7 +43,7 @@
                 <li><a class="@addActiveClass" asp-area="" asp-controller="Joke" asp-action="Add">Create a Joke</a></li>
                 <li><a class="@mineActiveClass" asp-area="" asp-controller="Joke" asp-action="Mine" asp-route-page="1">My Jokes</a></li>
                 <li><a class="@allActiveClass" asp-area="Admin" asp-controller="User" asp-action="All" asp-route-page="1">All Users</a></li>
-                <li><a class="@jokeActiveClass" asp-area="" asp-controller="Joke" asp-action="All" asp-route-page="1">All Jokes</a></li>
+                <li><a class="@jokesActiveClass" asp-area="" asp-controller="Joke" asp-action="All" asp-route-page="1">All Jokes</a></li>
             }
 
             

@@ -17,6 +17,7 @@
 		{
 			var model = await jokeService.GetAllJokesCountAsync();
 
+			ViewBag.Class = "home";
 			return View(model);
 		}
 	}
