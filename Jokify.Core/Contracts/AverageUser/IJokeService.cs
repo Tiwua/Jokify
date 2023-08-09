@@ -35,7 +35,7 @@
 
         Task<JokeViewModel> GetJokeById(Guid id);
 
-        Task DeleteJokeAsync(string userId, Guid jokeId);
+        Task DeleteJokeAsync(string userId, Guid jokeId, bool IsAdmin);
 
         Task<IEnumerable<JokeHomeView>> GetThreeMostPopularJokes();
 

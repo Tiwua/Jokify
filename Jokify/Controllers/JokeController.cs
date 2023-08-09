@@ -250,8 +250,8 @@
 
             query.TotalJokesCount = result.JokesCount;
             query.Jokes = result.Jokes;
-            ViewBag.Class = "mine";
 
+            ViewBag.Class = "mine";
             return View(query);
         }
 
@@ -263,9 +263,18 @@
                 return RedirectToAction("Mine", "Joke");
             }
 
-            var userId = GetUserId();
+            try
+            {
+                var userId = GetUserId();
 
-            await jokeService.DeleteJokeAsync(userId, id);
+                await jokeService.DeleteJokeAsync(userId, id, IsAdmin());
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+                return View("Error");
+            }
+
 
             return RedirectToAction("Mine", "Joke");
         }

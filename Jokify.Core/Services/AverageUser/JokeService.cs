@@ -217,7 +217,7 @@
 			await repository.SaveChangesAsync();
 		}
 
-		public async Task DeleteJokeAsync(string userId, Guid jokeId)
+		public async Task DeleteJokeAsync(string userId, Guid jokeId, bool isAdmin)
 		{
 			var joke = await repository.GetByIdAsync<Joke>(jokeId);
 
@@ -226,7 +226,7 @@
 				throw new ArgumentNullException("Invalid joke!");
 			}
 
-			if(joke.UserId != userId)
+			if(joke.UserId != userId && !isAdmin)
 			{
 				throw new ArgumentException("You are not the owner of this joke!");
 			}

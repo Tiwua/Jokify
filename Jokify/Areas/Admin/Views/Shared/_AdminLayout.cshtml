@@ -11,6 +11,9 @@
         position: relative;
         left: 0px;
     }
+    .header{
+        display: fixed;
+    }
 </style>
 <html lang="en">
 <head>
@@ -56,13 +59,6 @@
             @RenderBody()
         </main>
     </div>
-
-    @* <footer class="border-top footer text-muted">
-    <div class="container">
-    &copy; @DateTime.Now.Year - Jokify
-    </div>
-    </footer>*@
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

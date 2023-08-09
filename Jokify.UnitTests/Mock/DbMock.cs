@@ -23,7 +23,5 @@
                 return new JokifyDbContext(contextOptions);
             }
         }
-
-
     }
 }

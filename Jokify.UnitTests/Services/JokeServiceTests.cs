@@ -449,7 +449,7 @@
             await context.SaveChangesAsync();
 
             // Act
-            await jokeService.DeleteJokeAsync(user.Id, joke.Id);
+            await jokeService.DeleteJokeAsync(user.Id, joke.Id, false);
 
             // Assert
             Assert.That(joke.IsDeleted, Is.EqualTo(true));
@@ -466,7 +466,7 @@
 
             //Act
             var ex = Assert.ThrowsAsync<ArgumentNullException>(
-                async () => await jokeService.DeleteJokeAsync(user.Id, joke.Id));
+                async () => await jokeService.DeleteJokeAsync(user.Id, joke.Id, false));
 
             //Assert
             StringAssert.Contains("Invalid joke!", ex.Message);
@@ -481,7 +481,7 @@
 
             //Act
             var ex = Assert.ThrowsAsync<ArgumentException>(
-                async () => await jokeService.DeleteJokeAsync("123a8773-bb8e-410e-a428-67798ffe2cda", joke.Id));
+                async () => await jokeService.DeleteJokeAsync("123a8773-bb8e-410e-a428-67798ffe2cda", joke.Id, false));
 
             //Assert
             StringAssert.Contains("You are not the owner of this joke!", ex.Message);
