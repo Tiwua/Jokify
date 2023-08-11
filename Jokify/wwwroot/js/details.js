@@ -78,7 +78,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.success) {
                     const commentElement = target.closest('.comment');
-                    const hasSpanClass = commentElement.querySelector("span");
+                    const hasSpanClass = commentElement.querySelector(".edited-label");
 
                     if (!hasSpanClass) {
                         const editedSpan = document.createElement('span');
