@@ -6,7 +6,7 @@
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Mvc;
 
-	[AllowAnonymous]
+    [AllowAnonymous]
 	public class UserController : BaseController
 	{
 
@@ -22,8 +22,13 @@
         }
 
 		[HttpGet]
-		public IActionResult Register()
+        public IActionResult Register()
 		{
+			if (User?.Identity?.IsAuthenticated?? false)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
 			var model = new RegisterViewModel();
             ViewBag.Class = "register";
 
@@ -64,9 +69,14 @@
 		}
 
 		[HttpGet]
-		public IActionResult Login(string returnUrl)
+        public IActionResult Login(string returnUrl)
 		{
-			var model = new LoginViewModel()
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var model = new LoginViewModel()
 			{
 				ReturnUrl = returnUrl
 			};

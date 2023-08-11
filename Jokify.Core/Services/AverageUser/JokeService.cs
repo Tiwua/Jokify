@@ -138,6 +138,7 @@
 				.Where(c => !c.IsDeleted)
 				.Where(c => c.Joke.Title == title)
 					.Include(u => u.User)
+					.OrderByDescending(c => c.CreatedOn)
 				.ToListAsync();
 
 			var user = await repository.AllReadonly<User>()

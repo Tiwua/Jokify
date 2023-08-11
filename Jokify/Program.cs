@@ -36,7 +36,7 @@ namespace Jokify
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/User/Login";
-                options.AccessDeniedPath = "/Home/Error/404";
+                options.AccessDeniedPath = "/Error/AccessDenied";
             });
 
             builder.Services.AddControllersWithViews(options =>
@@ -52,11 +52,10 @@ namespace Jokify
 
             if (app.Environment.IsDevelopment())
             {
-                app.UseStatusCodePagesWithReExecute("/Error/HandleError", "?statusCode={0}");
+                app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseStatusCodePagesWithReExecute("/Error/HandleError", "?statusCode={0}");
                 app.UseHsts();
             }
 
@@ -67,6 +66,9 @@ namespace Jokify
 
             app.UseAuthentication();
             app.UseAuthorization();
+            
+            app.UseStatusCodePages();
+            app.UseStatusCodePagesWithReExecute("/Error/HandleError", "?statusCode={0}");
 
             app.SeedAdmin(AdminEmail);
 
@@ -81,6 +83,10 @@ namespace Jokify
                     pattern: "Error/{action=HandleError}/{statusCode?}",
                     defaults: new { controller = "Error" });
 
+                endpoints.MapControllerRoute(
+                    name: "genericError",
+                    pattern: "Error",
+                    defaults: new { controller = "Error", action = "Error" });
             });
 
             app.MapRazorPages();

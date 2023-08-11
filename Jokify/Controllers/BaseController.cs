@@ -33,19 +33,5 @@
 
             return false;
         }
-
-		public override void OnActionExecuting(ActionExecutingContext context)
-		{
-			if (User.IsInRole("Admin"))
-			{
-				ViewData["Layout"] = "~/Views/Shared/_AdminLayout.cshtml";
-			}
-			else
-			{
-				ViewData["Layout"] = "~/Views/Shared/_Layout.cshtml";
-			}
-
-			base.OnActionExecuting(context);
-		}
 	}
 }
