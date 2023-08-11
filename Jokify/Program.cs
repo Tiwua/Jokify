@@ -52,10 +52,11 @@ namespace Jokify
 
             if (app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Error/Error");
+                app.UseStatusCodePagesWithReExecute("/Error/HandleError", "?statusCode={0}");
             }
             else
             {
+                app.UseStatusCodePagesWithReExecute("/Error/HandleError", "?statusCode={0}");
                 app.UseHsts();
             }
 
@@ -77,13 +78,9 @@ namespace Jokify
 
                 endpoints.MapControllerRoute(
                     name: "error",
-                    pattern: "Error/{statusCode}",
-                    defaults: new { controller = "Error", action = "Error" });
+                    pattern: "Error/{action=HandleError}/{statusCode?}",
+                    defaults: new { controller = "Error" });
 
-                endpoints.MapControllerRoute(
-                    name: "error",
-                    pattern: "{*url}",
-                    defaults: new { controller = "Error", action = "Error" });
             });
 
             app.MapRazorPages();

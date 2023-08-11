@@ -4,16 +4,13 @@
 
     public class ErrorController : BaseController
     {
-        public IActionResult Error(int statusCode)
+        public IActionResult HandleError(int statusCode)
         {
             if (statusCode == 404)
             {
                 return View("Error404");
             }
-            else if (statusCode == 401)
-            {
-                return View("Error401");
-            }
+            // Handle other error cases here
 
             return View("Error");
         }
