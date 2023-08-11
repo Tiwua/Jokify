@@ -23,10 +23,6 @@
         [HttpGet]
         public async Task<IActionResult> All(int page = 1)
          {
-            if (!IsAdmin())
-            {
-                return RedirectToAction("Error", new {statusCode = 401});
-            }
 
             var userId = GetUserId();
 

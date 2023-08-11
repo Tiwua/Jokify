@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.error-container {
+    position: relative;
+    top: -151px;
+    right: 400px;
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: transparent;
+}
+
+    .error-container h1 {
+        font-size: 60px;
+        color: #e74c3c;
+        text-align: center;
+    }
+
+    .error-container p {
+        font-size: 30px;
+        color: white;
+    }
+
+.redirect {
+    position: relative;
+    bottom: 183px;
+    left: 580px;
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: transparent;
+}
+
+    .redirect h1 {
+        font-size: 120px;
+        color: #e74c3c;
+        text-align: center;
+    }
+
+    .redirect p {
+        font-size: 30px;
+        color: white;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+.home-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff4b2b;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    position: relative;
+    left: 140px;
+}
+
+    .home-button:hover {
+        background-color: #0056b3;
+    }
