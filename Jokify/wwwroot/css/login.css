@@ -34,7 +34,6 @@ input[type=password] {
 
 
 body {
-    background: #f6f5f7;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -149,6 +148,7 @@ input {
     width: 768px;
     max-width: 100%;
     min-height: 480px;
+    bottom: 80px;
 }
 
 .form-container {
@@ -183,3 +183,8 @@ input {
         border: 2px solid #000000;
         color: #000000;
     }
+
+header {
+    position: relative;
+    bottom: 170px;
+}

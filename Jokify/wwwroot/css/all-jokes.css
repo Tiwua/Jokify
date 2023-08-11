@@ -7,6 +7,7 @@
     top: 150px;
     color: white;
 }
+
 .text-center {
     position: relative;
     top: 200px;
@@ -15,6 +16,7 @@
     width: 600px;
     text-align: center;
 }
+
 .joke-box {
     position: relative;
     height: auto;
@@ -85,14 +87,15 @@
     bottom: 15px;
 }
 
-
+.centered-lowered-div{
+    top: 40px;
+}
 
 .jokes-container {
     position: relative;
     right: 200px;
     left: 10px;
     bottom: 50px;
-    top: 40px;
     display: inline-grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 100px;
@@ -318,7 +321,6 @@
 
     .sortDropdown-categories option:hover {
         background-color: #f2f2f2;
-       
     }
 
 .sortDropdown-categories::-ms-expand {

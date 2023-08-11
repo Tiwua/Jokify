@@ -143,7 +143,7 @@
                     jokesHtml += '<h2>' + result.title + '</h2>';
                     jokesHtml += '<p class="joke-startup">' + result.setup + '</p>';
                     jokesHtml += '<p class="joke-punchline">' + result.punchline + '</p>';
-                    jokesHtml += '<a asp-area="" asp-controller="Joke" asp-action="Details" asp-route-title="' + result.title + '" asp-route-page="1" class="details-button">Details</a>';
+                    jokesHtml += '<a class="details-button" href="/Joke/Details/' + encodeURIComponent(result.title) + '/1">Details</a>';
                     jokesHtml += '</div>';
                 });
                 $(".jokes-container").html(jokesHtml);

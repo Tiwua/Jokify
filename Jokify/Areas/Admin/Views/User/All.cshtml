@@ -197,6 +197,10 @@
         top: 25px;
         left: 380px;
     }
+
+    h2{
+        color: white;
+    }
 </style>
 
 @{
@@ -225,6 +229,8 @@
 }
 else
 {
+    <h1 class="centered-lowered-div">@ViewData["Title"]</h1>
+
     <div class="left">
         <a class="arrow-box@(Model.CurrentPage == 1 ? "-disabled" : string.Empty)"
            asp-area="Admin"

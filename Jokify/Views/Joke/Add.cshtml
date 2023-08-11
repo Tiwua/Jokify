@@ -2,6 +2,19 @@
     ViewData["Title"] = "Add a Joke";
 }
 
+<style>
+    header{
+        position: relative;
+        bottom: 111px;
+    }
+    body{
+        overflow: hidden;
+    }
+    .container{
+        bottom: 80px;
+    }
+</style>
+
 <h1 class="centered-lowered-div">@ViewData["Title"]</h1>
 
 <partial name="_JokeFormPartial" model="@Model"></partial>
