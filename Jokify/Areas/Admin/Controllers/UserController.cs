@@ -4,8 +4,9 @@
 	using Jokify.Core.Contracts.Admin;
     using Jokify.Core.Models.Admin;
     using Microsoft.AspNetCore.Mvc;
+    using static Jokify.Areas.Admin.Constants.AdminConstants;
 
-	using static Jokify.Common.Constants.NotificationMsg;
+    using static Jokify.Common.Constants.NotificationMsg;
 
 	[Route("/Admin/[controller]/[Action]/{page}")]
     public class UserController : BaseController
@@ -39,26 +40,26 @@
         {
             await userService.DeleteUserAsync(id);
 
-            return View();
+            return RedirectToAction("All", "User", new { area = AreaName, page = page });
         }
 
         [HttpPost]
         public async Task<IActionResult> Forget(string id, int page)
         {
-			bool result = await userService.ForgetUserAsync(id);
+            bool result = await userService.ForgetUserAsync(id);
 
             await commentService.RemoveCommentsByUserAsync(id);
 
-			if (result)
-			{
-				TempData[SuccessMessage] = "User is now forgotten";
-			}
-			else
-			{
-				TempData[ErrorMessage] = "User is unforgetable";
-			}
+            if (result)
+            {
+                TempData[SuccessMessage] = "User is now forgotten";
+            }
+            else
+            {
+                TempData[ErrorMessage] = "User is unforgetable";
+            }
 
-			return RedirectToAction("All", "User");
+            return RedirectToAction("All", "User", new { area = AreaName, page = page });
         }
     }
 }

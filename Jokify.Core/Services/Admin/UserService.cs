@@ -34,7 +34,6 @@
 		public async Task<UserViewModel[]> AllUsersAsync(string userId)
 		{
 			var users = await repository.AllReadonly<User>()
-				.Where(u => !u.IsDeleted)
 				.Where(u => !u.IsForgotten)
 				.Where(u => u.Id != userId)
 				.Select(u => new UserViewModel()
@@ -81,6 +80,8 @@
             if (!isAdmin)
             {
 				user.IsDeleted = true;
+				await userManager.UpdateAsync(user);
+				await repository.SaveChangesAsync();
             }
 
 		}
