@@ -84,7 +84,7 @@
 ![all-users-admin](https://github.com/Tiwua/Jokify/assets/106426081/ea5efe22-1060-474a-a644-7a34241f9d75)
 
 ## Template Attribution
-The only template used was given by our lecturer Stamo Petkov for the repository pattern (Repository and IRepository)
+The only template used was given by our lecturer [Stamo Petkov](https://github.com/stamo) for the repository pattern ([Repository](https://github.com/Tiwua/Jokify/blob/main/Jokify.Infrastructure/Common/Repository.cs) and [IRepository](https://github.com/Tiwua/Jokify/blob/main/Jokify.Infrastructure/Common/IRepository.cs))
 
 ## Frequently Asked Questions 
 Q: Where did you come with this idea from?
