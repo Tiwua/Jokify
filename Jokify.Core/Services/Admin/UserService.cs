@@ -1,6 +1,6 @@
 ﻿namespace Jokify.Core.Services.Admin
 {
-	using HouseRentingSystem.Infrastructure.Data.Common;
+	using Jokify.Infrastructure.Data.Common;
 	using Jokify.Core.Contracts.Admin;
 	using Jokify.Core.Models.Admin;
 	using Jokify.Infrastructure.Data.Models;
