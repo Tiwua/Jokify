@@ -1,6 +1,6 @@
 ﻿namespace Jokify.Core.Services.AverageUser
 {
-	using HouseRentingSystem.Infrastructure.Data.Common;
+	using Jokify.Infrastructure.Data.Common;
 	using Jokify.Common.Contracts;
 	using Jokify.Core.Models.Admin;
 	using Jokify.Core.Models.Comment;

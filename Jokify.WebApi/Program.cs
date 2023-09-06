@@ -1,6 +1,6 @@
 namespace Jokify.WebApi
 {
-    using HouseRentingSystem.Infrastructure.Data.Common;
+    using Jokify.Infrastructure.Data.Common;
     using Jokify.Common.Contracts;
     using Jokify.Core.Contracts;
     using Jokify.Core.Services.AverageUser;
